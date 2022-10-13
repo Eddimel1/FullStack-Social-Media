@@ -1,0 +1,314 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AudioEntity {
+  owner: UserEntity!
+}
+
+type AudioPostEntity {
+  post: PostEntity!
+}
+
+type Audio_F_Comment_F_Post {
+  comment: CommentForPostEntity!
+}
+
+type Audio_F_Comment_F_Video {
+  comment: CommentForVideoEntity!
+}
+
+type ChatEntity {
+  companion: Float!
+  createdAt: DateTime!
+  id: ID!
+  messages: [MessageEntity!]!
+  owner: UserEntity!
+  updatedAt: DateTime!
+}
+
+type CommentForPhotoEntity {
+  commented_photo: ImageEntity!
+  image: Image_F_Comment_F_Photo!
+  text: String!
+  video: Video_F_Comment_F_Photo!
+}
+
+type CommentForPostEntity {
+  audio: Audio_F_Comment_F_Post!
+  image: Image_F_Comment_F_Post!
+  post: PostEntity!
+  text: String!
+  video: Video_F_Comment_F_Post!
+}
+
+type CommentForVideoEntity {
+  audio: Audio_F_Comment_F_Video!
+  commented_video: VideoEntity!
+  image: Image_F_Comment_F_Video!
+  text: String!
+  video: Video_F_Comment_F_Video!
+}
+
+input CreateChatInput {
+  companion: Float!
+  owner: Float!
+}
+
+input CreateCommentForPost_I {
+  postId: Float!
+  text: String!
+}
+
+input CreateFriendInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateGroupInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMessageInput {
+  chat_id: Float!
+  from: Float!
+  message: String!
+  to: Float!
+}
+
+input CreatePostInput {
+  text: String!
+}
+
+input CreateUserInfoInput {
+  country: String
+  first_name: String!
+  last_name: String!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input FindPostInput {
+  postId: Float!
+  userId: Float
+}
+
+type Friend {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type GroupEntity {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+  users: [UserEntity!]!
+}
+
+type ImageEntity {
+  comments: CommentForPhotoEntity!
+  owner: UserEntity!
+}
+
+type ImagePostEntity {
+  post: PostEntity!
+}
+
+type Image_F_Comment_F_Photo {
+  comment: CommentForPhotoEntity!
+}
+
+type Image_F_Comment_F_Post {
+  comment: CommentForPostEntity!
+}
+
+type Image_F_Comment_F_Video {
+  comment: CommentForVideoEntity!
+}
+
+input LoginUserInput {
+  password: String!
+  username: String!
+}
+
+type MessageEntity {
+  chat: ChatEntity!
+  createdAt: DateTime!
+  from: Float!
+  id: Float!
+  message: String!
+  to: Float!
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  addMessage(createMessage: CreateMessageInput!): MessageEntity!
+  createChat(createChat: CreateChatInput!): ChatEntity!
+  createComment(createCommentInput: CreateCommentForPost_I!): CommentForPostEntity!
+  createFriend(createFriendInput: CreateFriendInput!): Friend!
+  createGroup(createGroupInput: CreateGroupInput!): GroupEntity!
+  createPost(createPostInput: CreatePostInput!): PostEntity!
+  createUser(createUser: CreateUserInput!): UserEntity!
+  createUserInfo(createUserInfoInput: CreateUserInfoInput!): UserInfoEntity!
+  logOut: messageT!
+  login(loginUserInput: LoginUserInput!): UserEntity!
+  refreshToken: messageT!
+  removeComment(searchAllCommentForPost: SearchCommentForPost_I!): CommentForPostEntity!
+  removeFriend(id: Int!): Friend!
+  removeGroup(id: Int!): GroupEntity!
+  removePost(postId: Float!): postRemove_O!
+  removeUser(id: Float!): Float!
+  updateComment(updateCommentInput: UpdateCommentForPost_I!): CommentForPostEntity!
+  updateFriend(updateFriendInput: UpdateFriendInput!): Friend!
+  updateGroup(updateGroupInput: UpdateGroupInput!): GroupEntity!
+  updatePost(updatePostInput: UpdatePostInput!): PostEntity!
+  updateUserInfo(updateUserInfoInput: UpdateUserInfoInput!): UserInfoEntity!
+  updateUsersSensitiveData(updateUser: UpdateUserInput!): UserEntity!
+}
+
+type PostEntity {
+  audio: AudioPostEntity!
+  comments: [CommentForPostEntity!]!
+  createdAt: DateTime!
+  id: ID!
+  image: ImagePostEntity!
+  likes: Float!
+  owner: UserEntity!
+  text: String!
+  updatedAt: DateTime!
+  video: VideoPostEntity!
+}
+
+type Query {
+  findAll(photoId: Float!): [CommentForPostEntity!]!
+  findAllPosts(id: Float): [PostEntity!]!
+  findOne(searchAllCommentForPost: SearchCommentForPost_I!): CommentForPostEntity!
+  findOnePost(findPost: FindPostInput!): PostEntity!
+  findOneUserInfo(id: Float): UserInfoEntity!
+  friend(id: Int!): Friend!
+  friends: [Friend!]!
+  getAllUsers: getAllUser_O!
+  getOneUser(id: Float): UserEntity!
+  group(id: Int!): GroupEntity!
+  groups: [GroupEntity!]!
+  returnAllChats: ChatEntity!
+}
+
+input SearchCommentForPost_I {
+  commentId: Float!
+  postId: Float!
+}
+
+type Subscription {
+  findAll: String!
+  findOne: String!
+  messageAdded: MessageEntity!
+  remove: String!
+  update: String!
+}
+
+input UpdateCommentForPost_I {
+  commentId: Float!
+  postId: Float!
+  text: String!
+}
+
+input UpdateFriendInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateGroupInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdatePostInput {
+  postId: Float!
+  text: String!
+}
+
+input UpdateUserInfoInput {
+  country: String
+  first_name: String
+  last_name: String
+}
+
+input UpdateUserInput {
+  email: String
+  username: String
+}
+
+type UserEntity {
+  audio: [AudioEntity!]!
+  chats: ChatEntity!
+  createdAt: DateTime!
+  email: String!
+  friends: [UserEntity!]!
+  groups: [GroupEntity!]!
+  id: ID!
+  images: [ImageEntity!]!
+  info: UserInfoEntity!
+  posts: [PostEntity!]!
+  role: String!
+  updatedAt: DateTime!
+  username: String!
+  videos: [VideoEntity!]!
+}
+
+type UserInfoEntity {
+  country: String!
+  createdAt: DateTime!
+  first_name: String!
+  id: ID!
+  last_name: String!
+  owner: UserEntity!
+  updatedAt: DateTime!
+}
+
+type VideoEntity {
+  comments: CommentForVideoEntity!
+  owner: UserEntity!
+}
+
+type VideoPostEntity {
+  post: PostEntity!
+}
+
+type Video_F_Comment_F_Photo {
+  comment: CommentForPhotoEntity!
+}
+
+type Video_F_Comment_F_Post {
+  comment: CommentForPostEntity!
+}
+
+type Video_F_Comment_F_Video {
+  comment: CommentForVideoEntity!
+}
+
+type getAllUser_O {
+  totalCount: Int!
+  users: [UserEntity!]!
+}
+
+type messageT {
+  message: Boolean
+}
+
+type postRemove_O {
+  isDeleted: Boolean!
+  postId: Float!
+}
