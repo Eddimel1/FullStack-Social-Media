@@ -1,9 +1,8 @@
 import { UserInfoEntity } from 'src/modules/user-info/entities/user-info.entity'
 import { Injectable } from '@nestjs/common'
-import { CreateUserInfoInput } from '../dto/create-user-info.input'
-import { UpdateUserInfoInput } from '../dto/update-user-info.input'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { CreateUserInfoInput, UpdateUserInfoInput } from '../dto/input.dto'
 
 @Injectable()
 export class UserInfoService {

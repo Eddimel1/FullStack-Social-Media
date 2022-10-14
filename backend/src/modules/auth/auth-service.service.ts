@@ -1,11 +1,11 @@
 import { GraphQLExecutionContext } from '@nestjs/graphql'
-import { LoginUserInput } from './dto/user-login-input.dto'
+
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { UserService } from '../user/services/user.service'
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
-import { JwtPayLoad, roles, tokens } from './dto/payload'
+
 import { Response } from 'express'
 import {
   ACCESS_TOKEN,
@@ -17,6 +17,8 @@ import {
   RT_SECRET,
   TOKEN_VERSION,
 } from 'src/constants/auth.constants'
+import { LoginUserInput } from './dto/input.dto'
+import { roles, tokens, JwtPayLoad } from './types/types'
 
 @Injectable()
 export class AuthService {

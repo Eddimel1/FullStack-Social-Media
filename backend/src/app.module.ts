@@ -1,4 +1,4 @@
-import { FriendsModule } from './modules/friends/friends.module';
+import { FriendsModule } from './modules/friends/friends-united.module';
 import { GroupsModule } from './modules/groups/groups.module';
 import { PostModule } from './modules/post/post.module';
 import { PubsubModule } from './globalModules/pub-sub.module'

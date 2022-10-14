@@ -1,18 +1,16 @@
-import { UserService } from 'src/modules/user/services/user.service';
+import { UserService } from 'src/modules/user/services/user.service'
 import { ChatEntity } from './../entities/chat.entity'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { CreateChatInput } from '../dto/create-chat.dto'
-import { UpdateChatDto } from '../dto/update-chat.dto'
-
+import { CreateChatInput, UpdateChatDto } from '../dto/input.dto'
 
 @Injectable()
 export class ChatService {
   constructor(
     @InjectRepository(ChatEntity)
     private readonly chatRepository: Repository<ChatEntity>,
-    private readonly userService : UserService
+    private readonly userService: UserService,
   ) {}
   async createChat(new_chat: CreateChatInput) {
     const user = await this.userService.getOneUser(new_chat.owner)
@@ -27,7 +25,7 @@ export class ChatService {
   }
 
   async findOne(id: number) {
-    const chat = await this.chatRepository.findOneBy({id})
+    const chat = await this.chatRepository.findOneBy({ id })
     return chat
   }
 

@@ -1,10 +1,10 @@
 import { PostEntity } from 'src/modules/post/entities/post.entity'
 import { Injectable } from '@nestjs/common'
-import { CreatePostInput } from '../dto/create-post.input'
-import { UpdatePostInput } from '../dto/update-post.input'
+
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { DEFAULT_PORTION } from 'src/constants/db.constants'
+import { CreatePostInput, UpdatePostInput } from '../dto/input.dto'
 
 @Injectable()
 export class PostService {

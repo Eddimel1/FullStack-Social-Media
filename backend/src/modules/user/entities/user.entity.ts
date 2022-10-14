@@ -1,38 +1,25 @@
-import { GroupEntity } from './../../groups/entities/group.entity'
+import { GroupEntity } from './../../groups/entities/group.entity';
 import { ChatEntity } from './../../chat/entities/chat.entity'
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm'
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 import { VideoEntity } from '../../rest-files/entities/galery-entities/video.entity'
 import { AudioEntity } from '../../rest-files/entities/galery-entities/audio.entity'
 import { ImageEntity } from '../../rest-files/entities/galery-entities/image.entity'
 import { PostEntity } from 'src/modules/post/entities/post.entity'
 import { UserInfoEntity } from 'src/modules/user-info/entities/user-info.entity'
+import { Groups_A_Users_Mediator_E } from 'src/modules/groups/entities/gr-and-u_joined.entity'
+import { BasicEntity } from 'src/BaseEntities/most-base-entities/base.entity'
 
 @ObjectType()
 @Entity('users')
-export class UserEntity {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn()
-  id: number
-
-  @Field()
-  @CreateDateColumn()
-  createdAt: Date
-
-  @Field()
-  @UpdateDateColumn()
-  updatedAt: Date
-
+export class UserEntity extends BasicEntity {
   @Column()
   password: string
 
@@ -68,9 +55,13 @@ export class UserEntity {
   @OneToMany(() => PostEntity, (post) => post.owner)
   posts: PostEntity[]
 
+  @Field(() => [Groups_A_Users_Mediator_E])
+  @OneToMany(() => Groups_A_Users_Mediator_E, (group) => group.users)
+  connectionToGroup: Groups_A_Users_Mediator_E[]
+
   @Field(() => [GroupEntity])
-  @ManyToMany(() => GroupEntity, (group) => group.users)
-  groups: GroupEntity[]
+  @OneToMany(() => GroupEntity, (group) => group.ownerId)
+  owned_groups: GroupEntity[]
 
   @Field(() => [UserEntity])
   @ManyToMany(() => UserEntity)

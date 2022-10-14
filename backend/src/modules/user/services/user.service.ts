@@ -1,6 +1,4 @@
-import { ImageEntity } from '../../rest-files/entities/galery-entities/image.entity'
 import {
-  HttpException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -8,16 +6,16 @@ import {
 import { InjectRepository } from '@nestjs/typeorm'
 
 import { Not, Repository } from 'typeorm'
-import { CreateUserInput } from '../dto/create-user.dto'
-import { SensitiveUserInput } from '../dto/update-user.dto'
 import { UserEntity } from '../entities/user.entity'
 import * as bcrypt from 'bcrypt'
 import { relationsFilterT, UsersRefreshTokenInput } from '../types/types'
 import { DEFAULT_PORTION, RELATIONS } from 'src/constants/db.constants'
 import { UserAlreadyExists_E } from 'src/exeptions/user-exeptions'
 import { ERROR_MESSAGES } from 'src/exeptions/messages'
-import { getAllUser_O } from '../dto/getAllAndCountOutput'
+
 import { fromFindAndCount } from 'src/SharedUtils.ts/transforms'
+import { CreateUserInput, SensitiveUserInput } from '../dto/input.dto'
+import { getAllUser_O } from '../dto/output.dto'
 
 @Injectable()
 export class UserService {

@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { RepliesService } from './replies.service';
-import { RepliesResolver } from './replies.resolver';
+import { Module } from '@nestjs/common'
+import { RepliesService } from './services/replies.service'
+import { RepliesResolver } from './resolvers/replies.resolver'
 
 @Module({
-  providers: [RepliesResolver, RepliesService]
+  providers: [RepliesResolver, RepliesService],
 })
 export class RepliesModule {}
