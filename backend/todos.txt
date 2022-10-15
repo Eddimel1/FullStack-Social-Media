@@ -1,0 +1,8 @@
+-------FriendShipServices---------
+-FindMyFriend
+-FindAllMyFriends
+-Find and Read from my side of the Friendship
+-Mutate my side of the Friendship
+-Find and Read From Not my side of the Friendship
+-Read and Mutate Shared side of the FriendShip
+-Find my side of the FriendShip and use appropriate

@@ -1,46 +1,48 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
-import { GroupsUsersJoinedService } from '../services/groups-users-joined.service'
-import { GroupsUsersJoined } from '../entities/groups-users-joined.entity'
-import { CreateGroupsUsersJoinedInput } from '../dto/create-groups-users-joined.input'
-import { UpdateGroupsUsersJoinedInput } from '../dto/update-groups-users-joined.input'
+import {
+  CreateGroupsUsersJoinedInput,
+  UpdateGroupsUsersJoinedInput,
+} from '../dto/input'
+import { Groups_A_Users_Mediator_E } from '../entities/groups-users-joined.entity'
+import { Groups_A_Users_Service } from '../services/groups-users-joined.service'
 
-@Resolver(() => GroupsUsersJoined)
+@Resolver(() => Groups_A_Users_Mediator_E)
 export class GroupsUsersJoinedResolver {
   constructor(
-    private readonly groupsUsersJoinedService: GroupsUsersJoinedService,
+    private readonly groupsUsersJoinedService: Groups_A_Users_Service,
   ) {}
 
-  @Mutation(() => GroupsUsersJoined)
-  createGroupsUsersJoined(
-    @Args('createGroupsUsersJoinedInput')
-    createGroupsUsersJoinedInput: CreateGroupsUsersJoinedInput,
-  ) {
-    return this.groupsUsersJoinedService.create(createGroupsUsersJoinedInput)
-  }
+//   @Mutation(() => Groups_A_Users_Mediator_E)
+//   createGroupsUsersJoined(
+//     @Args('createGroupsUsersJoinedInput')
+//     createGroupsUsersJoinedInput: CreateGroupsUsersJoinedInput,
+//   ) {
+//     return this.groupsUsersJoinedService.create(createGroupsUsersJoinedInput)
+//   }
 
-  @Query(() => [GroupsUsersJoined], { name: 'groupsUsersJoined' })
-  findAll() {
-    return this.groupsUsersJoinedService.findAll()
-  }
+//   @Query(() => [Groups_A_Users_Mediator_E], { name: 'groupsUsersJoined' })
+//   findAll() {
+//     return this.groupsUsersJoinedService.findAll()
+//   }
 
-  @Query(() => GroupsUsersJoined, { name: 'groupsUsersJoined' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.groupsUsersJoinedService.findOne(id)
-  }
+//   @Query(() => Groups_A_Users_Mediator_E, { name: 'groupsUsersJoined' })
+//   findOne(@Args('id', { type: () => Int }) id: number) {
+//     return this.groupsUsersJoinedService.findOne(id)
+//   }
 
-  @Mutation(() => GroupsUsersJoined)
-  updateGroupsUsersJoined(
-    @Args('updateGroupsUsersJoinedInput')
-    updateGroupsUsersJoinedInput: UpdateGroupsUsersJoinedInput,
-  ) {
-    return this.groupsUsersJoinedService.update(
-      updateGroupsUsersJoinedInput.id,
-      updateGroupsUsersJoinedInput,
-    )
-  }
+//   @Mutation(() => Groups_A_Users_Mediator_E)
+//   updateGroupsUsersJoined(
+//     @Args('updateGroupsUsersJoinedInput')
+//     updateGroupsUsersJoinedInput: UpdateGroupsUsersJoinedInput,
+//   ) {
+//     return this.groupsUsersJoinedService.update(
+//       updateGroupsUsersJoinedInput.id,
+//       updateGroupsUsersJoinedInput,
+//     )
+//   }
 
-  @Mutation(() => GroupsUsersJoined)
-  removeGroupsUsersJoined(@Args('id', { type: () => Int }) id: number) {
-    return this.groupsUsersJoinedService.remove(id)
-  }
+//   @Mutation(() => Groups_A_Users_Mediator_E)
+//   removeGroupsUsersJoined(@Args('id', { type: () => Int }) id: number) {
+//     return this.groupsUsersJoinedService.remove(id)
+//   }
 }

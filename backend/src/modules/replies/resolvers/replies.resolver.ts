@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
 import { RepliesService } from '../services/replies.service'
 import { Reply } from '../entities/reply.entity'
-import { CreateReplyInput } from '../dto/create-reply.input'
-import { UpdateReplyInput } from '../dto/update-reply.input'
+import { CreateReplyInput, UpdateReplyInput } from '../dto/input.dto'
+
 
 @Resolver(() => Reply)
 export class RepliesResolver {

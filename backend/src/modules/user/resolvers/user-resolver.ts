@@ -7,16 +7,15 @@ import {
   Query,
   Resolver,
 } from '@nestjs/graphql'
-import { JwtAuthGuard } from 'src/modules/auth/guards/jwt-auth-guard'
 import { RolesGuard } from 'src/modules/auth/guards/roles-guard'
-import { CreateUserInput } from '../dto/create-user.dto'
 import { UserEntity } from '../entities/user.entity'
 import { UserService } from '../services/user.service'
 import { Roles } from '../../auth/decorators/roles-decorator'
 import { RolesDec } from '../../auth/decorators/roles-decorator'
 import { Public } from 'src/modules/auth/decorators/public-decorator'
-import { UpdateUserInput } from '../dto/update-user.dto'
-import { getAllUser_O } from '../dto/getAllAndCountOutput'
+import { CreateUserInput, UpdateUserInput } from '../dto/input.dto'
+import { getAllUser_O } from '../dto/output.dto'
+
 
 @Resolver('User')
 export class UserResolver {

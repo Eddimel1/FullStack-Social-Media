@@ -6,16 +6,15 @@ import { Repository } from 'typeorm'
 import { CreateGroupInput } from '../dto/input'
 import { GroupEntity } from '../entities/group.entity'
 
-
 @Injectable()
 export class GroupsService {
   constructor(
     @InjectRepository(GroupEntity)
     private readonly groupsRepository: Repository<GroupEntity>,
   ) {}
-  async create(createGroupInput: CreateGroupInput & { userId: number }) {
+  async create(createGroupInput: CreateGroupInput, userId: number) {
     const group = new GroupEntity()
-    group.ownerId = createGroupInput.userId
+    group.ownerId = userId
     group.slogan = createGroupInput.slogan
     group.name = createGroupInput.name
     await this.groupsRepository.save(group)
@@ -23,10 +22,15 @@ export class GroupsService {
     return 'This action adds a new group'
   }
 
-  findOne(groupId: number) {
+  findOneGroup(groupId: number) {
     return this.groupsRepository.findOne({ where: { id: groupId } })
   }
 
+  findAllGroups(groupId: number) {
+    return this.groupsRepository.find()
+  }
+
+  updateOwnedGroup() {}
   findAllOwnedGroups(ownerId: number) {
     return this.groupsRepository
       .createQueryBuilder('groups')
@@ -43,7 +47,7 @@ export class GroupsService {
       .getOne()
   }
 
-  remove(ownerId: number, groupId: number) {
+  removeOwnedGroup(ownerId: number, groupId: number) {
     return this.groupsRepository
       .createQueryBuilder('groups')
       .delete()

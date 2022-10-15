@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { UserInfoService } from '../services/user-info.service'
 import { UserInfoEntity } from '../entities/user-info.entity'
-import { CreateUserInfoInput } from '../dto/create-user-info.input'
-import { UpdateUserInfoInput } from '../dto/update-user-info.input'
+import { CreateUserInfoInput, UpdateUserInfoInput } from '../dto/input.dto'
+
 
 @Resolver(() => UserInfoEntity)
 export class UserInfoResolver {

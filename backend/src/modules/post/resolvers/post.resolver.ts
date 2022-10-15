@@ -1,11 +1,13 @@
-import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { PostService } from '../services/post.service'
 import { PostEntity } from '../entities/post.entity'
-import { CreatePostInput } from '../dto/create-post.input'
-import { UpdatePostInput } from '../dto/update-post.input'
-import { Req } from '@nestjs/common'
-import { FindPostInput } from '../dto/find-post.dto'
+
 import { postRemove_O } from '../types/output'
+import {
+  CreatePostInput,
+  FindPostInput,
+  UpdatePostInput,
+} from '../dto/input.dto'
 
 @Resolver(() => PostEntity)
 export class PostResolver {

@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
 import { FriendsService } from '../services/friends.service'
 import { Friend } from '../entities/friend.entity'
-import { CreateFriendInput } from '../dto/create-friend.input'
-import { UpdateFriendInput } from '../dto/update-friend.input'
+import { CreateFriendInput, UpdateFriendInput } from '../dto/input.dto'
+
 
 @Resolver(() => Friend)
 export class FriendsResolver {

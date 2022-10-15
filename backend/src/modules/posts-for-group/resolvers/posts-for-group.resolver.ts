@@ -1,8 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
 import { PostsForGroupService } from '../services/posts-for-group.service'
 import { PostsForGroup } from '../entities/posts-for-group.entity'
-import { CreatePostsForGroupInput } from './dto/create-posts-for-group.input'
-import { UpdatePostsForGroupInput } from './dto/update-posts-for-group.input'
+import { CreatePostsForGroupInput, UpdatePostsForGroupInput } from '../dto/input'
 
 @Resolver(() => PostsForGroup)
 export class PostsForGroupResolver {

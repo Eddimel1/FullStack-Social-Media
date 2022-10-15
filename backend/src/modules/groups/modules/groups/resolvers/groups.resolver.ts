@@ -1,34 +1,41 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql'
+import { CreateGroupInput } from '../dto/input'
+import { GroupEntity } from '../entities/group.entity'
 import { GroupsService } from '../services/groups.service'
-import { CreateGroupInput } from '../dto/create-group.input'
-import { UpdateGroupInput } from '../dto/update-group.input'
 
 @Resolver(() => GroupEntity)
 export class GroupsResolver {
   constructor(private readonly groupsService: GroupsService) {}
 
   @Mutation(() => GroupEntity)
-  createGroup(@Args('createGroupInput') createGroupInput: CreateGroupInput) {
-    return this.groupsService.create(createGroupInput)
+  createGroup(
+    @Context() context,
+    @Args('createGroupInput') createGroupInput: CreateGroupInput,
+  ) {
+    const userId = context.req.user.id
+    return this.groupsService.create(createGroupInput, userId)
   }
 
-  @Query(() => [GroupEntity], { name: 'groups' })
-  findAll() {
-    return this.groupsService.findAll()
+  @Query(() => [GroupEntity])
+  findAllOwnedGroups(@Context() context) {
+    const userId = context.req.user.id
+    return this.groupsService.findAllOwnedGroups(userId)
   }
 
-  @Query(() => GroupEntity, { name: 'group' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.groupsService.findOne(id)
+  @Query(() => GroupEntity)
+  findOne(@Args('groupId') groupId: number, @Context() context) {
+    const userId = context.req.user.id
+    return this.groupsService.findOneOwnedGroup(groupId, userId)
   }
 
   @Mutation(() => GroupEntity)
-  updateGroup(@Args('updateGroupInput') updateGroupInput: UpdateGroupInput) {
-    return this.groupsService.update(updateGroupInput.id, updateGroupInput)
+  updateOwnedGroup() {
+    return this.groupsService.updateOwnedGroup()
   }
 
   @Mutation(() => GroupEntity)
-  removeGroup(@Args('id', { type: () => Int }) id: number) {
-    return this.groupsService.remove(id)
+  removeGroup(@Context() context, @Args('groupId') groupId: number) {
+    const userId = context.req.user.id
+    return this.groupsService.removeOwnedGroup(userId, groupId)
   }
 }

@@ -10,15 +10,15 @@ import {
 } from '@nestjs/graphql'
 import { Request, Response } from 'express'
 import { AuthService } from '../auth-service.service'
-import { LoginResponse } from '../dto/login-response.dto'
-import { LoginUserInput } from '../dto/user-login-input.dto'
+
 import { JwtAuthGuard } from '../guards/jwt-auth-guard'
 import { JwtRefreshGuard } from '../guards/jwt-refresh-guard'
 import { Public } from '../decorators/public-decorator'
+import { LoginUserInput } from '../dto/input.dto'
 
 @ObjectType()
 export class messageT {
-  @Field({nullable:true})
+  @Field({ nullable: true })
   message: boolean
 }
 
@@ -30,7 +30,7 @@ export class AuthResolver {
   login(@Res() res, @Args('loginUserInput') loginUserInput: LoginUserInput) {
     const response = res.res as Response
     console.log(response)
-    
+
     return this.AuthService.login(loginUserInput, response)
   }
   @Public()

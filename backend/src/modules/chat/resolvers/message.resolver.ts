@@ -1,15 +1,13 @@
 import { MessageEntity } from '../entities/message.entity'
 import { Inject, UseGuards } from '@nestjs/common'
-import { Args, Context, Field, InputType, Mutation, ObjectType, Resolver, Subscription } from '@nestjs/graphql'
+import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql'
 import { PubSubEngine } from 'graphql-subscriptions'
 import { MessageService } from '../services/message.service'
-import { UpdateChatDto } from '../dto/update-chat.dto'
 
-import { CreateMessageInput } from '../dto/create-message.dto'
 import { PUB_SUB } from '../../../globalModules/pub-sub.module'
 import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { JwtSocketGuard } from 'src/modules/auth/guards/socket-guard'
-
+import { CreateMessageInput, UpdateChatDto } from '../dto/input.dto'
 
 enum SUBSCRIPTION_EVENTS {
   messageAdded = 'messageAdded',
@@ -21,14 +19,13 @@ export class MessageResolver {
     private readonly chatService: MessageService,
     @Inject(PUB_SUB) private readonly pubSub: PubSubEngine,
   ) {}
-  
+
   @Mutation(() => MessageEntity)
   async addMessage(@Args('createMessage') newMessage: CreateMessageInput) {
     const new_message = await this.chatService.createMessage(newMessage)
-   
-    
-     await this.pubSub.publish(SUBSCRIPTION_EVENTS.messageAdded, {
-        messageAdded: new_message,
+
+    await this.pubSub.publish(SUBSCRIPTION_EVENTS.messageAdded, {
+      messageAdded: new_message,
     })
     console.log(new_message)
     return new_message

@@ -3,12 +3,13 @@ import { Inject, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
 import { PubSubEngine } from 'graphql-subscriptions'
 import { ChatService } from '../services/chat.service'
-import { UpdateChatDto } from '../dto/update-chat.dto'
+
 import { ChatEntity } from '../entities/chat.entity'
 import { PUB_SUB } from '../../../globalModules/pub-sub.module'
-import { CreateChatInput } from '../dto/create-chat.dto'
+
 import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { JwtSocketGuard } from 'src/modules/auth/guards/socket-guard'
+import { CreateChatInput, UpdateChatDto } from '../dto/input.dto'
 
 @Resolver(() => ChatEntity)
 export class ChatResolver {
@@ -24,9 +25,7 @@ export class ChatResolver {
   }
 
   @Query(() => ChatEntity)
-  async returnAllChats(){
-    
-  }
+  async returnAllChats() {}
   @Subscription(() => String)
   findAll() {
     return this.chatService.findAll()
@@ -36,7 +35,7 @@ export class ChatResolver {
   findOne(id: number) {
     return this.chatService.findOne(id)
   }
-  
+
   @Subscription(() => String)
   update(updateChatDto: UpdateChatDto) {
     return this.chatService.update(updateChatDto.id, updateChatDto)

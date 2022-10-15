@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common'
-import {
-  CreateUser1SideInput,
-  UpdateUser1SideInput,
-} from '../../shared/dto/input.dto'
+import { CreateUserSide, UpdateUserSide } from '../../shared/dto/input.dto'
 
 @Injectable()
 export class User1SideService {
-  create(createUser1SideInput: CreateUser1SideInput) {
+  create(createUser1SideInput: CreateUserSide) {
     return 'This action adds a new user1Side'
   }
 
@@ -18,7 +15,7 @@ export class User1SideService {
     return `This action returns a #${id} user1Side`
   }
 
-  update(id: number, updateUser1SideInput: UpdateUser1SideInput) {
+  update(id: number, updateUser1SideInput: UpdateUserSide) {
     return `This action updates a #${id} user1Side`
   }
 

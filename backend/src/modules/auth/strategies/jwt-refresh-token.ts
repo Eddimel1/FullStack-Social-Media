@@ -8,9 +8,9 @@ import {
 } from '@nestjs/common'
 import { AuthService } from '../auth-service.service'
 import { Request } from 'express'
-import { decodedJwtPayload } from '../dto/payload'
 import { UserService } from 'src/modules/user/services/user.service'
 import { UsersRefreshTokenInput } from 'src/modules/user/types/types'
+import { decodedJwtPayload } from '../types/types'
 
 @Injectable()
 export class RefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {

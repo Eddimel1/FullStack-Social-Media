@@ -19,7 +19,10 @@ export class Groups_A_Users_Service {
     relation.groupId = createRelationship.groupId
     relation.userId = createRelationship.userId
     await this.groups_a_users_Repository.save(relation)
-    return this.groupsService.findOne(createRelationship.groupId)
+    return this.groupsService.findOneOwnedGroup(
+      createRelationship.userId,
+      createRelationship.groupId,
+    )
   }
 
   findAllAddedGroups(userId: number) {

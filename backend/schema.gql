@@ -60,14 +60,9 @@ input CreateCommentForPost_I {
   text: String!
 }
 
-input CreateFriendInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input CreateGroupInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  slogan: String!
 }
 
 input CreateMessageInput {
@@ -103,16 +98,16 @@ input FindPostInput {
   userId: Float
 }
 
-type Friend {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type GroupEntity {
+  connectionToUser: [Groups_A_Users_Mediator_E!]!
+  name: String!
+  owner: UserEntity!
+  slogan: String!
 }
 
-type GroupEntity {
-  createdAt: DateTime!
-  id: ID!
-  updatedAt: DateTime!
-  users: [UserEntity!]!
+type Groups_A_Users_Mediator_E {
+  group: GroupEntity!
+  user: UserEntity!
 }
 
 type ImageEntity {
@@ -155,7 +150,6 @@ type Mutation {
   addMessage(createMessage: CreateMessageInput!): MessageEntity!
   createChat(createChat: CreateChatInput!): ChatEntity!
   createComment(createCommentInput: CreateCommentForPost_I!): CommentForPostEntity!
-  createFriend(createFriendInput: CreateFriendInput!): Friend!
   createGroup(createGroupInput: CreateGroupInput!): GroupEntity!
   createPost(createPostInput: CreatePostInput!): PostEntity!
   createUser(createUser: CreateUserInput!): UserEntity!
@@ -164,13 +158,11 @@ type Mutation {
   login(loginUserInput: LoginUserInput!): UserEntity!
   refreshToken: messageT!
   removeComment(searchAllCommentForPost: SearchCommentForPost_I!): CommentForPostEntity!
-  removeFriend(id: Int!): Friend!
-  removeGroup(id: Int!): GroupEntity!
+  removeGroup(groupId: Float!): GroupEntity!
   removePost(postId: Float!): postRemove_O!
   removeUser(id: Float!): Float!
   updateComment(updateCommentInput: UpdateCommentForPost_I!): CommentForPostEntity!
-  updateFriend(updateFriendInput: UpdateFriendInput!): Friend!
-  updateGroup(updateGroupInput: UpdateGroupInput!): GroupEntity!
+  updateOwnedGroup: GroupEntity!
   updatePost(updatePostInput: UpdatePostInput!): PostEntity!
   updateUserInfo(updateUserInfoInput: UpdateUserInfoInput!): UserInfoEntity!
   updateUsersSensitiveData(updateUser: UpdateUserInput!): UserEntity!
@@ -191,16 +183,13 @@ type PostEntity {
 
 type Query {
   findAll(photoId: Float!): [CommentForPostEntity!]!
+  findAllOwnedGroups: [GroupEntity!]!
   findAllPosts(id: Float): [PostEntity!]!
-  findOne(searchAllCommentForPost: SearchCommentForPost_I!): CommentForPostEntity!
+  findOne(groupId: Float!): GroupEntity!
   findOnePost(findPost: FindPostInput!): PostEntity!
   findOneUserInfo(id: Float): UserInfoEntity!
-  friend(id: Int!): Friend!
-  friends: [Friend!]!
   getAllUsers: getAllUser_O!
   getOneUser(id: Float): UserEntity!
-  group(id: Int!): GroupEntity!
-  groups: [GroupEntity!]!
   returnAllChats: ChatEntity!
 }
 
@@ -223,18 +212,6 @@ input UpdateCommentForPost_I {
   text: String!
 }
 
-input UpdateFriendInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
-input UpdateGroupInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
 input UpdatePostInput {
   postId: Float!
   text: String!
@@ -254,16 +231,14 @@ input UpdateUserInput {
 type UserEntity {
   audio: [AudioEntity!]!
   chats: ChatEntity!
-  createdAt: DateTime!
+  connectionToGroup: [Groups_A_Users_Mediator_E!]!
   email: String!
   friends: [UserEntity!]!
-  groups: [GroupEntity!]!
-  id: ID!
   images: [ImageEntity!]!
   info: UserInfoEntity!
+  owned_groups: [GroupEntity!]!
   posts: [PostEntity!]!
   role: String!
-  updatedAt: DateTime!
   username: String!
   videos: [VideoEntity!]!
 }

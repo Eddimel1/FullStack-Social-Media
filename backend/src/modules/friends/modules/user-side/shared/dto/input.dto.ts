@@ -1,13 +1,13 @@
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql'
 
 @InputType()
-export class CreateUser1SideInput {
+export class CreateUserSide {
   @Field(() => Int, { description: 'Example field (placeholder)' })
   exampleField: number
 }
 
 @InputType()
-export class UpdateUser1SideInput extends PartialType(CreateUser1SideInput) {
+export class UpdateUserSide extends PartialType(CreateUserSide) {
   @Field(() => Int)
   id: number
 }

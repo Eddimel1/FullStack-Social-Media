@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
 import { GroupSideService } from '../services/group-side.service'
 import { GroupSide } from '../entities/group-side.entity'
-import { CreateGroupSideInput } from '../dto/create-group-side.input'
-import { UpdateGroupSideInput } from '../dto/update-group-side.input'
+import { CreateGroupSideInput, UpdateGroupSideInput } from '../dto/input.dto'
+
 
 @Resolver(() => GroupSide)
 export class GroupSideResolver {

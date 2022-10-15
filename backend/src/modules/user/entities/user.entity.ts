@@ -1,4 +1,4 @@
-import { GroupEntity } from './../../groups/entities/group.entity';
+
 import { ChatEntity } from './../../chat/entities/chat.entity'
 import {
   Column,
@@ -14,8 +14,10 @@ import { AudioEntity } from '../../rest-files/entities/galery-entities/audio.ent
 import { ImageEntity } from '../../rest-files/entities/galery-entities/image.entity'
 import { PostEntity } from 'src/modules/post/entities/post.entity'
 import { UserInfoEntity } from 'src/modules/user-info/entities/user-info.entity'
-import { Groups_A_Users_Mediator_E } from 'src/modules/groups/entities/gr-and-u_joined.entity'
+
 import { BasicEntity } from 'src/BaseEntities/most-base-entities/base.entity'
+import { Groups_A_Users_Mediator_E } from 'src/modules/groups/modules/groups-users-joined/entities/groups-users-joined.entity'
+import { GroupEntity } from 'src/modules/groups/modules/groups/entities/group.entity'
 
 @ObjectType()
 @Entity('users')
@@ -56,7 +58,7 @@ export class UserEntity extends BasicEntity {
   posts: PostEntity[]
 
   @Field(() => [Groups_A_Users_Mediator_E])
-  @OneToMany(() => Groups_A_Users_Mediator_E, (group) => group.users)
+  @OneToMany(() => Groups_A_Users_Mediator_E, (group) => group.userId)
   connectionToGroup: Groups_A_Users_Mediator_E[]
 
   @Field(() => [GroupEntity])

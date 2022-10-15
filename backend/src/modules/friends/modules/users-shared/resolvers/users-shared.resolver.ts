@@ -1,8 +1,10 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
 import { UsersSharedService } from '../services/users-shared.service'
 import { UsersShared } from '../entities/users-shared.entity'
-import { CreateUsersSharedInput } from '../dto/create-users-shared.input'
-import { UpdateUsersSharedInput } from '../dto/update-users-shared.input'
+import {
+  CreateUsersSharedInput,
+  UpdateUsersSharedInput,
+} from '../dto/input.dto'
 
 @Resolver(() => UsersShared)
 export class UsersSharedResolver {
