@@ -1,8 +1,12 @@
-import { Module } from '@nestjs/common';
-import { FriendRequestsService } from './friend-requests.service';
-import { FriendRequestsResolver } from './friend-requests.resolver';
+import { Module } from '@nestjs/common'
+import { FriendRequestsService } from './services/friend-requests.service'
+import { FriendRequestsResolver } from './resolvers/friend-requests.resolver'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { FriendRequest } from './entities/friend-request.entity'
 
 @Module({
-  providers: [FriendRequestsResolver, FriendRequestsService]
+  imports: [TypeOrmModule.forFeature([FriendRequest])],
+  providers: [FriendRequestsResolver, FriendRequestsService],
+  exports: [FriendRequestsService],
 })
 export class FriendRequestsModule {}

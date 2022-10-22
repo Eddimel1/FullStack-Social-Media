@@ -1,6 +1,5 @@
-import { FriendsModule } from './modules/friends/friends-united.module';
-import { GroupsModule } from './modules/groups/groups.module';
-import { PostModule } from './modules/post/post.module';
+import { GroupsModule } from './modules/groups/groups.module'
+import { PostModule } from './modules/post/post.module'
 import { PubsubModule } from './globalModules/pub-sub.module'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
@@ -18,8 +17,12 @@ import { APP_GUARD } from '@nestjs/core'
 import { ChatModule } from './modules/chat/chat.module'
 import { corsConfig } from './common/shared/cors/cors.config'
 import { RestFilesModule } from './modules/rest-files/rest-files.module'
-import { CommentModule } from './modules/comment/comment.module';
-import { UserInfoModule } from './modules/user-info/user-info.module';
+import { CommentModule } from './modules/comment/comment.module'
+import { UserInfoModule } from './modules/user-info/user-info.module'
+import { FriendRequestsModule } from './modules/friends/modules/friend-requests/friend-requests.module'
+import { FriendsModule } from './modules/friends/modules/friends/friends.module'
+import { FriendsUnitedModule } from './modules/friends/friends-united.module'
+import { GroupUserRelationshipModule } from './modules/groups/modules/group-user-relationship/group-user-relationship.module'
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
 @Module({
   imports: [
@@ -55,6 +58,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
     CommentModule,
     UserInfoModule,
     RestFilesModule,
+    FriendRequestsModule,
+    GroupUserRelationshipModule
   ],
   controllers: [AppController],
   providers: [

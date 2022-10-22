@@ -1,39 +1,37 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
+import { SanitizedUser } from './../../../../user/entities/user.entity'
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { FriendsService } from '../services/friends.service'
-import { Friend } from '../entities/friend.entity'
-import { CreateFriendInput, UpdateFriendInput } from '../dto/input.dto'
+import { FriendShip } from '../entities/friendship.entity'
+import { FindAndCountFriends_O, IsSuccess_O } from '../dto/output.dto'
 
-
-@Resolver(() => Friend)
+@Resolver(() => FriendShip)
 export class FriendsResolver {
   constructor(private readonly friendsService: FriendsService) {}
 
-  @Mutation(() => Friend)
-  createFriend(
-    @Args('createFriendInput') createFriendInput: CreateFriendInput,
+  @Mutation(() => SanitizedUser)
+  createFriendShip(
+    @Args('requester_id') requester_id: number,
+    @Context() context,
   ) {
-    return this.friendsService.create(createFriendInput)
+    const accepter_id = context.req.user.id
+    return this.friendsService.createFriendShip(accepter_id, requester_id)
   }
 
-  @Query(() => [Friend], { name: 'friends' })
-  findAll() {
-    return this.friendsService.findAll()
+  @Query(() => FindAndCountFriends_O)
+  findAllFriends(@Context() context) {
+    const userId = context.req.user.id
+    return this.friendsService.findAllFriends(userId)
   }
 
-  @Query(() => Friend, { name: 'friend' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.friendsService.findOne(id)
+  @Query(() => SanitizedUser)
+  findOneFriend(@Args('friendId') friendId: number, @Context() context) {
+    const userId = context.req.user.id
+    return this.friendsService.findOneFriend(userId, friendId)
   }
 
-  @Mutation(() => Friend)
-  updateFriend(
-    @Args('updateFriendInput') updateFriendInput: UpdateFriendInput,
-  ) {
-    return this.friendsService.update(updateFriendInput.id, updateFriendInput)
-  }
-
-  @Mutation(() => Friend)
-  removeFriend(@Args('id', { type: () => Int }) id: number) {
-    return this.friendsService.remove(id)
+  @Mutation(() => IsSuccess_O)
+  removeFriend(@Args('friendId') friendId: number, @Context() context) {
+    const userId = context.req.user.id
+    return this.friendsService.removeFriend(userId, friendId)
   }
 }

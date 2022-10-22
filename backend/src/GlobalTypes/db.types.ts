@@ -23,3 +23,5 @@ export enum CHAT_RELATIONS {
   MESSAGES = 'messages',
 }
 export enum JOINED_TABLES {}
+
+export type rating = 0 | 1 | 2 | 3 | 4 | 5

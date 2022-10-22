@@ -76,6 +76,16 @@ input CreatePostInput {
   text: String!
 }
 
+input CreateRelationShip_G {
+  groupId: Float!
+  userId: Float!
+}
+
+input CreateRequest_G {
+  groupId: Float!
+  userId: Float!
+}
+
 input CreateUserInfoInput {
   country: String
   first_name: String!
@@ -88,26 +98,109 @@ input CreateUserInput {
   username: String!
 }
 
+type CreatedRequest_O {
+  accepter_id: Float!
+  isSuccess: Boolean!
+  requester_id: Float!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type DeleteRequest_O {
+  groupId: Float!
+  isSuccess: Boolean!
+  userId: Float!
+}
+
+type FindAndCountFriends_O {
+  friends: [SanitizedUser!]!
+  totalCount: Float!
+}
+
+type FindAndCountRequests_O {
+  requests: [FriendRequest!]!
+  totalCount: Float!
+}
 
 input FindPostInput {
   postId: Float!
   userId: Float
 }
 
+input FindRelationShip_G {
+  groupId: Float!
+  userId: Float!
+}
+
+input FindRequest_G {
+  groupId: Float!
+  userId: Float!
+}
+
+type FriendRequest {
+  accepter: UserEntity!
+  requester: UserEntity!
+}
+
+type FriendShip {
+  user1: UserEntity!
+  user1_side: User1Side!
+  user1_side_private: User1SidePrivate!
+  user2: UserEntity!
+  user2_side: User2Side!
+  user2_side_private: User2SidePrivate!
+  users_shared_side: UsersSharedSide!
+}
+
 type GroupEntity {
-  connectionToUser: [Groups_A_Users_Mediator_E!]!
+  createdAt: DateTime!
+  id: Float!
   name: String!
   owner: UserEntity!
   slogan: String!
+  updatedAt: DateTime!
 }
 
-type Groups_A_Users_Mediator_E {
+type GroupSide {
+  blocked: Boolean!
+  group_user_relation: Group_User_Relation!
+  id: Float!
+  role: String!
+  warnings: Float!
+}
+
+type GroupSidePrivate {
+  ban_reason: String
+  group_user_relation: Group_User_Relation!
+  id: Float!
+  user_characteristic: String
+}
+
+type GroupUserRequest {
   group: GroupEntity!
+  group_as_what: String!
   user: UserEntity!
+  user_as_what: String!
+}
+
+type GroupUserSharedSide {
+  group_recommendation: String
+  group_user_relation: Group_User_Relation!
+  id: Float!
+  user_recommendation: String
+}
+
+type Group_User_Relation {
+  group: GroupEntity!
+  group_side: GroupSide!
+  group_side_private: GroupSidePrivate!
+  shared_side: GroupUserSharedSide!
+  user: UserEntity!
+  user_side: UserSide_G!
+  user_side_private: UserSidePrivate!
 }
 
 type ImageEntity {
@@ -131,6 +224,11 @@ type Image_F_Comment_F_Video {
   comment: CommentForVideoEntity!
 }
 
+type IsSuccess_O {
+  friendId: Float!
+  isSuccess: Boolean!
+}
+
 input LoginUserInput {
   password: String!
   username: String!
@@ -150,21 +248,42 @@ type Mutation {
   addMessage(createMessage: CreateMessageInput!): MessageEntity!
   createChat(createChat: CreateChatInput!): ChatEntity!
   createComment(createCommentInput: CreateCommentForPost_I!): CommentForPostEntity!
+  createFriendShip(requester_id: Float!): SanitizedUser!
   createGroup(createGroupInput: CreateGroupInput!): GroupEntity!
+  createGroupToUserRequest(createGroupToUserRequest: CreateRequest_G!): GroupUserRequest!
+  createGroupUserRelationship_G(CreateRelationShip_G: CreateRelationShip_G!): Group_User_Relation!
+  createGroupUserRelationship_U(groupId: Float!): Group_User_Relation!
   createPost(createPostInput: CreatePostInput!): PostEntity!
+  createRequest(accepter_id: Float!): CreatedRequest_O!
   createUser(createUser: CreateUserInput!): UserEntity!
   createUserInfo(createUserInfoInput: CreateUserInfoInput!): UserInfoEntity!
+  createUserToGroupRequest(groupId: Float!): GroupUserRequest!
+  declineAllRequests: FriendRequest!
+  declineRequest(accepter_id: Float!): FriendRequest!
+  destroyRelationship_G(FindRelationShip_G: FindRelationShip_G!): isSuccess_G!
+  destroyRelationship_U(groupId: Float!): isSuccess_G!
   logOut: messageT!
   login(loginUserInput: LoginUserInput!): UserEntity!
   refreshToken: messageT!
   removeComment(searchAllCommentForPost: SearchCommentForPost_I!): CommentForPostEntity!
+  removeFriend(friendId: Float!): IsSuccess_O!
   removeGroup(groupId: Float!): GroupEntity!
+  removeMyRequest(accepter_id: Float!): FriendRequest!
   removePost(postId: Float!): postRemove_O!
+  removeRequestToGroup(groupId: Float!): DeleteRequest_O!
+  removeRequestToUser(findGroupToUserRequest: FindRequest_G!): DeleteRequest_O!
   removeUser(id: Float!): Float!
   updateComment(updateCommentInput: UpdateCommentForPost_I!): CommentForPostEntity!
+  updateGroupPrivateSide(updateGroupPrivateSide: UpdateRelationShip_G!): UpdatePrivateGroupSide_O!
+  updateGroupSide(UpdateRelationShip_G: UpdateRelationShip_G!): UpdateGroupSide_O!
+  updateMyPrivateSide(myPrivateSideUpdate: UpdatePrivateSide_I!): UserPrivateSide!
+  updateMySide(mySideUpdate: UpdateSide_I!): UserSide!
   updateOwnedGroup: GroupEntity!
   updatePost(updatePostInput: UpdatePostInput!): PostEntity!
+  updateSharedSide(updateSharedSide: UpdateRelationShip_SH!): UpdateGroupUserSharedSide_O!
   updateUserInfo(updateUserInfoInput: UpdateUserInfoInput!): UserInfoEntity!
+  updateUserPrivateSide(updateUserPrivateSide: UpdateRelationShip_U!): UpdatePrivateUserSide_O!
+  updateUserSide(UpdateRelationShip_U: UpdateRelationShip_U!): UpdateUserSide_O!
   updateUsersSensitiveData(updateUser: UpdateUserInput!): UserEntity!
 }
 
@@ -183,14 +302,52 @@ type PostEntity {
 
 type Query {
   findAll(photoId: Float!): [CommentForPostEntity!]!
+  findAllFriends: FindAndCountFriends_O!
+  findAllMyRequests: FindAndCountRequests_O!
   findAllOwnedGroups: [GroupEntity!]!
   findAllPosts(id: Float): [PostEntity!]!
+  findAllRelationshipsWithGroups: [Group_User_Relation!]!
+  findAllRelationshipsWithUsers(groupId: Float!): [Group_User_Relation!]!
+  findAllRequestsToGroup: [GroupUserRequest!]!
+  findAllRequestsToMe: FindAndCountRequests_O!
+  findAllRequestsToUser(groupId: Float!): [GroupUserRequest!]!
   findOne(groupId: Float!): GroupEntity!
+  findOneFriend(friendId: Float!): SanitizedUser!
+  findOneMyRequest(accepter_id: Float!): FriendRequest!
   findOnePost(findPost: FindPostInput!): PostEntity!
+  findOneRelationshipWithGroup(groupId: Float!): Group_User_Relation!
+  findOneRelationshipWithUser(FindRelationShip_G: FindRelationShip_G!): Group_User_Relation!
+  findOneRequestToGroup(groupId: Float!): GroupUserRequest!
+  findOneRequestToMe(accepter_id: Float!): FriendRequest!
+  findOneRequestToUser(findGroupToUserRequest: FindRequest_G!): GroupUserRequest!
   findOneUserInfo(id: Float): UserInfoEntity!
   getAllUsers: getAllUser_O!
   getOneUser(id: Float): UserEntity!
+  readMyFriendsSide(readMyFriendsSide: ReadSide_I!): UserSide!
+  readMyPrivateSide(readMyPrivateSide: ReadSide_I!): UserPrivateSide!
+  readMySide(readMySide: ReadSide_I!): UserSide!
+  removeFriend(sideId: Float!): UsersSharedSide!
   returnAllChats: ChatEntity!
+}
+
+input ReadSide_I {
+  friendId: Float!
+  sideId: Float!
+}
+
+type SanitizedUser {
+  audio: [AudioEntity!]!
+  chats: ChatEntity!
+  createdAt: DateTime!
+  friends: [UserEntity!]!
+  id: Float!
+  images: [ImageEntity!]!
+  info: UserInfoEntity!
+  owned_groups: [GroupEntity!]!
+  posts: [PostEntity!]!
+  updatedAt: DateTime!
+  username: String!
+  videos: [VideoEntity!]!
 }
 
 input SearchCommentForPost_I {
@@ -212,9 +369,59 @@ input UpdateCommentForPost_I {
   text: String!
 }
 
+type UpdateGroupSide_O {
+  blocked: Boolean!
+  role: String!
+  warnings: Float!
+}
+
+type UpdateGroupUserSharedSide_O {
+  group_recommendation: String
+  user_recommendation: String
+}
+
 input UpdatePostInput {
   postId: Float!
   text: String!
+}
+
+type UpdatePrivateGroupSide_O {
+  ban_reason: String!
+  user_characteristic: String!
+}
+
+input UpdatePrivateSide_I {
+  friendId: Float!
+  sideId: Float!
+  update_input: UpdateUsersPrivateSide!
+}
+
+type UpdatePrivateUserSide_O {
+  favorite: Boolean
+  group_characteristic: String
+}
+
+input UpdateRelationShip_G {
+  groupId: Float!
+  update: updateT!
+  userId: Float!
+}
+
+input UpdateRelationShip_SH {
+  groupId: Float!
+  update: updateT!
+  userId: Float!
+}
+
+input UpdateRelationShip_U {
+  groupId: Float!
+  update: updateT!
+}
+
+input UpdateSide_I {
+  friendId: Float!
+  sideId: Float!
+  update_input: UpdateUserSide!
 }
 
 input UpdateUserInfoInput {
@@ -228,17 +435,63 @@ input UpdateUserInput {
   username: String
 }
 
+input UpdateUserSide {
+  proposal: String
+  wish: String
+}
+
+type UpdateUserSide_O {
+  activity: Float!
+  rating: Float!
+  wish: String
+}
+
+input UpdateUsersPrivateSide {
+  characteristic: String
+  relation: String
+}
+
+type User1Side {
+  friendShip: FriendShip!
+  id: Float!
+  proposal: String
+  wish: String
+}
+
+type User1SidePrivate {
+  characteristic: String
+  friendShip: FriendShip!
+  id: Float!
+  relation: String
+}
+
+type User2Side {
+  friendShip: FriendShip!
+  id: Float!
+  proposal: String
+  wish: String
+}
+
+type User2SidePrivate {
+  characteristic: String
+  friendShip: FriendShip!
+  id: Float!
+  relation: String
+}
+
 type UserEntity {
   audio: [AudioEntity!]!
   chats: ChatEntity!
-  connectionToGroup: [Groups_A_Users_Mediator_E!]!
+  createdAt: DateTime!
   email: String!
   friends: [UserEntity!]!
+  id: Float!
   images: [ImageEntity!]!
   info: UserInfoEntity!
   owned_groups: [GroupEntity!]!
   posts: [PostEntity!]!
   role: String!
+  updatedAt: DateTime!
   username: String!
   videos: [VideoEntity!]!
 }
@@ -251,6 +504,40 @@ type UserInfoEntity {
   last_name: String!
   owner: UserEntity!
   updatedAt: DateTime!
+}
+
+type UserPrivateSide {
+  characteristic: String
+  id: Float!
+  relation: String
+}
+
+type UserSide {
+  id: Float!
+  proposal: String
+  wish: String
+}
+
+type UserSidePrivate {
+  favorite: Boolean!
+  group_characteristic: String
+  group_user_relation: Group_User_Relation!
+  id: Float!
+}
+
+type UserSide_G {
+  activity: Float!
+  group_user_relation: Group_User_Relation!
+  id: Float!
+  rating: Float!
+  wish: String
+}
+
+type UsersSharedSide {
+  friendShip: FriendShip!
+  id: Float!
+  proposal: String
+  wish: String
 }
 
 type VideoEntity {
@@ -279,6 +566,12 @@ type getAllUser_O {
   users: [UserEntity!]!
 }
 
+type isSuccess_G {
+  groupId: Float!
+  isSuccess: Boolean!
+  userId: Float!
+}
+
 type messageT {
   message: Boolean
 }
@@ -286,4 +579,9 @@ type messageT {
 type postRemove_O {
   isDeleted: Boolean!
   postId: Float!
+}
+
+input updateT {
+  blocked: Boolean!
+  role: String!
 }

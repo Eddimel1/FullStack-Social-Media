@@ -10,10 +10,10 @@ import { UserEntity } from '../entities/user.entity'
 import * as bcrypt from 'bcrypt'
 import { relationsFilterT, UsersRefreshTokenInput } from '../types/types'
 import { DEFAULT_PORTION, RELATIONS } from 'src/constants/db.constants'
-import { UserAlreadyExists_E } from 'src/exeptions/user-exeptions'
-import { ERROR_MESSAGES } from 'src/exeptions/messages'
+import { UserAlreadyExists_EX } from 'src/exceptions/user-exceptions'
+import { ERROR_MESSAGES } from 'src/exceptions/messages'
 
-import { fromFindAndCount } from 'src/SharedUtils.ts/transforms'
+import { fromFindAndCount } from 'src/SharedUtils.ts/transforms/transforms'
 import { CreateUserInput, SensitiveUserInput } from '../dto/input.dto'
 import { getAllUser_O } from '../dto/output.dto'
 
@@ -33,7 +33,7 @@ export class UserService {
       .orWhere('user.email = :email', { email })
       .getOne()
     if (_is_already_exists) {
-      throw new UserAlreadyExists_E(
+      throw new UserAlreadyExists_EX(
         _is_already_exists.username,
         _is_already_exists.email,
       )
@@ -66,13 +66,11 @@ export class UserService {
       take: DEFAULT_PORTION,
     })
     if (!users)
-      throw new InternalServerErrorException(ERROR_MESSAGES.INTERNALSERVERERROR)
+      throw new InternalServerErrorException(
+        ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
+      )
 
-    return fromFindAndCount(
-      users[0],
-      'users',
-      users[1],
-    ) as unknown as getAllUser_O
+    return fromFindAndCount(users, 'users') as unknown as getAllUser_O
   }
 
   async removeUser(id: number): Promise<number> {

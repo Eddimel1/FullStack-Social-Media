@@ -6,6 +6,7 @@ import { Repository } from 'typeorm'
 import { CreateGroupInput } from '../dto/input'
 import { GroupEntity } from '../entities/group.entity'
 
+
 @Injectable()
 export class GroupsService {
   constructor(
@@ -17,9 +18,8 @@ export class GroupsService {
     group.ownerId = userId
     group.slogan = createGroupInput.slogan
     group.name = createGroupInput.name
-    await this.groupsRepository.save(group)
+    return this.groupsRepository.save(group)
 
-    return 'This action adds a new group'
   }
 
   findOneGroup(groupId: number) {

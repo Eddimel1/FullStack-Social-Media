@@ -1,25 +1,32 @@
 import { Injectable } from '@nestjs/common'
-import { CreateUserSide, UpdateUserSide } from '../../shared/dto/input.dto'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { UpdateUserSide } from '../../shared/dto/input.dto'
+import { User2Side } from '../entities/user2-side.entity'
 
 @Injectable()
 export class User2SideService {
-  create(createUser2SideInput: CreateUserSide) {
-    return 'This action adds a new user2Side'
-  }
-
-  findAll() {
-    return `This action returns all user2Side`
+  constructor(
+    @InjectRepository(User2Side)
+    private readonly user2SideRepository: Repository<User2Side>,
+  ) {}
+  create() {
+    const new_user2_side = new User2Side()
+    return this.user2SideRepository.save(new_user2_side)
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user2Side`
+    return this.user2SideRepository.findOne({ where: { id } })
   }
 
-  update(id: number, updateUser2SideInput: UpdateUserSide) {
-    return `This action updates a #${id} user2Side`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user2Side`
+  async update(id: number, updateUser1SideInput: UpdateUserSide) {
+    await this.user2SideRepository
+      .createQueryBuilder('user2_side')
+      .update()
+      .where('id =:id', { id })
+      .set(updateUser1SideInput)
+      .execute()
+    const updated_user2_side = await this.findOne(id)
+    return updated_user2_side
   }
 }

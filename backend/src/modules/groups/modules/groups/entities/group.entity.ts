@@ -1,16 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 import { BasicEntity } from 'src/BaseEntities/most-base-entities/base.entity'
 import { UserEntity } from 'src/modules/user/entities/user.entity'
-import { Entity, OneToMany, Column, ManyToOne, JoinColumn } from 'typeorm'
-import { Groups_A_Users_Mediator_E } from '../../groups-users-joined/entities/groups-users-joined.entity'
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm'
 
 @ObjectType()
 @Entity('groups')
 export class GroupEntity extends BasicEntity {
-  @Field(() => [Groups_A_Users_Mediator_E])
-  @OneToMany(() => Groups_A_Users_Mediator_E, (group) => group.user)
-  connectionToUser: Groups_A_Users_Mediator_E[]
-
   @Column()
   ownerId: number
   @Field(() => UserEntity)
@@ -27,4 +22,8 @@ export class GroupEntity extends BasicEntity {
   @Column()
   @Field()
   slogan: string
+
+//   @Column()
+//   @Field()
+//   category: string
 }

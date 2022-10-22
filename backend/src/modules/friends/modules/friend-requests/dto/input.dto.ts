@@ -1,12 +1,12 @@
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql'
+import { InputType, Field } from '@nestjs/graphql'
 
 @InputType()
-export class CreateRequest {
+export class CreateRequest_I {
   @Field()
   requestedUser: number
 }
 
-export class DeleteRequest {
+export class DeleteRequest_I {
   @Field()
   requestingUser: number
   @Field()

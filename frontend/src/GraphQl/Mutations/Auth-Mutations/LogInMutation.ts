@@ -6,7 +6,7 @@ const LOG_IN = gql`
   mutation login($user: LoginUserInput!) {
     login(loginUserInput: $user) {
       username
-      id
+      
     }
   }
 `

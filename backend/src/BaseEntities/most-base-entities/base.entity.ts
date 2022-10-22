@@ -1,12 +1,14 @@
-import { Field, ID } from '@nestjs/graphql'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm'
 
+
+@ObjectType()
 export abstract class BasicEntity {
-  @Field(() => ID)
+  @Field()
   @PrimaryGeneratedColumn()
   id: number
 
@@ -19,6 +21,7 @@ export abstract class BasicEntity {
   updatedAt: Date
 }
 
+@ObjectType()
 export abstract class Mediator {
   @Field()
   @CreateDateColumn()

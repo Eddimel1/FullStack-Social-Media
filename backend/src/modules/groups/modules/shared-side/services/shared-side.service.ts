@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common'
-import { CreateSharedSideInput } from '../dto/create-shared-side.input'
-import { UpdateSharedSideInput } from '../dto/update-shared-side.input'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { UpdateGroupUserSharedSide_I } from '../dto/input.dto'
+import { GroupUserSharedSide } from '../entities/shared-side.entity'
+
 
 @Injectable()
-export class SharedSideService {
-  create(createSharedSideInput: CreateSharedSideInput) {
-    return 'This action adds a new sharedSide'
-  }
-
-  findAll() {
-    return `This action returns all sharedSide`
+export class GroupUserSharedSideService {
+  constructor(
+    @InjectRepository(GroupUserSharedSide)
+    private readonly groupUserSharedSideRepository: Repository<GroupUserSharedSide>,
+  ) {}
+  create() {
+    const group_side = new GroupUserSharedSide()
+    return this.groupUserSharedSideRepository.save(group_side)
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} sharedSide`
+    return this.groupUserSharedSideRepository.findOne({ where: { id } })
   }
 
-  update(id: number, updateSharedSideInput: UpdateSharedSideInput) {
-    return `This action updates a #${id} sharedSide`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} sharedSide`
+  updateOne(id: number, update: UpdateGroupUserSharedSide_I) {
+    return this.groupUserSharedSideRepository
+      .createQueryBuilder('relationship')
+      .where('id =:id', { id })
+      .update()
+      .set(update)
+      .returning('*')
+      .execute()
   }
 }
