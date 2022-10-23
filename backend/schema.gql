@@ -280,7 +280,7 @@ type Mutation {
   updateMySide(mySideUpdate: UpdateSide_I!): UserSide!
   updateOwnedGroup: GroupEntity!
   updatePost(updatePostInput: UpdatePostInput!): PostEntity!
-  updateSharedSide(updateSharedSide: UpdateRelationShip_SH!): UpdateGroupUserSharedSide_O!
+  updateSharedSide(sharedSideUpdate: UpdateSharedSide_I!): UserSide!
   updateUserInfo(updateUserInfoInput: UpdateUserInfoInput!): UserInfoEntity!
   updateUserPrivateSide(updateUserPrivateSide: UpdateRelationShip_U!): UpdatePrivateUserSide_O!
   updateUserSide(UpdateRelationShip_U: UpdateRelationShip_U!): UpdateUserSide_O!
@@ -311,9 +311,10 @@ type Query {
   findAllRequestsToGroup: [GroupUserRequest!]!
   findAllRequestsToMe: FindAndCountRequests_O!
   findAllRequestsToUser(groupId: Float!): [GroupUserRequest!]!
-  findOne(groupId: Float!): GroupEntity!
+  findOne(searchAllCommentForPost: SearchCommentForPost_I!): CommentForPostEntity!
   findOneFriend(friendId: Float!): SanitizedUser!
   findOneMyRequest(accepter_id: Float!): FriendRequest!
+  findOneOwnedGroup(groupId: Float!): GroupEntity!
   findOnePost(findPost: FindPostInput!): PostEntity!
   findOneRelationshipWithGroup(groupId: Float!): Group_User_Relation!
   findOneRelationshipWithUser(FindRelationShip_G: FindRelationShip_G!): Group_User_Relation!
@@ -407,15 +408,14 @@ input UpdateRelationShip_G {
   userId: Float!
 }
 
-input UpdateRelationShip_SH {
-  groupId: Float!
-  update: updateT!
-  userId: Float!
-}
-
 input UpdateRelationShip_U {
   groupId: Float!
   update: updateT!
+}
+
+input UpdateSharedSide_I {
+  sideId: Float!
+  update_input: UpdateUserSide!
 }
 
 input UpdateSide_I {

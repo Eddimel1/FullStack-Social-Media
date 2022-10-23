@@ -1,4 +1,10 @@
+import { UseGuards } from '@nestjs/common'
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql'
+import {
+  Group_Roles,
+  RolesGroupDec,
+} from 'src/modules/groups/decorators/group-roles.decorator'
+import { Group_Roles_Guard } from 'src/modules/groups/guards/group-roles-guard'
 import { CreateGroupInput } from '../dto/input'
 import { GroupEntity } from '../entities/group.entity'
 import { GroupsService } from '../services/groups.service'
@@ -15,7 +21,8 @@ export class GroupsResolver {
     const userId = context.req.user.id
     return this.groupsService.create(createGroupInput, userId)
   }
-
+  @RolesGroupDec(Group_Roles.CREATOR)
+  @UseGuards(Group_Roles_Guard)
   @Query(() => [GroupEntity])
   findAllOwnedGroups(@Context() context) {
     const userId = context.req.user.id
@@ -23,9 +30,9 @@ export class GroupsResolver {
   }
 
   @Query(() => GroupEntity)
-  findOne(@Args('groupId') groupId: number, @Context() context) {
+  findOneOwnedGroup(@Args('groupId') groupId: number, @Context() context) {
     const userId = context.req.user.id
-    return this.groupsService.findOneOwnedGroup(groupId, userId)
+    return this.groupsService.findOneOwnedGroup(userId, groupId)
   }
 
   @Mutation(() => GroupEntity)

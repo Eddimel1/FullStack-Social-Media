@@ -38,6 +38,6 @@ import { GroupUserSharedSide } from '../shared-side/entities/shared-side.entity'
     GroupSidePrivateService,
     GroupUserSharedSideService,
   ],
-  exports: [],
+  exports: [GroupUserRelationshipService],
 })
 export class GroupUserRelationshipModule {}
