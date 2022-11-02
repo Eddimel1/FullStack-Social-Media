@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql'
+import { InputType, Field } from '@nestjs/graphql'
 
 @InputType()
 export class CreateGroupInput {
@@ -7,6 +7,9 @@ export class CreateGroupInput {
 
   @Field()
   slogan: string
+
+  @Field()
+  category: string
 }
 
 @InputType()

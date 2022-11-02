@@ -1,3 +1,6 @@
+import { U_Cover_EN } from 'src/modules/rest-files/entities/users/avatar-and-cover/user-cover.entity';
+import { Galery_Audio_U } from './../../rest-files/entities/users/galery-entities/audio.entity';
+import { Galery_Video_U } from 'src/modules/rest-files/entities/users/galery-entities/video.entity';
 import { ChatEntity } from './../../chat/entities/chat.entity'
 import {
   Column,
@@ -8,14 +11,15 @@ import {
   OneToOne,
 } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { VideoEntity } from '../../rest-files/entities/galery-entities/video.entity'
-import { AudioEntity } from '../../rest-files/entities/galery-entities/audio.entity'
-import { ImageEntity } from '../../rest-files/entities/galery-entities/image.entity'
-import { PostEntity } from 'src/modules/post/entities/post.entity'
+
+
 import { UserInfoEntity } from 'src/modules/user-info/entities/user-info.entity'
 
 import { BasicEntity } from 'src/BaseEntities/most-base-entities/base.entity'
 import { GroupEntity } from 'src/modules/groups/modules/groups/entities/group.entity'
+import { U_Avatar_EN } from 'src/modules/rest-files/entities/users/avatar-and-cover/user-avatar.entity';
+import { PostEntity_U } from 'src/modules/posts-for-user/entities/post.entity';
+
 
 
 @ObjectType()
@@ -40,22 +44,29 @@ export class UserEntity extends BasicEntity {
   @OneToMany(() => ChatEntity, (chat) => chat.owner)
   chats: ChatEntity
 
-  @Field(() => [VideoEntity])
-  @OneToMany(() => VideoEntity, (video) => video.owner)
-  videos: VideoEntity[]
+  @Field(() => [Galery_Video_U])
+  @OneToMany(() => Galery_Video_U, (video) => video.owner)
+  videos: Galery_Video_U[]
 
-  @Field(() => [AudioEntity])
-  @OneToMany(() => AudioEntity, (audio) => audio.owner)
-  audio: AudioEntity[]
+  @Field(() => [Galery_Audio_U])
+  @OneToMany(() => Galery_Audio_U, (audio) => audio.owner)
+  audio: Galery_Audio_U[]
 
-  @Field(() => [ImageEntity])
-  @OneToMany(() => ImageEntity, (image) => image.owner)
-  images: ImageEntity[]
+  @Field(() => [Galery_Audio_U])
+  @OneToMany(() => Galery_Audio_U, (image) => image.owner)
+  images: Galery_Audio_U[]
 
-  @Field(() => [PostEntity])
-  @OneToMany(() => PostEntity, (post) => post.owner)
-  posts: PostEntity[]
+  @Field(() => U_Avatar_EN)
+  @OneToOne(() => U_Avatar_EN, (avatar) => avatar.owner)
+  avatar: U_Avatar_EN
 
+  @Field(() => U_Cover_EN)
+  @OneToOne(() => U_Cover_EN, (cover) => cover.owner)
+  cover: U_Cover_EN
+
+  @Field(() => [PostEntity_U])
+  @OneToMany(() => PostEntity_U, (post) => post.owner)
+  posts: PostEntity_U[]
 
   @Field(() => [GroupEntity])
   @OneToMany(() => GroupEntity, (group) => group.ownerId)
@@ -91,22 +102,29 @@ export class SanitizedUser extends BasicEntity {
   @OneToMany(() => ChatEntity, (chat) => chat.owner)
   chats: ChatEntity
 
-  @Field(() => [VideoEntity])
-  @OneToMany(() => VideoEntity, (video) => video.owner)
-  videos: VideoEntity[]
+  @Field(() => [Galery_Video_U])
+  @OneToMany(() => Galery_Video_U, (video) => video.owner)
+  videos: Galery_Video_U[]
 
-  @Field(() => [AudioEntity])
-  @OneToMany(() => AudioEntity, (audio) => audio.owner)
-  audio: AudioEntity[]
+  @Field(() => [Galery_Audio_U])
+  @OneToMany(() => Galery_Audio_U, (audio) => audio.owner)
+  audio: Galery_Audio_U[]
 
-  @Field(() => [ImageEntity])
-  @OneToMany(() => ImageEntity, (image) => image.owner)
-  images: ImageEntity[]
+  @Field(() => [Galery_Audio_U])
+  @OneToMany(() => Galery_Audio_U, (image) => image.owner)
+  images: Galery_Audio_U[]
 
-  @Field(() => [PostEntity])
-  @OneToMany(() => PostEntity, (post) => post.owner)
-  posts: PostEntity[]
+  @Field(() => U_Avatar_EN)
+  @OneToOne(() => U_Avatar_EN, (avatar) => avatar.owner)
+  avatar: U_Avatar_EN
 
+  @Field(() => U_Cover_EN)
+  @OneToOne(() => U_Cover_EN, (cover) => cover.owner)
+  cover: U_Cover_EN
+
+  @Field(() => [PostEntity_U])
+  @OneToMany(() => PostEntity_U, (post) => post.owner)
+  posts: PostEntity_U[]
 
   @Field(() => [GroupEntity])
   @OneToMany(() => GroupEntity, (group) => group.ownerId)

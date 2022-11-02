@@ -1,8 +1,8 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { GroupInfoService } from '../services/group-info.service'
 import { GroupInfo } from '../entities/group-info.entity'
-import { CreateGroupInfoInput, UpdateGroupInfoInput } from '../dto/input.dto'
-
+import { CreateGroupInfo_I, UpdateGroupInfo_I } from '../dto/input.dto'
+import { Delete_Message_WO_Owner } from 'src/sharedDtos/output.dto'
 
 @Resolver(() => GroupInfo)
 export class GroupInfoResolver {
@@ -10,33 +10,26 @@ export class GroupInfoResolver {
 
   @Mutation(() => GroupInfo)
   createGroupInfo(
-    @Args('createGroupInfoInput') createGroupInfoInput: CreateGroupInfoInput,
+    @Args('createGroupInfoInput') createGroupInfoInput: CreateGroupInfo_I,
   ) {
     return this.groupInfoService.create(createGroupInfoInput)
   }
 
-  @Query(() => [GroupInfo], { name: 'groupInfo' })
-  findAll() {
-    return this.groupInfoService.findAll()
-  }
-
-  @Query(() => GroupInfo, { name: 'groupInfo' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.groupInfoService.findOne(id)
+  @Query(() => GroupInfo)
+  findOneGroupInfo(@Args('id') id: number) {
+    return this.groupInfoService.findOne(id, 'group-info')
   }
 
   @Mutation(() => GroupInfo)
   updateGroupInfo(
-    @Args('updateGroupInfoInput') updateGroupInfoInput: UpdateGroupInfoInput,
+    @Args('updateGroupInfoInput') updateGroupInfoInput: UpdateGroupInfo_I,
   ) {
-    return this.groupInfoService.update(
-      updateGroupInfoInput.id,
-      updateGroupInfoInput,
-    )
+    const { groupId, ...update } = updateGroupInfoInput
+    return this.groupInfoService.updateOne(groupId, update, 'group-info')
   }
 
-  @Mutation(() => GroupInfo)
-  removeGroupInfo(@Args('id', { type: () => Int }) id: number) {
-    return this.groupInfoService.remove(id)
+  @Mutation(() => Delete_Message_WO_Owner)
+  removeGroupInfo(@Args('id') id: number) {
+    return this.groupInfoService.removeOne(id, 'group-info')
   }
 }

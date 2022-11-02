@@ -10,17 +10,10 @@ import { MessageEntity } from './entities/message.entity'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ChatResolver } from './resolvers/chat.resolver'
 import { RestFilesModule } from '../rest-files/rest-files.module'
-import { ImageEntity } from '../rest-files/entities/galery-entities/image.entity'
-import { ImageService } from '../rest-files/services/GaleryServices/image.service'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      ChatEntity,
-      MessageEntity,
-      UserEntity,
-      ImageEntity,
-    ]),
+    TypeOrmModule.forFeature([ChatEntity, MessageEntity, UserEntity]),
     UserModule,
     RestFilesModule,
   ],
@@ -29,7 +22,7 @@ import { ImageService } from '../rest-files/services/GaleryServices/image.servic
     ChatResolver,
     MessageService,
     UserService,
-    ImageService,
+
     ChatService,
   ],
   exports: [MessageService, ChatService],

@@ -1,7 +1,9 @@
 export enum FOLDERS {
   IMAGES = 'images',
   VIDEOS = 'videos',
-  AUDIO = 'audios',
+  AUDIOS = 'audios',
+  AVATAR = 'avatar',
+  COVER = 'cover',
   POST_IMAGE = 'post_image',
   POST_VIDEO = 'post_video',
   POST_AUDIO = 'post_audio',
@@ -16,7 +18,9 @@ export enum FOLDERS {
   IMAGE_F_COMMENT_F_VIDEO = 'image_f_comment_f_video',
 }
 
-export type GaleryFolderT = FOLDERS.IMAGES | FOLDERS.VIDEOS | FOLDERS.AUDIO
+export type AvatarOrCover = FOLDERS.AVATAR | FOLDERS.COVER
+
+export type GaleryFolderT = FOLDERS.IMAGES | FOLDERS.VIDEOS | FOLDERS.AUDIOS
 export type PostFolderT =
   | FOLDERS.POST_IMAGE
   | FOLDERS.POST_VIDEO

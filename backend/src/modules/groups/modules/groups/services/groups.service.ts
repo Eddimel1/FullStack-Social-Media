@@ -1,4 +1,4 @@
-import { Injectable, UseGuards } from '@nestjs/common'
+import { Injectable} from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DEFAULT_PORTION } from 'src/constants/db.constants'
 import { Repository } from 'typeorm'
@@ -16,6 +16,7 @@ export class GroupsService {
     group.ownerId = userId
     group.slogan = createGroupInput.slogan
     group.name = createGroupInput.name
+    group.category = createGroupInput.category
     return this.groupsRepository.save(group)
   }
 
