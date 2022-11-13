@@ -4,7 +4,7 @@ import {
   GROUP_RELATIONS_W_USER_ARRAY,
   USER_RELATIONS_W_GROUP,
   USER_RELATIONS_W_GROUP_ARRAY,
-} from 'src/constants/db.constants'
+} from 'src/global/constants/db.constants'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -16,9 +16,12 @@ import { GroupSideService } from '../../sides/group-side/services/group-side.ser
 import { UserSidePrivateService } from '../../sides/user-side-private/services/user-side-private.service'
 import { UserSideService } from '../../sides/user-side/services/user-side.service'
 import { Group_User_Relation } from '../entities/group-user-relationship.entity'
-import { _loadAllRelationships } from 'src/SharedUtils.ts/queryBuilder/queryBuilder.utility'
-import { WasNotCreated_EX, WasNotFound_EX } from 'src/exceptions/db-exceptions'
+import {
+  WasNotCreated_EX,
+  WasNotFound_EX,
+} from 'src/global/exceptions/db-exceptions'
 import { isSuccess_G } from '../dto/output.dto'
+import { _loadAllRelationships } from 'src/global/globalUtils/queryBuilder/queryBuilder.utility'
 
 @Injectable()
 export class GroupUserRelationshipService {
@@ -75,10 +78,14 @@ export class GroupUserRelationshipService {
       else throw new WasNotFound_EX('group relationship with user')
     }
   }
-  async createRelationship(userId: number, groupId: number) {
+  async createRelationship(
+    userId: number,
+    groupId: number,
+    withOwner?: boolean,
+  ) {
     const created_entities = await Promise.all([
       this.userSideService.create(),
-      this.groupSideService.create(),
+      this.groupSideService.create(withOwner),
       this.userSidePrivateService.create(),
       this.groupSidePrivateService.create(),
       this.groupUserSharedSideService.create(),
@@ -93,7 +100,6 @@ export class GroupUserRelationshipService {
     new_relationship.shared_side = created_entities[4]
     const updated_relationship =
       await this.group_user_relationship_repository.save(new_relationship)
-
     if (updated_relationship) return updated_relationship
     else throw new WasNotCreated_EX('group relationship with user')
   }
@@ -172,6 +178,7 @@ export class GroupUserRelationshipService {
     groupId: number,
     relation: USER_RELATIONS_W_GROUP,
   ) {
+    console.log('GROUPID : ', groupId)
     const relationship = (await this._loadRelationships(
       userId,
       groupId,

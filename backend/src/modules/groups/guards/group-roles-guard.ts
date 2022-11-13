@@ -1,7 +1,8 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { USER_RELATIONS_W_GROUP } from 'src/constants/db.constants'
+import { USER_RELATIONS_W_GROUP } from 'src/global/constants/db.constants'
+import { propSeeker } from 'src/global/globalUtils/Seekers/seekers'
 import {
   Group_Roles,
   GROUP_ROLES_KEY,
@@ -27,14 +28,16 @@ export class Group_Roles_Guard implements CanActivate {
       return true
     }
     const user_id = ctx.getContext().req.user.id
-    const group_id = ctx.getArgs().groupId
+    const args = ctx.getArgs()
+    const groupId = propSeeker(args, 'groupId')
     const relationship =
       await this.groupUserRelationshipService.findOneRelationshipWithGroup(
         user_id,
-        group_id,
+        groupId,
         USER_RELATIONS_W_GROUP.GROUP_SIDE,
       )
     const group_role = relationship.group_side.role
+    console.log('GROUP_ROLE : ', group_role, 'ROLES : ', requiredRoles)
     if (requiredRoles.some((role) => role === group_role)) {
       return true
     } else return false

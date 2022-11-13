@@ -13,7 +13,7 @@ export default function Login() {
     const {createUserMutation,data1} = CreateUserMutation()
     const {updatePostMutation,data2} = UpdatePostMutation()
     const login = (e)  => {
-        loginMutation({variables:{user:{password:'some',username:'some'}}})
+        loginMutation({variables:{user:{password:'some1',username:'some1'}}})
     }
    const fileUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     

@@ -1,4 +1,3 @@
-import { UserEntity } from '../../user/entities/user.entity'
 import {
   Column,
   CreateDateColumn,
@@ -11,6 +10,7 @@ import {
 } from 'typeorm'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { MessageEntity } from './message.entity'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
 @Entity('chats')

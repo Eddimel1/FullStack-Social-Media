@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config'
 import { Galery_Audio_Service_G } from 'src/modules/rest-files/services/for-groups/GaleryServices/audio.service'
 import { Galery_Image_Service_G } from 'src/modules/rest-files/services/for-groups/GaleryServices/image.service'
 import { Galery_Video_Service_G } from 'src/modules/rest-files/services/for-groups/GaleryServices/video.service'
-import { Base_Upload_Remove_Service } from 'src/generic-services/base-upload.service'
+import { Base_Upload_Remove_Service } from 'src/generics/generic-services/base-upload.service'
 import {
   PostFoldersT_G,
   GaleryFoldersT_G,
@@ -99,4 +99,3 @@ export class ForGaleryService_G extends Base_Upload_Remove_Service<
     }
   }
 }
-

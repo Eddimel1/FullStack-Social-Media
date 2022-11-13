@@ -1,8 +1,8 @@
 import { pathExists, remove } from 'fs-extra'
 import * as path from 'path'
-
 import { Injectable } from '@nestjs/common'
-import { UserService } from 'src/modules/user/services/user.service'
+import { UserService } from 'src/modules/users/services/user.service'
+
 
 const storageP = '../../../../storage'
 @Injectable()

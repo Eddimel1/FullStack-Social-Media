@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseVideoEntity } from '../../../../../BaseEntities/file-entities/videoBase'
-import { PostEntity_G } from 'src/modules/posts-for-group/entities/posts-for-group.entity'
+import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
+import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 
 @ObjectType()
 @Entity('audio_f_post_g')

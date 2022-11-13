@@ -3,7 +3,6 @@ import {
   Delete,
   Param,
   Post,
-  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -35,6 +34,7 @@ export class PostFilesController_U {
       'users',
       userId,
       ownerId,
+      ownerId ? null : userId,
     )
     return image
   }
@@ -47,7 +47,6 @@ export class PostFilesController_U {
   ) {
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
-    console.log(file_name, folder)
     const isDeleted = await this.forPostService.removeFile(
       file_name,
       folder,

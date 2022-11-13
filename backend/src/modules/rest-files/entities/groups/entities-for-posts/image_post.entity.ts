@@ -1,8 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseImageEntity } from 'src/BaseEntities/file-entities/imageBase'
-import { PostEntity_G } from 'src/modules/posts-for-group/entities/posts-for-group.entity'
-
+import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBase'
+import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
 
 @ObjectType()
 @Entity('image_f_post_g')

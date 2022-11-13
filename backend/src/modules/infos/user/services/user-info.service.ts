@@ -1,0 +1,37 @@
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { CreateUserInfoInput, UpdateUserInfoInput } from '../dto/input.dto'
+import { UserInfoEntity } from '../entities/user-info.entity'
+
+@Injectable()
+export class UserInfoService {
+  constructor(
+    @InjectRepository(UserInfoEntity)
+    private readonly userInfoRepository: Repository<UserInfoEntity>,
+  ) {}
+  async create(createUserInfoInput: CreateUserInfoInput & { ownerId: number }) {
+    const userInfo = new UserInfoEntity()
+    userInfo.country = createUserInfoInput.country
+    userInfo.first_name = createUserInfoInput.first_name
+    userInfo.last_name = createUserInfoInput.last_name
+    userInfo.ownerId = createUserInfoInput.ownerId
+
+    return await this.userInfoRepository.save(userInfo)
+  }
+
+  async findOne(id: number) {
+    return this.userInfoRepository.findOne({ where: { ownerId: id } })
+  }
+
+  async update(id: number, updateUserInfoInput: UpdateUserInfoInput) {
+    await this.userInfoRepository
+      .createQueryBuilder('info')
+      .where('ownerId = :id', { id })
+      .update()
+      .set(updateUserInfoInput)
+      .execute()
+    const updated_info = await this.findOne(id)
+    return updated_info
+  }
+}

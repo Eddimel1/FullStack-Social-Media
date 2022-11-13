@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { UserEntity } from '../../../../user/entities/user.entity'
-import { BaseImageEntity } from 'src/BaseEntities/file-entities/imageBase'
-import { CommentForPhotoEntity_U } from 'src/modules/comments-for-user/entities/comment-for-photo.entity'
+import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBase'
+import { CommentForPhotoEntity_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
 @Entity('galery_images_u')
@@ -22,6 +22,5 @@ export class Galery_Image_U extends BaseImageEntity {
       onDelete: 'CASCADE',
     },
   )
-  @JoinColumn()
   comments: CommentForPhotoEntity_U[]
 }

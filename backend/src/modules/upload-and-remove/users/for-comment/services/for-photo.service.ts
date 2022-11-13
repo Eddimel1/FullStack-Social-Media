@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Base_Upload_Remove_Service } from 'src/generic-services/base-upload.service'
+import { Base_Upload_Remove_Service } from 'src/generics/generic-services/base-upload.service'
 import { Audio_F_Comment_F_Photo_Service_U } from 'src/modules/rest-files/services/for-users/CommentServices/for-photo-services/audio.service'
 import { Image_F_Comment_F_Photo_Service_U } from 'src/modules/rest-files/services/for-users/CommentServices/for-photo-services/image.service'
 import { Video_F_Comment_F_Photo_Service_U } from 'src/modules/rest-files/services/for-users/CommentServices/for-photo-services/video.service'
@@ -29,6 +29,8 @@ export class CommentForPhotoService_U extends Base_Upload_Remove_Service<
     folder: string,
     file_name: string,
     url: string,
+    parent_of_owner_id?: number,
+    userId?: number,
   ) {
     console.log('FOLDER : ', folder)
     const relation = folder as Comment_F_Photo_U
@@ -39,6 +41,8 @@ export class CommentForPhotoService_U extends Base_Upload_Remove_Service<
           url,
           file_name,
           'image_f_comment_f_photo_u',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'video_f_comment_f_photo_u': {
@@ -47,6 +51,8 @@ export class CommentForPhotoService_U extends Base_Upload_Remove_Service<
           url,
           file_name,
           'video_f_comment_f_photo_u',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'audio_f_comment_f_photo_u': {
@@ -55,6 +61,8 @@ export class CommentForPhotoService_U extends Base_Upload_Remove_Service<
           url,
           file_name,
           'audio_f_comment_f_photo_u',
+          parent_of_owner_id,
+          userId,
         )
       }
 
@@ -96,104 +104,3 @@ export class CommentForPhotoService_U extends Base_Upload_Remove_Service<
     }
   }
 }
-
-// const storageP = '../../../../storage'
-// @Injectable()
-// export class CommentForPhotoService_U {
-//   constructor(
-//     private readonly imageCommentService: Image_F_Comment_F_Photo_Service_U,
-//     private readonly videoCommentService: Video_F_Comment_F_Photo_Service_U,
-//     private readonly audioCommentService: Audio_F_Comment_F_Photo_Service_U,
-//     private readonly configService: ConfigService,
-//   ) {}
-//   async uploadFile(
-//     file: Express.Multer.File,
-//     folder: FOR_PHOTO_T,
-//     id: number,
-//   ): Promise<
-//     | Audio_F_Comment_F_Photo_U
-//     | Video_F_Comment_F_Photo_U
-//     | Image_F_Comment_F_Photo_U
-//   > {
-//     const path1 = path.join(__dirname, `${storageP}/${id}`)
-//     const path2 = path.join(__dirname, `${storageP}/${id}/${folder}`)
-//     const fileName = file.originalname
-
-//     await ensureDir(path1, (err) => console.log(err))
-//     await ensureDir(path2, (err) => console.log(err))
-
-//     const filePath = `${id}/${folder}/${fileName}`
-//     await writeFile(`storage/${id}/${folder}/${fileName}`, file.buffer)
-
-//     const url = `${this.configService.get('BASE_URL')}/${filePath}`
-
-//     return await this.invokeAppropriateServiceU(id, folder, fileName, url)
-//   }
-
-//   async removeFile(id: number, folder: string, file_name: string) {
-//     const _path = path.join(
-//       __dirname,
-//       `${storageP}/${id}/${folder}/${file_name}`,
-//     )
-//     const exists = await pathExists(_path)
-//     if (exists) {
-//       remove(_path, (err) => console.log('was not removed'))
-//       this.invokeAppropriateServiceD(id, folder, file_name)
-//     }
-
-//     return exists
-//   }
-
-//   async invokeAppropriateServiceU(
-//     id: number,
-//     folder: string,
-//     file_name: string,
-//     url: string,
-//   ) {
-//     const relation = folder as FOR_PHOTO_T
-//     switch (relation) {
-//       case 'image_f_comment_f_photo': {
-//         return await this.imageCommentService.insertImage(id, url, file_name)
-//       }
-//       case 'video_f_comment_f_photo': {
-//         return await this.videoCommentService.insertVideo(id, url, file_name)
-//       }
-//       case 'audio_f_comment_f_photo': {
-//         return await this.audioCommentService.insertAudio(id, url, file_name)
-//       }
-
-//       default:
-//         throw new Error('was provided no existing relation')
-//     }
-//   }
-//   async invokeAppropriateServiceD(
-//     id: number,
-//     folder: string,
-//     file_name: string,
-//   ) {
-//     const relation = folder as FOR_PHOTO_T
-//     switch (relation) {
-//       case 'image_f_comment_f_photo': {
-//         return await this.imageCommentService.deleteImageByOwnerId(
-//           id,
-//           file_name,
-//         )
-//       }
-//       case 'video_f_comment_f_photo': {
-//         return await this.videoCommentService.deleteVideoByOwnerId(
-//           id,
-//           file_name,
-//         )
-//       }
-//       case 'audio_f_comment_f_photo': {
-//         return await this.audioCommentService.deleteAudioByOwnerId(
-//           id,
-//           file_name,
-//         )
-//       }
-
-//       default:
-//         throw new Error('was provided no existing relation')
-//     }
-//   }
-// }

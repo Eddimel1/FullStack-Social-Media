@@ -1,7 +1,5 @@
 import { GraphQLExecutionContext } from '@nestjs/graphql'
-
 import { Injectable, UnauthorizedException } from '@nestjs/common'
-import { UserService } from '../user/services/user.service'
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
 import { ConfigService } from '@nestjs/config'
@@ -16,9 +14,10 @@ import {
   REFRESH_TOKEN_EXPIRATION_TIME,
   RT_SECRET,
   TOKEN_VERSION,
-} from 'src/constants/auth.constants'
+} from 'src/global/constants/auth.constants'
 import { LoginUserInput } from './dto/input.dto'
 import { roles, tokens, JwtPayLoad } from './types/types'
+import { UserService } from '../users/services/user.service'
 
 @Injectable()
 export class AuthService {

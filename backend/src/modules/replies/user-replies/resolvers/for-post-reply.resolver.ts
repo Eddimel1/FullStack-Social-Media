@@ -1,58 +1,50 @@
+import { Resolver, Mutation, Args, Query, Context } from '@nestjs/graphql'
 
-import { Resolver, Mutation, Args, Query } from '@nestjs/graphql'
-import { SearchReplyForPost_I_G } from '../../group-replies/dto/comment-for-post/input.dto'
-import {
-  CreateReplyForPost_I_U,
-  UpdateReplyForPost_I_U,
-  SearchReplyForPost_I_U,
-} from '../dto/comment-for-post/input.dto'
+import { CreateReply, UpdateReply } from '../../shared/dto/input.dto'
+import { isSuccess_Reply } from '../../shared/dto/output.dto'
+import { find_all_F_Post_U } from '../dto/comment-for-post/output.dto'
+
 import { ReplyForPostEntity_U } from '../entities/reply-f-post.entity'
 import { ReplyForPostService_DB_U } from '../services/reply-f-post.service'
 
-@Resolver(() => ReplyForPostEntity_U)
+@Resolver()
 export class Reply_F_Post_Resolver_U {
-  constructor(private readonly replyForPostService: ReplyForPostService_DB_U) {}
-
+  constructor(
+    private readonly replyForPostService_DB_U: ReplyForPostService_DB_U,
+  ) {}
   @Mutation(() => ReplyForPostEntity_U)
-  createCommentForPostEntity_U(
-    @Args('createReplyInput') createReplyInput: CreateReplyForPost_I_U,
+  createReplyForPostEntity_U(
+    @Args('CreateReply')
+    createReply: CreateReply,
+    @Context() context,
   ) {
-    return this.replyForPostService.create(createReplyInput)
+    const userId = context.req.user.id
+    return this.replyForPostService_DB_U.create(createReply, userId)
   }
 
-  @Query(() => [ReplyForPostEntity_U])
-  async findAllRepliesForPostEntity_U(@Args('commentId') commentId: number) {
-    return await this.replyForPostService.findAll(commentId, 'replies')
+
+  @Query(() => find_all_F_Post_U)
+  findAll_A_Count_RepliesForPostEntity_U(@Args('id') id: number) {
+    return this.replyForPostService_DB_U.findAll_A_Count(
+      id,
+      ReplyForPostEntity_U,
+    )
+  }
+  @Query(() => ReplyForPostEntity_U)
+  findDescendantsTree_F_Post_U(@Args('id') id: number) {
+    return this.replyForPostService_DB_U.findDescendantsTree(id)
   }
 
   @Query(() => ReplyForPostEntity_U)
-  findOneReplyForPostEntity_G(
-    @Args('searchAllCommentForVideo')
-    searchAllRepliesForPhoto: SearchReplyForPost_I_G,
-  ) {
-    const { replyId, commentId } = searchAllRepliesForPhoto
-    return this.replyForPostService.findOne(replyId, commentId, 'reply')
+  findAncestorsTree_F_Post_U(@Args('id') id: number) {
+    return this.replyForPostService_DB_U.findAncestorsTree(id)
   }
-
   @Mutation(() => ReplyForPostEntity_U)
-  updateReplyForPostEntity_U(
-    @Args('updateCommentInput') updateReplyInput: UpdateReplyForPost_I_U,
-  ) {
-    const { commentId, replyId, ...update } = updateReplyInput
-    return this.replyForPostService.updateOne(
-      replyId,
-      commentId,
-      update,
-      'reply',
-    )
+  updateOneReplyForPost_U(@Args('updateReply') updateReply: UpdateReply) {
+    return this.replyForPostService_DB_U.updateOne(updateReply)
   }
-
-  @Mutation(() => ReplyForPostEntity_U)
-  removeReplyForPostEntity_U(
-    @Args('searchAllReplyForPost')
-    searchAllReplyForPost: SearchReplyForPost_I_U,
-  ) {
-    const { replyId, commentId } = searchAllReplyForPost
-    return this.replyForPostService.removeOne(replyId, commentId, 'reply')
+  @Mutation(() => isSuccess_Reply)
+  deleteReplyForPost_U(@Args('id') id: number) {
+    return this.replyForPostService_DB_U.deleteOne(id)
   }
 }

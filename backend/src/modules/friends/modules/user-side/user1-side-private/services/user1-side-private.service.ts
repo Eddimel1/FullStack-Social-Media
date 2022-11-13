@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { UpdateUserSide, UpdateUsersPrivateSide } from '../../shared/dto/input.dto'
+import {
+  UpdateUserSide,
+  UpdateUsersPrivateSide,
+} from '../../shared/dto/input.dto'
 import { User1SidePrivate } from '../entities/user1-side-private.entity'
-
 
 @Injectable()
 export class User1SidePrivateService {

@@ -1,10 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-
-import { BaseVideoEntity } from '../../../../../BaseEntities/file-entities/videoBase'
-
 import { GroupEntity } from 'src/modules/groups/modules/groups/entities/group.entity'
-import { CommentForVideoEntity_G } from 'src/modules/comments-for-group/entities/comment-for-video_g.entity'
+import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
+import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 
 @ObjectType()
 @Entity('galery_videos_g')

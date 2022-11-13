@@ -29,12 +29,15 @@ export class Comment_F_Photo_Controller_U {
   ) {
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
+    const parentOfOwnerId = context.req.body.parentOfOwnerId
     const image = await this.forCommentService.uploadFile(
       file,
       folder,
       'users',
       userId,
       ownerId,
+      parentOfOwnerId,
+      userId
     )
     return image
   }

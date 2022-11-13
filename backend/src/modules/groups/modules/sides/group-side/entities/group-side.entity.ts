@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql'
-import { group_roles } from 'src/GlobalTypes/user.types'
+import { group_roles } from 'src/global/GlobalTypes/user.types'
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Group_User_Relation } from '../../../group-user-relationship/entities/group-user-relationship.entity'
 
@@ -10,7 +10,6 @@ export class GroupSide {
   @PrimaryGeneratedColumn()
   id: number
 
-
   @Column({ default: 'participant' })
   @Field({ defaultValue: 'participant' })
   role: group_roles
@@ -19,13 +18,13 @@ export class GroupSide {
   @Field({ defaultValue: false })
   blocked: boolean
 
-  @Column({ default: 0})
+  @Column({ default: 0 })
   @Field({ defaultValue: 0 })
   warnings: number
 
-//warnings
-//reason
-//user-activity
+  //warnings
+  //reason
+  //user-activity
 
   @Field(() => Group_User_Relation)
   @OneToOne(() => Group_User_Relation, (relation) => relation.group_side, {

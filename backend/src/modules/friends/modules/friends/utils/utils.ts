@@ -1,7 +1,7 @@
-import { SanitizedUserT } from 'src/GlobalTypes/user.types'
-import { UserEntity } from 'src/modules/user/entities/user.entity'
-import { sanitizeUser } from 'src/SharedUtils.ts/sanitizers/user.sanitizer'
-import { fromFindAndCount } from 'src/SharedUtils.ts/transforms/transforms'
+import { SanitizedUserT } from 'src/global/GlobalTypes/user.types'
+import { sanitizeUser } from 'src/global/globalUtils/sanitizers/user.sanitizer'
+import { fromFindAndCount } from 'src/global/globalUtils/transforms/transforms'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 import { FindAndCountFriends_O } from '../dto/output.dto'
 import { FriendShip } from '../entities/friendship.entity'
 

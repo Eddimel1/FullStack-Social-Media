@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
 
-import { BaseAudioEntity } from 'src/BaseEntities/file-entities/baseAudio'
+import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudio'
 import { ReplyForPhotoEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-photo.entity'
 
 @ObjectType()

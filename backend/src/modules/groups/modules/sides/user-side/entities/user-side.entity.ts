@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql'
-import { rating } from 'src/GlobalTypes/db.types'
+import { rating } from 'src/global/GlobalTypes/db.types'
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Group_User_Relation } from '../../../group-user-relationship/entities/group-user-relationship.entity'
 

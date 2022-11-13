@@ -1,32 +1,51 @@
-import { ObjectType, Field } from '@nestjs/graphql'
-import { BaseCommentEntity } from 'src/BaseEntities/comment-entities/baseComment'
-import { CommentForVideoEntity_G } from 'src/modules/comments-for-group/entities/comment-for-video_g.entity'
+import { Field, ObjectType } from '@nestjs/graphql'
+import { BaseCommentEntity } from 'src/typeOrm/baseEntities/comment-entities/baseComment'
+import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
 import { Audio_F_Reply_F_Video_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/audio-f-video.entity'
-import { Image_F_Reply_F_Photo_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/image-f-reply-f.entity'
 import { Image_F_Reply_F_Video_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/image-f-video.entity'
-import { Video_F_Reply_F_Photo_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/video-f-photo.entity'
 import { Video_F_Reply_F_Video_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/video-f-video.entity'
 import {
-  Entity,
+  PrimaryGeneratedColumn,
   Column,
   ManyToOne,
   JoinColumn,
   OneToOne,
-  OneToMany,
+  TreeChildren,
+  TreeParent,
+  Entity,
+  Tree,
 } from 'typeorm'
-import { ReplyOForVideoEntity_G } from '../../group-reply-on-reply/entities/replyo-f-video.entity'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
-@Entity('replies_f_galery_video_g')
+@Entity()
+@Tree('closure-table', {
+  closureTableName: 'replies_f_video_g',
+  ancestorColumnName: (column) => 'ancestor_' + column.propertyName,
+  descendantColumnName: (column) => 'descendant_' + column.propertyName,
+})
 export class ReplyForVideoEntity_G extends BaseCommentEntity {
-  @Column()
+  @Field()
+  @PrimaryGeneratedColumn()
+  id: number
+
+  @Column({ nullable: true })
   ownerId: number
-  @Field(() => CommentForVideoEntity_G)
+  @Field(() => CommentForVideoEntity_G, { nullable: true })
   @ManyToOne(() => CommentForVideoEntity_G, (photo) => photo.replies, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
   comment: CommentForVideoEntity_G
+
+  @Column()
+  userId: number
+  @Field(() => UserEntity)
+  @ManyToOne(() => UserEntity, (reply) => reply.replyForVideoEntity_G, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'userId' })
+  user: UserEntity
 
   @Field(() => Audio_F_Reply_F_Video_G)
   @OneToOne(() => Audio_F_Reply_F_Video_G, (audio) => audio.reply, {
@@ -42,17 +61,19 @@ export class ReplyForVideoEntity_G extends BaseCommentEntity {
   @OneToOne(() => Image_F_Reply_F_Video_G, (image) => image.reply, {
     onDelete: 'CASCADE',
   })
-  image: Image_F_Reply_F_Photo_G
+  image: Image_F_Reply_F_Video_G
 
-  @Field(() => Video_F_Reply_F_Photo_G)
-  @OneToOne(() => Video_F_Reply_F_Photo_G, (video) => video.reply, {
+  @Field(() => Video_F_Reply_F_Video_G)
+  @OneToOne(() => Video_F_Reply_F_Video_G, (video) => video.reply, {
     onDelete: 'CASCADE',
   })
   video: Video_F_Reply_F_Video_G
 
-  @Field(() => [ReplyOForVideoEntity_G])
-  @OneToMany(() => ReplyOForVideoEntity_G, (photo) => photo.reply, {
-    onDelete: 'CASCADE',
-  })
-  repliesO: ReplyOForVideoEntity_G[]
+  @Field(() => [ReplyForVideoEntity_G])
+  @TreeChildren({ cascade: true })
+  children: ReplyForVideoEntity_G[]
+
+  @Field(() => ReplyForVideoEntity_G)
+  @TreeParent({ onDelete: 'CASCADE' })
+  parent: ReplyForVideoEntity_G
 }

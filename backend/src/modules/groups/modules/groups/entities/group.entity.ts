@@ -1,13 +1,10 @@
-import { GroupInfo } from './../../../../group-info/entities/group-info.entity'
 import { G_Cover_EN } from 'src/modules/rest-files/entities/groups/avatar-and-cover/group-cover.entity'
 import { Galery_Image_G } from './../../../../rest-files/entities/groups/galery-entities/image.entity'
 import { Galery_Video_G } from 'src/modules/rest-files/entities/groups/galery-entities/video.entity'
 import { Galery_Audio_G } from 'src/modules/rest-files/entities/groups/galery-entities/audio.entity'
 import { G_Avatar_EN } from 'src/modules/rest-files/entities/groups/avatar-and-cover/group-avatar.entity'
 import { ObjectType, Field } from '@nestjs/graphql'
-import { BasicEntity } from 'src/BaseEntities/most-base-entities/base.entity'
 
-import { UserEntity } from 'src/modules/user/entities/user.entity'
 import {
   Entity,
   Column,
@@ -16,7 +13,10 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm'
-import { PostEntity_G } from 'src/modules/posts-for-group/entities/posts-for-group.entity'
+import { GroupInfo } from 'src/modules/infos/group/entities/group-info.entity'
+import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
+import { BasicEntity } from 'src/typeOrm/baseEntities/most-base-entities/base.entity'
 
 @ObjectType()
 @Entity('groups')

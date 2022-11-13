@@ -6,11 +6,11 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common'
-import { AuthService } from '../auth-service.service'
 import { Request } from 'express'
-import { UserService } from 'src/modules/user/services/user.service'
-import { UsersRefreshTokenInput } from 'src/modules/user/types/types'
+
 import { decodedJwtPayload } from '../types/types'
+import { UserService } from 'src/modules/users/services/user.service'
+import { UsersRefreshTokenInput } from 'src/modules/users/types/types'
 
 @Injectable()
 export class RefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {

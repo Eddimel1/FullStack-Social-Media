@@ -29,12 +29,16 @@ export class Comment_F_Video_Controller_G {
   ) {
     const groupId = context.req.body.groupId
     const ownerId = context.req.body.ownerId
+    const userId = context.req.user.id
+    const parentOfOwnerId = context.req.body.parentOfOwnerId
     const image = await this.forCommentService.uploadFile(
       file,
       folder,
       'groups',
       groupId,
       ownerId,
+      parentOfOwnerId,
+      userId
     )
     return image
   }

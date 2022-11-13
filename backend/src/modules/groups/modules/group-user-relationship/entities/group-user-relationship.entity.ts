@@ -1,13 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql'
-import { User2Side } from 'src/modules/friends/modules/user-side/user2-side/entities/user2-side.entity'
-import { UserEntity } from 'src/modules/user/entities/user.entity'
-import { Entity, PrimaryColumn, OneToOne, JoinColumn, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import { Entity, PrimaryColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm'
 import { GroupUserSharedSide } from '../../shared-side/entities/shared-side.entity'
 import { GroupSidePrivate } from '../../sides/group-side-private/entities/group-side-private.entity'
 import { GroupSide } from '../../sides/group-side/entities/group-side.entity'
 import { UserSidePrivate } from '../../sides/user-side-private/entities/user-side-private.entity'
 import { UserSide_G } from '../../sides/user-side/entities/user-side.entity'
 import { GroupEntity } from '../../groups/entities/group.entity'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @Entity('group_user_relation')
 @ObjectType()

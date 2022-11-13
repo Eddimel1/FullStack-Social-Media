@@ -3,7 +3,6 @@ import {
   Delete,
   Param,
   Post,
-  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -29,12 +28,16 @@ export class PostFilesController_G {
   ) {
     const groupId = context.req.body.groupId
     const ownerId = context.req.body.ownerId
+    const parentOfOwnerId = context.req.body.parentOfOwnerId
+    const userId = context.req.user.id
     const image = await this.forPostService.uploadFile(
       file,
       folder,
       'groups',
       groupId,
       ownerId,
+      parentOfOwnerId,
+      userId,
     )
     return image
   }

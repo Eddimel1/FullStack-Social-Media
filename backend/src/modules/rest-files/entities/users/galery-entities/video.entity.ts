@@ -1,9 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { UserEntity } from '../../../../user/entities/user.entity'
-import { BaseVideoEntity } from '../../../../../BaseEntities/file-entities/videoBase'
-import { CommentForVideoEntity_G } from 'src/modules/comments-for-group/entities/comment-for-video_g.entity'
-
+import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
+import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 
 @ObjectType()
 @Entity('galery_videos_u')
@@ -23,6 +22,5 @@ export class Galery_Video_U extends BaseVideoEntity {
       onDelete: 'CASCADE',
     },
   )
-  @JoinColumn()
   comments: CommentForVideoEntity_G[]
 }

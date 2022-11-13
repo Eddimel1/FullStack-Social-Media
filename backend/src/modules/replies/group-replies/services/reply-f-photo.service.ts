@@ -1,23 +1,26 @@
 import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Base_Crud_W_FindAll } from 'src/generic-services/base-crud.service'
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm'
+import { DataSource, TreeRepository } from 'typeorm'
 
-import { Repository } from 'typeorm'
-import { CreateReplyForPhoto_I_G } from '../dto/comment-for-photo/input.dto'
 import { ReplyForPhotoEntity_G } from '../entities/reply-f-photo.entity'
+import { TypeOrmConfigService } from 'src/typeOrm/config/typeorm.service'
+
+import { Base_Closure_Tree_Reply_Service } from 'src/generics/generic-services/base-closure-tree-reply.service'
 
 @Injectable()
-export class ReplyForPhotoService_DB_G extends Base_Crud_W_FindAll<ReplyForPhotoEntity_G> {
+export class ReplyForPhotoService_DB_G extends Base_Closure_Tree_Reply_Service<ReplyForPhotoEntity_G> {
   constructor(
     @InjectRepository(ReplyForPhotoEntity_G)
-    protected repository: Repository<ReplyForPhotoEntity_G>,
+    tree_repository: TreeRepository<ReplyForPhotoEntity_G>,
+    @InjectDataSource()
+    dataSource: DataSource,
+    typeOrmConfigService: TypeOrmConfigService,
   ) {
-    super(repository)
-  }
-  async create(createCommentInput: CreateReplyForPhoto_I_G) {
-    const comment_f_photo = new ReplyForPhotoEntity_G()
-    comment_f_photo.ownerId = createCommentInput.commentId
-    comment_f_photo.text = createCommentInput.text
-    return this.repository.save(comment_f_photo)
+    super(
+      ReplyForPhotoEntity_G,
+      tree_repository,
+      dataSource,
+      typeOrmConfigService,
+    )
   }
 }

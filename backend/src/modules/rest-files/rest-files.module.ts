@@ -1,19 +1,10 @@
 import { Galery_Audio_G } from './entities/groups/galery-entities/audio.entity'
-
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { UserService } from 'src/modules/user/services/user.service'
-import { UserEntity } from 'src/modules/user/entities/user.entity'
-
-import { UserModule } from './../user/user.module'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-
-import { ForCommentModule } from '../upload-and-remove/users/for-comment/for-comment.module'
+import { ForCommentModule_U } from '../upload-and-remove/users/for-comment/for-comment-u.module'
 import { ForGaleryModule } from '../upload-and-remove/users/for-galery/for-galery.module'
 import { ForPostModule } from '../upload-and-remove/users/for-post/for-post.module'
-
-import { CommentModule } from '../comments-for-user/comment.module'
-
 import { Audio_F_Comment_F_Photo_G } from './entities/groups/entitites-for-comments/audio-f-photo.entity'
 import { Image_F_Comment_F_Photo_G } from './entities/groups/entitites-for-comments/image-f-photo.entity'
 import { Video_F_Comment_F_Photo_G } from './entities/groups/entitites-for-comments/video-f-photo.entity'
@@ -28,7 +19,6 @@ import { Video_F_Post_U } from './entities/users/entities-for-posts/video_post.e
 import { Galery_Audio_U } from './entities/users/galery-entities/audio.entity'
 import { Galery_Image_U } from './entities/users/galery-entities/image.entity'
 import { Galery_Video_U } from './entities/users/galery-entities/video.entity'
-
 import { Audio_F_Comment_F_Post_G } from './entities/groups/entitites-for-comments/audio-f-post.entity'
 import { Image_F_Comment_F_Post_G } from './entities/groups/entitites-for-comments/image-f-post.entity'
 import { Video_F_Comment_F_Post_G } from './entities/groups/entitites-for-comments/video-f-post.entity'
@@ -70,6 +60,39 @@ import { Comment_F_Video_Controller_G } from './controllers/groups/for-comment-c
 import { Comment_F_Photo_Controller_U } from './controllers/users/comment-controllers/comment-f-photo.controller'
 import { Comment_F_Post_Controller_U } from './controllers/users/comment-controllers/comment-f-post.controller'
 import { Comment_F_Video_Controller_U } from './controllers/users/comment-controllers/comment-f-video.controller'
+import { ForCommentModule_G } from '../upload-and-remove/groups/for-comment/for-comment-g.module'
+import { ForReplyModule_G } from '../upload-and-remove/groups/for-reply/for-reply-g.module'
+import { ForReplyModule_U } from '../upload-and-remove/users/for-reply/for-reply-u.module'
+import { Audio_F_Reply_F_Photo_G } from './entities/groups/entities-for-replies/audio-f-photo.entity'
+import { Audio_F_Reply_F_Post_G } from './entities/groups/entities-for-replies/audio-f-post.entity'
+import { Audio_F_Reply_F_Video_G } from './entities/groups/entities-for-replies/audio-f-video.entity'
+import { Image_F_Reply_F_Post_G } from './entities/groups/entities-for-replies/image-f-post.entity'
+import { Image_F_Reply_F_Photo_G } from './entities/groups/entities-for-replies/image-f-reply-f.entity'
+import { Image_F_Reply_F_Video_G } from './entities/groups/entities-for-replies/image-f-video.entity'
+import { Video_F_Reply_F_Photo_G } from './entities/groups/entities-for-replies/video-f-photo.entity'
+import { Video_F_Reply_F_Post_G } from './entities/groups/entities-for-replies/video-f-post.entity'
+import { Video_F_Reply_F_Video_G } from './entities/groups/entities-for-replies/video-f-video.entity'
+import { Audio_F_Reply_F_Photo_U } from './entities/users/entities-for-replies/audio-f-photo.entity'
+import { Audio_F_Reply_F_Post_U } from './entities/users/entities-for-replies/audio-f-post.entity'
+import { Audio_F_Reply_F_Video_U } from './entities/users/entities-for-replies/audio-f-video.entity'
+import { Image_F_Reply_F_Post_U } from './entities/users/entities-for-replies/image-f-post.entity'
+import { Image_F_Reply_F_Photo_U } from './entities/users/entities-for-replies/image-f-reply-f.entity'
+import { Image_F_Reply_F_Video_U } from './entities/users/entities-for-replies/image-f-video.entity'
+import { Video_F_Reply_F_Photo_U } from './entities/users/entities-for-replies/video-f-photo.entity'
+import { Video_F_Reply_F_Post_U } from './entities/users/entities-for-replies/video-f-post.entity'
+import { Video_F_Reply_F_Video_U } from './entities/users/entities-for-replies/video-f-video.entity'
+import { Reply_F_Post_Controller_G } from './controllers/groups/for-reply/comment-f-post.controller'
+import { Reply_F_Video_Controller_G } from './controllers/groups/for-reply/comment-f-video.controller'
+import { Reply_F_Photo_Controller_U } from './controllers/users/for-reply/comment-f-photo.controller'
+import { Reply_F_Post_Controller_U } from './controllers/users/for-reply/comment-f-post.controller'
+import { Reply_F_Video_Controller_U } from './controllers/users/for-reply/comment-f-video.controller'
+import { Reply_F_Photo_Controller_G } from './controllers/groups/for-reply/comment-f-photo.controller'
+import { CommentModule } from '../comments/user/comment.module'
+import { PostEntity_G } from '../posts/group/entities/posts-for-group.entity'
+import { PostEntity_U } from '../posts/user/entities/post.entity'
+import { UserEntity } from '../users/entities/user.entity'
+import { UserService } from '../users/services/user.service'
+import { UserModule } from '../users/user.module'
 
 @Module({
   controllers: [
@@ -83,12 +106,20 @@ import { Comment_F_Video_Controller_U } from './controllers/users/comment-contro
     Comment_F_Video_Controller_G,
     Comment_F_Post_Controller_G,
     Comment_F_Photo_Controller_G,
+    Reply_F_Video_Controller_U,
+    Reply_F_Post_Controller_U,
+    Reply_F_Photo_Controller_U,
+    Reply_F_Video_Controller_G,
+    Reply_F_Post_Controller_G,
+    Reply_F_Photo_Controller_G,
   ],
   providers: [
     UserService,
     ConfigService,
     ForPostService_U,
     ForPostService_G,
+    ForReplyModule_U,
+    ForReplyModule_G,
     ForGaleryService_U,
     ForGaleryService_G,
     Galery_Image_Service_U,
@@ -107,12 +138,17 @@ import { Comment_F_Video_Controller_U } from './controllers/users/comment-contro
   imports: [
     UserModule,
     ConfigModule,
-    ForCommentModule,
+    ForCommentModule_G,
+    ForCommentModule_U,
     ForPostModule,
     ForGaleryModule,
     CommentModule,
+    ForReplyModule_U,
+    ForReplyModule_G,
     TypeOrmModule.forFeature([
       UserEntity,
+      PostEntity_G,
+      PostEntity_U,
       Audio_F_Post_U,
       Audio_F_Post_G,
       Video_F_Post_U,
@@ -143,6 +179,24 @@ import { Comment_F_Video_Controller_U } from './controllers/users/comment-contro
       Audio_F_Comment_F_Video_G,
       Video_F_Comment_F_Video_G,
       Image_F_Comment_F_Video_G,
+      Audio_F_Reply_F_Photo_U,
+      Video_F_Reply_F_Photo_U,
+      Image_F_Reply_F_Photo_U,
+      Audio_F_Reply_F_Post_U,
+      Image_F_Reply_F_Post_U,
+      Video_F_Reply_F_Post_U,
+      Audio_F_Reply_F_Video_U,
+      Video_F_Reply_F_Video_U,
+      Image_F_Reply_F_Video_U,
+      Audio_F_Reply_F_Photo_G,
+      Video_F_Reply_F_Photo_G,
+      Image_F_Reply_F_Photo_G,
+      Image_F_Reply_F_Post_G,
+      Audio_F_Reply_F_Post_G,
+      Video_F_Reply_F_Post_G,
+      Audio_F_Reply_F_Video_G,
+      Video_F_Reply_F_Video_G,
+      Image_F_Reply_F_Video_G,
     ]),
   ],
   exports: [],

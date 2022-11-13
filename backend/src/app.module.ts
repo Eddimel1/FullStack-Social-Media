@@ -1,31 +1,34 @@
 import { GroupsModule } from './modules/groups/groups.module'
-import { PubsubModule } from './globalModules/pub-sub.module'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { getEnvPath } from './common/helpers/env.helper'
-import { TypeOrmConfigService } from './common/shared/typeorm/typeorm.service'
-import { UserModule } from './modules/user/user.module'
+import { getEnvPath } from './miscellaneous/envs/helpers/env.helper'
+import { TypeOrmConfigService } from './typeOrm/config/typeorm.service'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo'
 import { AuthModule } from './modules/auth/auth-module.module'
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth-guard'
 import { APP_GUARD } from '@nestjs/core'
 import { ChatModule } from './modules/chat/chat.module'
-import { corsConfig } from './common/shared/cors/cors.config'
+import { corsConfig } from './express/cors/cors.config'
 import { RestFilesModule } from './modules/rest-files/rest-files.module'
-import { CommentModule } from './modules/comments-for-user/comment.module'
-import { UserInfoModule } from './modules/user-info/user-info.module'
 import { FriendRequestsModule } from './modules/friends/modules/friend-requests/friend-requests.module'
 import { FriendsModule } from './modules/friends/modules/friends/friends.module'
 import { GroupUserRelationshipModule } from './modules/groups/modules/group-user-relationship/group-user-relationship.module'
-import { PostsForGroupModule } from './modules/posts-for-group/posts-for-group.module'
-import { GroupInfoModule } from './modules/group-info/group-info.module'
-import { CommentsForGroupModule } from './modules/comments-for-group/comments-for-group.module'
-import { PostModule } from './modules/posts-for-user/post.module'
-const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
+import { RepliesModule_G } from './modules/replies/group-replies/group-replies.module'
+import { RepliesModule_U } from './modules/replies/user-replies/replies.module'
+import { PubsubModule } from './global/globalModules/pub-sub.module'
+import { CommentsForGroupModule } from './modules/comments/group/comments-for-group.module'
+import { CommentModule } from './modules/comments/user/comment.module'
+import { GroupInfoModule } from './modules/infos/group/group-info.module'
+import { UserInfoModule } from './modules/infos/user/user-info.module'
+import { PostsForGroupModule } from './modules/posts/group/posts-for-group.module'
+import { PostModule } from './modules/posts/user/post.module'
+import { UserModule } from './modules/users/user.module'
+
+const envFilePath: string = getEnvPath(`src/miscellaneous/envs`)
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath, isGlobal: true }),
@@ -64,6 +67,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`)
     PostsForGroupModule,
     GroupUserRelationshipModule,
     GroupInfoModule,
+    RepliesModule_G,
+    RepliesModule_U,
     CommentsForGroupModule,
   ],
   controllers: [AppController],

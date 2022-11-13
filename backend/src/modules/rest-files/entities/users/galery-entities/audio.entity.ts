@@ -1,7 +1,7 @@
-import { UserEntity } from '../../../../user/entities/user.entity'
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseAudioEntity } from 'src/BaseEntities/file-entities/baseAudio'
+import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudio'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
 @Entity('galery_audios_u')

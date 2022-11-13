@@ -1,58 +1,49 @@
-import { Resolver, Mutation, Args, Query } from '@nestjs/graphql'
-import {
-  CreateReplyForVideo_I_G,
-  SearchReplyForVideo_I_G,
-  UpdateReplyForVideo_I_G,
-} from '../dto/comment-for-video/input.dto'
+import { Resolver, Mutation, Args, Context, Query } from '@nestjs/graphql'
+import { CreateReply, UpdateReply } from '../../shared/dto/input.dto'
+import { isSuccess_Reply } from '../../shared/dto/output.dto'
+import { find_all_F_Video_G } from '../dto/comment-for-video/output.dto'
+
 import { ReplyForVideoEntity_G } from '../entities/reply-f-video.entity'
 import { ReplyForVideoService_DB_G } from '../services/reply-f-video.service'
 
-@Resolver(() => ReplyForVideoEntity_G)
+@Resolver()
 export class Reply_F_Video_Resolver_G {
   constructor(
-    private readonly replyForVideoService: ReplyForVideoService_DB_G,
+    private readonly replyForVideoService_DB_G: ReplyForVideoService_DB_G,
   ) {}
-
   @Mutation(() => ReplyForVideoEntity_G)
-  createCommentForVideoEntity_G(
-    @Args('createReplyInput') createReplyInput: CreateReplyForVideo_I_G,
+  createReplyForVideoEntity_G(
+    @Args('CreateReply')
+    createReply: CreateReply,
+    @Context() context,
   ) {
-    return this.replyForVideoService.create(createReplyInput)
+    const userId = context.req.user.id
+    return this.replyForVideoService_DB_G.create(createReply, userId)
   }
 
-  @Query(() => [ReplyForVideoEntity_G])
-  async findAllRepliesForVideoEntity_G(@Args('commentId') commentId: number) {
-    return await this.replyForVideoService.findAll(commentId, 'comment')
+
+  @Query(() => find_all_F_Video_G)
+  findAll_A_Count_RepliesForPhotoEntity_G(@Args('id') id: number) {
+    return this.replyForVideoService_DB_G.findAll_A_Count(
+      id,
+      ReplyForVideoEntity_G,
+    )
+  }
+  @Query(() => ReplyForVideoEntity_G)
+  findDescendantsTree_G(@Args('id') id: number) {
+    return this.replyForVideoService_DB_G.findDescendantsTree(id)
   }
 
   @Query(() => ReplyForVideoEntity_G)
-  findOneReplyForVideoEntity_G(
-    @Args('searchAllCommentForVideo')
-    searchAllRepliesForPhoto: SearchReplyForVideo_I_G,
-  ) {
-    const { replyId, commentId } = searchAllRepliesForPhoto
-    return this.replyForVideoService.findOne(replyId, commentId, 'comment')
+  findAncestorsTree_F_Video_G(@Args('id') id: number) {
+    return this.replyForVideoService_DB_G.findAncestorsTree(id)
   }
-
   @Mutation(() => ReplyForVideoEntity_G)
-  updateReplyForVideoEntity_G(
-    @Args('updateCommentInput') updateReplyInput: UpdateReplyForVideo_I_G,
-  ) {
-    const { commentId, replyId, ...update } = updateReplyInput
-    return this.replyForVideoService.updateOne(
-      replyId,
-      commentId,
-      update,
-      'comment',
-    )
+  updateOneReplyForVideo_G(@Args('updateReply') updateReply: UpdateReply) {
+    return this.replyForVideoService_DB_G.updateOne(updateReply)
   }
-
-  @Mutation(() => ReplyForVideoEntity_G)
-  removeReplyForPostEntity_G(
-    @Args('searchAllReplyForVideo')
-    searchAllReplyForVideo: SearchReplyForVideo_I_G,
-  ) {
-    const { replyId, commentId } = searchAllReplyForVideo
-    return this.replyForVideoService.removeOne(replyId, commentId, 'comment')
+  @Mutation(() => isSuccess_Reply)
+  deleteReplyForVideo_G(@Args('id') id: number) {
+    return this.replyForVideoService_DB_G.deleteOne(id)
   }
 }

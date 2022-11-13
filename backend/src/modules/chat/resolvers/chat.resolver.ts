@@ -5,11 +5,9 @@ import { PubSubEngine } from 'graphql-subscriptions'
 import { ChatService } from '../services/chat.service'
 
 import { ChatEntity } from '../entities/chat.entity'
-import { PUB_SUB } from '../../../globalModules/pub-sub.module'
 
-import { Public } from 'src/modules/auth/decorators/public-decorator'
-import { JwtSocketGuard } from 'src/modules/auth/guards/socket-guard'
 import { CreateChatInput, UpdateChatDto } from '../dto/input.dto'
+import { PUB_SUB } from 'src/global/globalModules/pub-sub.module'
 
 @Resolver(() => ChatEntity)
 export class ChatResolver {

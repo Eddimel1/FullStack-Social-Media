@@ -5,7 +5,7 @@ import { Image_F_Post_Service_G } from 'src/modules/rest-files/services/for-grou
 import { Video_F_Post_Service_G } from 'src/modules/rest-files/services/for-groups/PostServices/post_video.service'
 import { PostFoldersT_G } from 'src/modules/rest-files/types/group-types'
 
-import { Base_Upload_Remove_Service } from 'src/generic-services/base-upload.service'
+import { Base_Upload_Remove_Service } from 'src/generics/generic-services/base-upload.service'
 
 const storageP = '../../storage'
 @Injectable()
@@ -29,6 +29,8 @@ export class ForPostService_G extends Base_Upload_Remove_Service<
     folder: string,
     file_name: string,
     url: string,
+    parent_of_owner_id?: number,
+    userId?: number,
   ) {
     console.log('FOLDER : ', folder)
     const relation = folder as PostFoldersT_G
@@ -39,6 +41,8 @@ export class ForPostService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'image_f_post_g',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'video_f_post_g': {
@@ -47,6 +51,8 @@ export class ForPostService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'video_f_post_g',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'audio_f_post_g': {
@@ -55,6 +61,8 @@ export class ForPostService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'audio_f_post_g',
+          parent_of_owner_id,
+          userId,
         )
       }
 

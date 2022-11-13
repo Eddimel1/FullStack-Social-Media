@@ -1,9 +1,8 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
 
-import { BaseAudioEntity } from 'src/BaseEntities/file-entities/baseAudio'
-import { CommentForPostEntity_U } from 'src/modules/comments-for-user/entities/comment-for-post.entity'
-
+import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudio'
+import { CommentForPostEntity_U } from 'src/modules/comments/user/entities/comment-for-post.entity'
 
 @ObjectType()
 @Entity('audio_f_comment_f_post')

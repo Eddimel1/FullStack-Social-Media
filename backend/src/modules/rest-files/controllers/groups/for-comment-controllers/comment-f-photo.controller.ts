@@ -3,7 +3,6 @@ import {
   Delete,
   Param,
   Post,
-  Req,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -13,7 +12,7 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { NestJwtAuthGuard } from 'src/modules/auth/guards/nestj-auth-guard'
 import { CommentForPhotoService_G } from 'src/modules/upload-and-remove/groups/for-comment/services/for-photo.service'
-import { CommentForPhotoService_U } from 'src/modules/upload-and-remove/users/for-comment/services/for-photo.service'
+
 
 @Public()
 @UseGuards(NestJwtAuthGuard)
@@ -30,12 +29,16 @@ export class Comment_F_Photo_Controller_G {
   ) {
     const groupId = context.req.body.groupId
     const ownerId = context.req.body.ownerId
+    const userId = context.req.user.id
+    const parentOfOwnerId = context.req.body.parentOfOwnerId
     const image = await this.forCommentService.uploadFile(
       file,
       folder,
       'groups',
       groupId,
       ownerId,
+      parentOfOwnerId,
+      userId
     )
     return image
   }

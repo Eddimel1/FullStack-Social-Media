@@ -1,9 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseVideoEntity } from '../../../../../BaseEntities/file-entities/videoBase'
-import { CommentForPostEntity_U } from 'src/modules/comments-for-user/entities/comment-for-post.entity'
-
-
+import { CommentForPostEntity_U } from 'src/modules/comments/user/entities/comment-for-post.entity'
+import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 
 @ObjectType()
 @Entity('video_f_comment_f_post')

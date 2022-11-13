@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseAudioEntity } from 'src/BaseEntities/file-entities/baseAudio'
+import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudio'
 import { GroupEntity } from 'src/modules/groups/modules/groups/entities/group.entity'
 
 @ObjectType()

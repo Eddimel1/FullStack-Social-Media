@@ -1,8 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseVideoEntity } from 'src/BaseEntities/file-entities/videoBase'
+import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 import { ReplyForPhotoEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-photo.entity'
-
 
 @ObjectType()
 @Entity('video_f_reply_f_photo_g')

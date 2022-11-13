@@ -2,9 +2,7 @@ import { Galery_Audio_U } from './../../../entities/users/galery-entities/audio.
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { BaseFileCRUDService } from 'src/generic-services/base-file-crud.service'
-
-
+import { BaseFileCRUDService } from 'src/generics/generic-services/base-file-crud.service'
 
 @Injectable()
 export class Galery_Audio_Service_U extends BaseFileCRUDService<Galery_Audio_U> {

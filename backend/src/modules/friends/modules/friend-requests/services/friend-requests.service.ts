@@ -1,11 +1,10 @@
-import { DEFAULT_PORTION } from 'src/constants/db.constants'
-import { CreateRequest_I } from '../dto/input.dto'
+import { DEFAULT_PORTION } from 'src/global/constants/db.constants'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { FriendRequest } from '../entities/friend-request.entity'
-import { fromFindAndCount } from 'src/SharedUtils.ts/transforms/transforms'
 import { CreatedRequest_O, FindAndCountRequests_O } from '../dto/output.dto'
+import { fromFindAndCount } from 'src/global/globalUtils/transforms/transforms'
 
 //transform response for deletion, handle errors,and do not return yourself
 @Injectable()

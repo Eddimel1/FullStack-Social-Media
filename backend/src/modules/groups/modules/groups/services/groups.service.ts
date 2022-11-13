@@ -1,7 +1,8 @@
-import { Injectable} from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { DEFAULT_PORTION } from 'src/constants/db.constants'
+import { DEFAULT_PORTION } from 'src/global/constants/db.constants'
 import { Repository } from 'typeorm'
+import { GroupUserRelationshipService } from '../../group-user-relationship/services/group-user-relationship.service'
 import { CreateGroupInput } from '../dto/input'
 import { GroupEntity } from '../entities/group.entity'
 
@@ -10,6 +11,7 @@ export class GroupsService {
   constructor(
     @InjectRepository(GroupEntity)
     private readonly groupsRepository: Repository<GroupEntity>,
+    private readonly groupUserRelationshipService: GroupUserRelationshipService,
   ) {}
   async create(createGroupInput: CreateGroupInput, userId: number) {
     const group = new GroupEntity()
@@ -17,14 +19,20 @@ export class GroupsService {
     group.slogan = createGroupInput.slogan
     group.name = createGroupInput.name
     group.category = createGroupInput.category
-    return this.groupsRepository.save(group)
+    const new_group = await this.groupsRepository.save(group)
+    await this.groupUserRelationshipService.createRelationship(
+      userId,
+      new_group.id,
+      true,
+    )
+    return this.groupsRepository.findOneBy({ id: new_group.id })
   }
 
   findOneGroup(groupId: number) {
     return this.groupsRepository.findOne({ where: { id: groupId } })
   }
 
-  findAllGroups(groupId: number) {
+  findAllGroups() {
     return this.groupsRepository.find()
   }
 

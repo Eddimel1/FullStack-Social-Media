@@ -3,11 +3,10 @@ import { Inject, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql'
 import { PubSubEngine } from 'graphql-subscriptions'
 import { MessageService } from '../services/message.service'
-
-import { PUB_SUB } from '../../../globalModules/pub-sub.module'
 import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { JwtSocketGuard } from 'src/modules/auth/guards/socket-guard'
 import { CreateMessageInput, UpdateChatDto } from '../dto/input.dto'
+import { PUB_SUB } from 'src/global/globalModules/pub-sub.module'
 
 enum SUBSCRIPTION_EVENTS {
   messageAdded = 'messageAdded',

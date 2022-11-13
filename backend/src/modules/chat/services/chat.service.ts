@@ -1,9 +1,10 @@
-import { UserService } from 'src/modules/user/services/user.service'
+
 import { ChatEntity } from './../entities/chat.entity'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { CreateChatInput, UpdateChatDto } from '../dto/input.dto'
+import { UserService } from 'src/modules/users/services/user.service'
 
 @Injectable()
 export class ChatService {

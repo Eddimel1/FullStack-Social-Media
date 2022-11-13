@@ -1,10 +1,12 @@
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Module } from '@nestjs/common'
-
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { TypeOrmConfigService } from 'src/typeOrm/config/typeorm.service'
 import { ReplyForPhotoEntity_U } from './entities/reply-f-photo.entity'
 import { ReplyForPostEntity_U } from './entities/reply-f-post.entity'
 import { ReplyForVideoEntity_U } from './entities/reply-f-video.entity'
 import { Reply_F_Photo_Resolver_U } from './resolvers/for-photo-reply.resolver'
+import { Reply_F_Post_Resolver_U } from './resolvers/for-post-reply.resolver'
+import { Reply_F_Video_Resolver_U } from './resolvers/for-video-reply.resolver'
 import { ReplyForPhotoService_DB_U } from './services/reply-f-photo.service'
 import { ReplyForPostService_DB_U } from './services/reply-f-post.service'
 import { ReplyForVideoService_DB_U } from './services/reply-f-video.service'
@@ -13,14 +15,15 @@ import { ReplyForVideoService_DB_U } from './services/reply-f-video.service'
   imports: [
     TypeOrmModule.forFeature([
       ReplyForPhotoEntity_U,
-      ReplyForVideoEntity_U,
       ReplyForPostEntity_U,
+      ReplyForVideoEntity_U,
     ]),
   ],
   providers: [
+    TypeOrmConfigService,
     Reply_F_Photo_Resolver_U,
-    Reply_F_Photo_Resolver_U,
-    Reply_F_Photo_Resolver_U,
+    Reply_F_Post_Resolver_U,
+    Reply_F_Video_Resolver_U,
     ReplyForPhotoService_DB_U,
     ReplyForPostService_DB_U,
     ReplyForVideoService_DB_U,
@@ -31,4 +34,4 @@ import { ReplyForVideoService_DB_U } from './services/reply-f-video.service'
     ReplyForVideoService_DB_U,
   ],
 })
-export class RepliesModule {}
+export class RepliesModule_U {}

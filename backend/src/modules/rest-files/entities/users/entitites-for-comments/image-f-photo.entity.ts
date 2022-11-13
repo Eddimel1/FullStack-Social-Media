@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { BaseImageEntity } from 'src/BaseEntities/file-entities/imageBase'
-import { CommentForPhotoEntity_U } from 'src/modules/comments-for-user/entities/comment-for-photo.entity'
+import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBase'
+import { CommentForPhotoEntity_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
 
 @ObjectType()
 @Entity('image_f_comment_f_photo')

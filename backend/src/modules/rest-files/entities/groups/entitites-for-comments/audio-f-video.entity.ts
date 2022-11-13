@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql'
-import { BaseAudioEntity } from 'src/BaseEntities/file-entities/baseAudio'
-import { CommentForVideoEntity_G } from 'src/modules/comments-for-group/entities/comment-for-video_g.entity'
+import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudio'
+import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
 
 @ObjectType()

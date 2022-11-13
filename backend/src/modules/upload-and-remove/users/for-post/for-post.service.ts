@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Base_Upload_Remove_Service } from 'src/generic-services/base-upload.service'
+import { Base_Upload_Remove_Service } from 'src/generics/generic-services/base-upload.service'
 import { Audio_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/PostServices/post_audio.service'
 import { Image_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/PostServices/post_image.service'
 import { Video_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/PostServices/post_video.service'
@@ -28,6 +28,7 @@ export class ForPostService_U extends Base_Upload_Remove_Service<
     folder: string,
     file_name: string,
     url: string,
+    parent_of_owner_id?: number,
   ) {
     console.log('FOLDER : ', folder, 'ID : ', id)
     const relation = folder as PostFoldersT_U
@@ -38,6 +39,7 @@ export class ForPostService_U extends Base_Upload_Remove_Service<
           url,
           file_name,
           'image_f_post_u',
+          parent_of_owner_id,
         )
       }
       case 'video_f_post_u': {
@@ -46,6 +48,7 @@ export class ForPostService_U extends Base_Upload_Remove_Service<
           url,
           file_name,
           'video_f_post_u',
+          parent_of_owner_id,
         )
       }
       case 'audio_f_post_u': {
@@ -54,6 +57,7 @@ export class ForPostService_U extends Base_Upload_Remove_Service<
           url,
           file_name,
           'audio_f_post_g',
+          parent_of_owner_id,
         )
       }
 

@@ -1,8 +1,9 @@
-import { SanitizedUser } from './../../../../user/entities/user.entity'
+
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { FriendsService } from '../services/friends.service'
 import { FriendShip } from '../entities/friendship.entity'
 import { FindAndCountFriends_O, IsSuccess_O } from '../dto/output.dto'
+import { SanitizedUser } from 'src/modules/users/entities/user.entity'
 
 @Resolver(() => FriendShip)
 export class FriendsResolver {

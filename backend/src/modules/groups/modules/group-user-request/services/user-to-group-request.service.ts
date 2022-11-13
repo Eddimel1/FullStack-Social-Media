@@ -1,4 +1,4 @@
-import { DEFAULT_PORTION } from './../../../../../constants/db.constants'
+import { DEFAULT_PORTION } from '../../../../../global/constants/db.constants'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -7,7 +7,7 @@ import {
   WasNotCreated_EX,
   WasNotFound_EX,
   WereNotFound_EX,
-} from 'src/exceptions/db-exceptions'
+} from 'src/global/exceptions/db-exceptions'
 
 @Injectable()
 export class UserToGroupRequestService {

@@ -1,4 +1,12 @@
+import { Group_Roles_Sensitive } from './../../../decorators/group-roles.decorator';
+import { UseGuards } from '@nestjs/common'
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
+import {
+  RolesGroupDec,
+  Group_Roles,
+  Group_Roles_All,
+} from 'src/modules/groups/decorators/group-roles.decorator'
+import { Group_Roles_Guard } from 'src/modules/groups/guards/group-roles-guard'
 import { UpdateGroupUserSharedSide_O } from '../../shared-side/dto/output.dto'
 import { UpdatePrivateGroupSide_O } from '../../sides/group-side-private/dto/output.dto'
 import { UpdateGroupSide_O } from '../../sides/group-side/dto/output.dto'
@@ -16,6 +24,7 @@ import { isSuccess_G } from '../dto/output.dto'
 import { Group_User_Relation } from '../entities/group-user-relationship.entity'
 import { GroupUserRelationshipService } from '../services/group-user-relationship.service'
 
+@UseGuards(Group_Roles_Guard)
 @Resolver(() => Group_User_Relation)
 export class GroupUserRelationshipResolver {
   constructor(
@@ -80,7 +89,7 @@ export class GroupUserRelationshipResolver {
       groupId,
     )
   }
-
+  @RolesGroupDec([Group_Roles.PARTICIPANT])
   @Mutation(() => isSuccess_G)
   destroyRelationship_U(@Args('groupId') groupId: number, @Context() context) {
     const userId = context.req.user.id
@@ -89,7 +98,7 @@ export class GroupUserRelationshipResolver {
       groupId,
     )
   }
-
+  @RolesGroupDec(Group_Roles_Sensitive)
   @Mutation(() => isSuccess_G)
   destroyRelationship_G(
     @Args('FindRelationShip_G') findRelationShip_G: FindRelationShip_G,
@@ -99,7 +108,7 @@ export class GroupUserRelationshipResolver {
       findRelationShip_G.groupId,
     )
   }
-
+  @RolesGroupDec([Group_Roles.PARTICIPANT])
   @Mutation(() => UpdateUserSide_O)
   updateUserSide(
     @Args('UpdateRelationShip_U') updateRelationShip_U: UpdateRelationShip_U,
@@ -112,7 +121,7 @@ export class GroupUserRelationshipResolver {
       updateRelationShip_U.update,
     )
   }
-
+  @RolesGroupDec(Group_Roles_Sensitive)
   @Mutation(() => UpdateGroupSide_O)
   updateGroupSide(
     @Args('UpdateRelationShip_G') updateRelationShip_G: UpdateRelationShip_G,
@@ -123,7 +132,7 @@ export class GroupUserRelationshipResolver {
       updateRelationShip_G.update,
     )
   }
-
+  @RolesGroupDec([Group_Roles.PARTICIPANT])
   @Mutation(() => UpdatePrivateUserSide_O)
   updateUserPrivateSide(
     @Args('updateUserPrivateSide') updateRelationShip_U: UpdateRelationShip_U,
@@ -136,7 +145,7 @@ export class GroupUserRelationshipResolver {
       updateRelationShip_U.update,
     )
   }
-
+  @RolesGroupDec(Group_Roles_Sensitive)
   @Mutation(() => UpdatePrivateGroupSide_O)
   updateGroupPrivateSide(
     @Args('updateGroupPrivateSide') updateRelationShip_G: UpdateRelationShip_G,
@@ -147,7 +156,7 @@ export class GroupUserRelationshipResolver {
       updateRelationShip_G.update,
     )
   }
-
+  @RolesGroupDec(Group_Roles_All)
   @Mutation(() => UpdateGroupUserSharedSide_O)
   updateSharedSide(
     @Args('updateSharedSide') updateRelationShip_SH: UpdateRelationShip_SH,

@@ -1,11 +1,9 @@
-import { U_Avatar_EN } from './../../../entities/users/avatar-and-cover/user-avatar.entity';
+import { U_Avatar_EN } from './../../../entities/users/avatar-and-cover/user-avatar.entity'
 
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { BaseFileCRUDService } from 'src/generic-services/base-file-crud.service';
-
-
+import { BaseFileCRUDService } from 'src/generics/generic-services/base-file-crud.service'
 
 @Injectable()
 export class AvatarService_U {

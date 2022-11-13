@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Base_Upload_Remove_Service } from 'src/generic-services/base-upload.service'
+import { Base_Upload_Remove_Service } from 'src/generics/generic-services/base-upload.service'
 import { Galery_Audio_Service_U } from 'src/modules/rest-files/services/for-users/GaleryServices/audio.service'
 import { Galery_Image_Service_U } from 'src/modules/rest-files/services/for-users/GaleryServices/image.service'
 import { Galery_Video_Service_U } from 'src/modules/rest-files/services/for-users/GaleryServices/video.service'
@@ -96,4 +96,3 @@ export class ForGaleryService_U extends Base_Upload_Remove_Service<
     }
   }
 }
-

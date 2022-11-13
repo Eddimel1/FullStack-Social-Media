@@ -1,59 +1,50 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Resolver, Mutation, Args, Context, Query } from '@nestjs/graphql'
+import { CreateReply, UpdateReply } from '../../shared/dto/input.dto'
+import { isSuccess_Reply } from '../../shared/dto/output.dto'
+import { find_all_F_Photo_G } from '../dto/comment-for-photo/output.dto'
 
-import {
-  CreateReplyForPhoto_I_G,
-  SearchReplyForPhoto_I_G,
-  UpdateReplyForPhoto_I_G,
-} from '../dto/comment-for-photo/input.dto'
 import { ReplyForPhotoEntity_G } from '../entities/reply-f-photo.entity'
 import { ReplyForPhotoService_DB_G } from '../services/reply-f-photo.service'
 
-@Resolver(() => ReplyForPhotoEntity_G)
+@Resolver()
 export class Reply_F_Photo_Resolver_G {
   constructor(
-    private readonly replyForPhotoService: ReplyForPhotoService_DB_G,
+    private readonly replyForPhotoService_DB_G: ReplyForPhotoService_DB_G,
   ) {}
-
   @Mutation(() => ReplyForPhotoEntity_G)
   createReplyForPhotoEntity_G(
-    @Args('createReplyInput') createReplyInput: CreateReplyForPhoto_I_G,
+    @Args('createReply')
+    createReply: CreateReply,
+    @Context() context,
   ) {
-    return this.replyForPhotoService.create(createReplyInput)
+    const userId = context.req.user.id
+    return this.replyForPhotoService_DB_G.create(createReply, userId)
   }
 
-  @Query(() => [ReplyForPhotoEntity_G])
-  async findAllRepliesForPhotoEntity_G(@Args('commentId') commentId: number) {
-    return await this.replyForPhotoService.findAll(commentId, 'replies')
+
+
+  @Query(() => find_all_F_Photo_G)
+  findAll_A_Count_RepliesForPhotoEntity_G(@Args('id') id: number) {
+    return this.replyForPhotoService_DB_G.findAll_A_Count(
+      id,
+      ReplyForPhotoEntity_G,
+    )
+  }
+  @Query(() => ReplyForPhotoEntity_G)
+  findDescendantsTree_F_Photo_G(@Args('id') id: number) {
+    return this.replyForPhotoService_DB_G.findDescendantsTree(id)
   }
 
   @Query(() => ReplyForPhotoEntity_G)
-  findOneReplyForPhotoEntity_G(
-    @Args('searchAllRepliesForVideo')
-    searchAllRepliesForPhoto: SearchReplyForPhoto_I_G,
-  ) {
-    const { replyId, commentId } = searchAllRepliesForPhoto
-    return this.replyForPhotoService.findOne(replyId, commentId, 'reply')
+  findAncestorsTree_F_Photo_G(@Args('id') id: number) {
+    return this.replyForPhotoService_DB_G.findAncestorsTree(id)
   }
-
   @Mutation(() => ReplyForPhotoEntity_G)
-  updateReplyForPhotoEntity_G(
-    @Args('updateReplyInput') updateReplyInput: UpdateReplyForPhoto_I_G,
-  ) {
-    const { commentId, replyId, ...update } = updateReplyInput
-    return this.replyForPhotoService.updateOne(
-      replyId,
-      commentId,
-      update,
-      'reply',
-    )
+  updateOneReplyForPhoto_G(@Args('updateReply') updateReply: UpdateReply) {
+    return this.replyForPhotoService_DB_G.updateOne(updateReply)
   }
-
-  @Mutation(() => ReplyForPhotoEntity_G)
-  removeReplyForPhotoEntity_G(
-    @Args('searchAllReplyForPhoto')
-    searchAllReplyForPhoto: SearchReplyForPhoto_I_G,
-  ) {
-    const { replyId, commentId } = searchAllReplyForPhoto
-    return this.replyForPhotoService.removeOne(replyId, commentId, 'reply')
+  @Mutation(() => isSuccess_Reply)
+  deleteReplyForPhoto_G(@Args('id') id: number) {
+    return this.replyForPhotoService_DB_G.deleteOne(id)
   }
 }

@@ -2,21 +2,18 @@ import { User1SideService } from './../../user-side/user1-side/services/user1-si
 import { filterAndTransformFriend } from './../utils/utils'
 import { FriendShip } from '../entities/friendship.entity'
 import { Injectable } from '@nestjs/common'
-
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-
 import { FriendRequestsService } from '../../friend-requests/services/friend-requests.service'
-import { UserService } from 'src/modules/user/services/user.service'
-import { DEFAULT_PORTION } from 'src/constants/db.constants'
-
+import { DEFAULT_PORTION } from 'src/global/constants/db.constants'
 import { IsSuccess_O } from '../dto/output.dto'
-import { sanitizeUser } from 'src/SharedUtils.ts/sanitizers/user.sanitizer'
 import { filterAndTransformFriends } from '../utils/utils'
 import { User1SidePrivateService } from '../../user-side/user1-side-private/services/user1-side-private.service'
 import { User2SidePrivateService } from '../../user-side/user2-side-private/services/user2-side-private.service'
 import { User2SideService } from '../../user-side/user2-side/services/user2-side.service'
 import { UserSharedService } from '../../users-shared/services/users-shared.service'
+import { sanitizeUser } from 'src/global/globalUtils/sanitizers/user.sanitizer'
+import { UserService } from 'src/modules/users/services/user.service'
 
 //handleErrors
 @Injectable()
@@ -74,7 +71,7 @@ export class FriendsService {
         friendId,
       })
       .getOne()
-      
+
     return friendship
   }
 

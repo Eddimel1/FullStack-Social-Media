@@ -1,12 +1,8 @@
-
-
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { BaseFileCRUDService } from 'src/generic-services/base-file-crud.service'
+import { BaseFileCRUDService } from 'src/generics/generic-services/base-file-crud.service'
 import { G_Avatar_EN } from 'src/modules/rest-files/entities/groups/avatar-and-cover/group-avatar.entity'
 import { Repository } from 'typeorm'
-
-
 
 @Injectable()
 export class AvatarService_G {

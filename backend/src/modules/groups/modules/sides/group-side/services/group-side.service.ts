@@ -10,8 +10,9 @@ export class GroupSideService {
     @InjectRepository(GroupSide)
     private readonly groupSideRepository: Repository<GroupSide>,
   ) {}
-  create() {
+  create(withOwner?: boolean) {
     const group_side = new GroupSide()
+    
     return this.groupSideRepository.save(group_side)
   }
 

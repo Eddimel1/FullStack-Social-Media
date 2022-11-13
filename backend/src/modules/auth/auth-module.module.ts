@@ -3,13 +3,13 @@ import { ConfigService } from '@nestjs/config'
 import { Module } from '@nestjs/common'
 import { AuthService } from './auth-service.service'
 import { PassportModule } from '@nestjs/passport'
-import { UserModule } from '../user/user.module'
 import { JwtModule } from '@nestjs/jwt'
 import { AuthResolver } from './resolvers/auth-resolver.resolver'
-import { UserService } from '../user/services/user.service'
-import { UserEntity } from '../user/entities/user.entity'
 import { RefreshStrategy } from './strategies/jwt-refresh-token'
 import { JwtStrategy } from './strategies/jwt-access-token'
+import { UserEntity } from '../users/entities/user.entity'
+import { UserService } from '../users/services/user.service'
+import { UserModule } from '../users/user.module'
 
 @Module({
   imports: [

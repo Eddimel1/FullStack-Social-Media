@@ -1,5 +1,4 @@
-import { UserEntity } from 'src/modules/user/entities/user.entity'
-import { Req, Res, UseGuards } from '@nestjs/common'
+import { Res, UseGuards } from '@nestjs/common'
 import {
   Args,
   Field,
@@ -8,13 +7,12 @@ import {
   ObjectType,
   Resolver,
 } from '@nestjs/graphql'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { AuthService } from '../auth-service.service'
-
-import { JwtAuthGuard } from '../guards/jwt-auth-guard'
 import { JwtRefreshGuard } from '../guards/jwt-refresh-guard'
 import { Public } from '../decorators/public-decorator'
 import { LoginUserInput } from '../dto/input.dto'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
 export class messageT {

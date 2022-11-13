@@ -16,6 +16,15 @@ export enum FOLDERS_G {
   IMAGE_F_COMMENT_F_VIDEO = 'image_f_comment_f_video_g',
   VIDEO_F_COMMENT_F_VIDEO = 'video_f_comment_f_video_g',
   AUDIO_F_COMMENT_F_VIDEO = 'audio_f_comment_f_video_g',
+  IMAGE_F_REPLY_F_PHOTO = 'image_f_reply_f_photo_g',
+  VIDEO_F_REPLY_F_PHOTO = 'video_f_reply_f_photo_g',
+  AUDIO_F_REPLY_F_PHOTO = 'audio_f_reply_f_photo_g',
+  IMAGE_F_REPLY_F_POST = 'image_f_reply_f_post_g',
+  VIDEO_F_REPLY_F_POST = 'video_f_reply_f_post_g',
+  AUDIO_F_REPLY_F_POST = 'audio_f_reply_f_post_g',
+  IMAGE_F_REPLY_F_VIDEO = 'image_f_reply_f_video_g',
+  VIDEO_F_REPLY_F_VIDEO = 'video_f_reply_f_video_g',
+  AUDIO_F_REPLY_F_VIDEO = 'audio_f_reply_f_video_g',
 }
 
 export type foldersT_G =
@@ -72,3 +81,19 @@ export type Comment_F_POST_G =
   | FOLDERS_G.AUDIO_F_COMMENT_F_POST
   | FOLDERS_G.VIDEO_F_COMMENT_F_POST
   | FOLDERS_G.IMAGE_F_COMMENT_F_POST
+
+
+  export type Reply_F_Photo_G =
+  | FOLDERS_G.AUDIO_F_REPLY_F_PHOTO
+  | FOLDERS_G.VIDEO_F_REPLY_F_PHOTO
+  | FOLDERS_G.IMAGE_F_REPLY_F_PHOTO
+
+export type Reply_F_Video_G =
+  | FOLDERS_G.AUDIO_F_REPLY_F_VIDEO
+  | FOLDERS_G.VIDEO_F_REPLY_F_VIDEO
+  | FOLDERS_G.IMAGE_F_REPLY_F_VIDEO
+
+export type Reply_F_Post_G =
+  | FOLDERS_G.AUDIO_F_REPLY_F_POST
+  | FOLDERS_G.VIDEO_F_REPLY_F_POST
+  | FOLDERS_G.IMAGE_F_REPLY_F_POST

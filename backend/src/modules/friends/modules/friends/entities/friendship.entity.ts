@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql'
-import { UserEntity } from 'src/modules/user/entities/user.entity'
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 import { PrimaryColumn, ManyToOne, JoinColumn, Entity, OneToOne } from 'typeorm'
 import { User1SidePrivate } from '../../user-side/user1-side-private/entities/user1-side-private.entity'
 import { User1Side } from '../../user-side/user1-side/entities/user1-side.entity'

@@ -1,5 +1,5 @@
 import { InputType, Field, ObjectType } from '@nestjs/graphql'
-import { rating } from 'src/GlobalTypes/db.types'
+import { rating } from 'src/global/GlobalTypes/db.types'
 
 @ObjectType()
 export class UpdateUserSide_O {

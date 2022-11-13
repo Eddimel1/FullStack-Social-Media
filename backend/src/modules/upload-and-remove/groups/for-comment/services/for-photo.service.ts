@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Base_Upload_Remove_Service } from 'src/generic-services/base-upload.service'
+import { Base_Upload_Remove_Service } from 'src/generics/generic-services/base-upload.service'
 import { Audio_F_Comment_F_Photo_Service_G } from 'src/modules/rest-files/services/for-groups/CommentServices/for-photo-services/audio.service'
 import { Image_F_Comment_F_Photo_Service_G } from 'src/modules/rest-files/services/for-groups/CommentServices/for-photo-services/image.service'
 import { Video_F_Comment_F_Photo_Service_G } from 'src/modules/rest-files/services/for-groups/CommentServices/for-photo-services/video.service'
@@ -29,6 +29,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
     folder: string,
     file_name: string,
     url: string,
+    parent_of_owner_id?: number,
+    userId?: number,
   ) {
     console.log('FOLDER : ', folder)
     const relation = folder as Comment_F_Photo_G
@@ -39,6 +41,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'image_f_comment_f_photo_g',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'video_f_comment_f_photo_g': {
@@ -47,6 +51,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'video_f_comment_f_photo_g',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'audio_f_comment_f_photo_g': {
@@ -55,6 +61,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'audio_f_comment_f_photo_g',
+          parent_of_owner_id,
+          userId,
         )
       }
 
@@ -92,7 +100,7 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
       }
 
       default:
-        throw new Error('was provided the not existing relation')
+        throw new Error('was provided the no existing relation')
     }
   }
 }

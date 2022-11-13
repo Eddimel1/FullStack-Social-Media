@@ -6,7 +6,6 @@ import { Module } from '@nestjs/common'
 import { FriendsService } from './services/friends.service'
 import { FriendsResolver } from './resolvers/friends.resolver'
 import { FriendRequestsModule } from '../friend-requests/friend-requests.module'
-import { UserModule } from 'src/modules/user/user.module'
 import { User1SidePrivateService } from '../user-side/user1-side-private/services/user1-side-private.service'
 import { User2SideService } from '../user-side/user2-side/services/user2-side.service'
 import { User2SidePrivateService } from '../user-side/user2-side-private/services/user2-side-private.service'
@@ -18,6 +17,7 @@ import { UsersSharedSide } from '../users-shared/entities/users-shared.entity'
 import { FriendSidesService } from './services/friends-sides-service'
 import { FriendSidesResolver } from './resolvers/friends-sides.resolver'
 import { UserSideModule } from '../user-side/user-side.module'
+import { UserModule } from 'src/modules/users/user.module'
 
 @Module({
   imports: [

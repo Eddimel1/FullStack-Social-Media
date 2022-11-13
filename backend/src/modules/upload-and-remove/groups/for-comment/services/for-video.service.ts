@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { Base_Upload_Remove_Service } from 'src/generic-services/base-upload.service'
+import { Base_Upload_Remove_Service } from 'src/generics/generic-services/base-upload.service'
 import { Audio_F_Comment_F_Video_Service_G } from 'src/modules/rest-files/services/for-groups/CommentServices/for-video-services/audio.service'
 import { Image_F_Comment_F_Video_Service_G } from 'src/modules/rest-files/services/for-groups/CommentServices/for-video-services/image.service'
 import { Video_F_Comment_F_Video_Service_G } from 'src/modules/rest-files/services/for-groups/CommentServices/for-video-services/video.service'
@@ -28,6 +28,8 @@ export class CommentForVideoService_G extends Base_Upload_Remove_Service<
     folder: string,
     file_name: string,
     url: string,
+    parent_of_owner_id?: number,
+    userId?: number,
   ) {
     console.log('FOLDER : ', folder)
     const relation = folder as Comment_F_Video_G
@@ -38,6 +40,8 @@ export class CommentForVideoService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'image_f_comment_f_video_g',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'video_f_comment_f_video_g': {
@@ -46,6 +50,8 @@ export class CommentForVideoService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'video_f_comment_f_video_g',
+          parent_of_owner_id,
+          userId,
         )
       }
       case 'audio_f_comment_f_video_g': {
@@ -54,6 +60,8 @@ export class CommentForVideoService_G extends Base_Upload_Remove_Service<
           url,
           file_name,
           'audio_f_comment_f_video_g',
+          parent_of_owner_id,
+          userId,
         )
       }
 
