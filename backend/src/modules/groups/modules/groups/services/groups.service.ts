@@ -14,6 +14,7 @@ export class GroupsService {
     private readonly groupUserRelationshipService: GroupUserRelationshipService,
   ) {}
   async create(createGroupInput: CreateGroupInput, userId: number) {
+    
     const group = new GroupEntity()
     group.ownerId = userId
     group.slogan = createGroupInput.slogan

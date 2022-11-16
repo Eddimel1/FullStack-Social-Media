@@ -1,4 +1,8 @@
+const Dotenv = require('dotenv-webpack');
 module.exports = {
     mode: 'production',
-    devtool:'source-map'
+    devtool:'source-map',
+    plugins: [
+        new Dotenv({path:'../envs/production.env'})
+       ].filter(Boolean),
 }

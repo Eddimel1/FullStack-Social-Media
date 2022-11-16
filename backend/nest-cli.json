@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
-  "sourceRoot": "src",
+  "sourceRoot": "backend/src",
   "compilerOptions": {
     "assets": ["common/envs/*"]
   }

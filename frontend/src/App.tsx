@@ -4,6 +4,6 @@ import CustomRouter from './Routes/CustomRouter'
 
 export const App = () => {
   return (
-    <CustomRouter role='user'></CustomRouter>
+    <CustomRouter user_role='user'></CustomRouter>
   )
 }

@@ -1,4 +1,4 @@
-import AdminDashBoard from '../Components/Admin/AdminDashBoard/AdminDashBoard'
+import AdminDashBoard from '../Components/Specific/Admin/AdminDashBoard/AdminDashBoard'
 import React from 'react'
 import { Routes, Route} from 'react-router-dom'
 

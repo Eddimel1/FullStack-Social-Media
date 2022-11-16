@@ -1,3 +1,8 @@
 {
-  "cSpell.words": ["Dtos", "entitites", "galery", "nestjs", "replyo", "typeorm"]
+  "cSpell.words": ["Dtos", "entitites", "galery", "nestjs", "replyo", "typeorm"],
+  "eslint.workingDirectories": [
+    "./backend", 
+    "./frontend",
+    "./shared"
+],
 }

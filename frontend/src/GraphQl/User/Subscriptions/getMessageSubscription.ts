@@ -1,12 +1,11 @@
 import React from 'react'
 
-import { gql, useQuery, useSubscription } from '@apollo/client'
+import { gql, useSubscription } from '@apollo/client'
 
 export const GET_FRESH_MESSAGE= gql`
 subscription messageAdded {
     messageAdded{
         message
-      
     }
   }
 `

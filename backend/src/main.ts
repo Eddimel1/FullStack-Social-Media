@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { AppModule } from './app.module'
-import * as cookieParser from 'cookie-parser'
-import * as express from 'express'
+import cookieParser from 'cookie-parser'
+import express from 'express'
 import { addResponseHeaders } from './express/Middlewares/Header.middleware'
 import { ValidationPipe } from '@nestjs/common'
 
@@ -24,6 +24,5 @@ async function bootstrap() {
     console.log('[WEB]', config.get<string>('BASE_URL'))
   })
 }
-
 
 bootstrap()

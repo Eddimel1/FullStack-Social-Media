@@ -18,7 +18,6 @@ import {
 import { LoginUserInput } from './dto/input.dto'
 import { roles, tokens, JwtPayLoad } from './types/types'
 import { UserService } from '../users/services/user.service'
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -43,7 +42,7 @@ export class AuthService {
       loginUserInput.username,
       loginUserInput.password,
     )
-
+        
     if (user) {
       const tokens = await this.getTokens(user.id, user.role)
       console.log(tokens)

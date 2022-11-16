@@ -1,7 +1,5 @@
 import { GroupsModule } from './modules/groups/groups.module'
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { getEnvPath } from './miscellaneous/envs/helpers/env.helper'
@@ -71,9 +69,7 @@ const envFilePath: string = getEnvPath(`src/miscellaneous/envs`)
     RepliesModule_U,
     CommentsForGroupModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,

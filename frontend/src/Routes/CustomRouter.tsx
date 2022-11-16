@@ -5,10 +5,10 @@ import { roles } from './Types'
 import UserRouter from './UserRouter'
 
 type _props = {
-    role:roles
+    user_role:roles
 }
-export default function CustomRouter({role}:_props) {
-  switch (role) {
+export default function CustomRouter({user_role}:_props) {
+  switch (user_role) {
     case 'admin':
         return <AdminRouter />
 

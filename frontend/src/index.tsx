@@ -6,7 +6,7 @@ import {BrowserRouter} from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './Redux/Store/Store'
 
-import { uploadLink, wsLink, httpLink, logContext ,  } from './Apollo-Links/Request-Links'
+import { uploadLink, wsLink, httpLink, logContext ,  } from './Apollo/Links/Request-Links'
 const root = document.getElementById('root') as HTMLElement
 
 

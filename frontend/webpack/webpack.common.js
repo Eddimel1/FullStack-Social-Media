@@ -88,7 +88,7 @@ module.exports = {
           },
           client: {
             overlay: {
-              errors: true,
+              errors: false,
               warnings: false,
             }
           },

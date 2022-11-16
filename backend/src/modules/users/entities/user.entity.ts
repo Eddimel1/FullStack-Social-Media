@@ -41,7 +41,7 @@ export class SanitizedUser extends BasicEntity {
   @OneToOne(() => UserInfoEntity, (info) => info.owner)
   info: UserInfoEntity
 
-  @Field()
+  @Field(() => ChatEntity)
   @OneToMany(() => ChatEntity, (chat) => chat.owner)
   chats: ChatEntity
 

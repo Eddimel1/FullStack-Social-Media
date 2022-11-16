@@ -18,7 +18,7 @@ export class Group_Roles_Guard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context)
-
+   
     const requiredRoles = this.reflector.getAllAndOverride<Group_Roles[]>(
       GROUP_ROLES_KEY,
       [context.getHandler(), context.getClass()],
@@ -27,6 +27,7 @@ export class Group_Roles_Guard implements CanActivate {
     if (!requiredRoles) {
       return true
     }
+   
     const user_id = ctx.getContext().req.user.id
     const args = ctx.getArgs()
     const groupId = propSeeker(args, 'groupId')
