@@ -25,6 +25,7 @@ import { UserInfoModule } from './modules/infos/user/user-info.module'
 import { PostsForGroupModule } from './modules/posts/group/posts-for-group.module'
 import { PostModule } from './modules/posts/user/post.module'
 import { UserModule } from './modules/users/user.module'
+import { MailModule } from './modules/mails/mails.module'
 
 const envFilePath: string = getEnvPath(`src/miscellaneous/envs`)
 @Module({
@@ -68,6 +69,7 @@ const envFilePath: string = getEnvPath(`src/miscellaneous/envs`)
     RepliesModule_G,
     RepliesModule_U,
     CommentsForGroupModule,
+    MailModule
   ],
   providers: [
     {
