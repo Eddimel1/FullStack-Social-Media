@@ -11,10 +11,12 @@ import { Request } from 'express'
 import { decodedJwtPayload } from '../types/types'
 import { UserService } from 'src/modules/users/services/user.service'
 import { UsersRefreshTokenInput } from 'src/modules/users/types/types'
+import { UserAuthService } from 'src/modules/users/services/user-auth.service'
 
 @Injectable()
 export class RefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
-  constructor(private userService: UserService, configService: ConfigService) {
+  constructor(private readonly  userService: UserService,private readonly  userAuthService: UserAuthService,
+     configService: ConfigService) {
     super({
       ignoreExpiration: false,
       passReqToCallback: true,
@@ -53,7 +55,7 @@ export class RefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
       r_token_version: user.r_token_version + 1,
       id: user.id,
     } as UsersRefreshTokenInput
-    await this.userService.updateTokens(data_for_update)
+    await this.userAuthService.updateTokens(data_for_update)
     const updatedUser = await this.userService.getOneUser(user.id)
     console.log(updatedUser)
     return updatedUser

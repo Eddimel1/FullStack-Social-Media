@@ -1,21 +1,13 @@
-import { ExecutionContext, Req, UseGuards } from '@nestjs/common'
-import {
-  Args,
-  Context,
-  GraphQLExecutionContext,
-  Mutation,
-  Query,
-  Resolver,
-} from '@nestjs/graphql'
+import { UseGuards } from '@nestjs/common'
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { RolesGuard } from 'src/modules/auth/guards/roles-guard'
 import { UserEntity } from '../entities/user.entity'
 import { UserService } from '../services/user.service'
 import { Roles } from '../../auth/decorators/roles-decorator'
 import { RolesDec } from '../../auth/decorators/roles-decorator'
 import { Public } from 'src/modules/auth/decorators/public-decorator'
-import { CreateUserInput, UpdateUserInput } from '../dto/input.dto'
+import { CreateUserInput } from '../dto/input.dto'
 import { getAllUser_O } from '../dto/output.dto'
-
 
 @Resolver('User')
 export class UserResolver {
@@ -30,19 +22,7 @@ export class UserResolver {
     )
     return serializedUser
   }
-  @RolesDec(Roles.User)
-  @UseGuards(RolesGuard)
-  @Mutation(() => UserEntity)
-  async updateUsersSensitiveData(
-    @Context() context,
-    @Args('updateUser') updateUserInput: UpdateUserInput,
-  ): Promise<UserEntity> {
-    const user_id = context.req.user.id
-    return await this.userService.updateUsersSensitiveData({
-      ...updateUserInput,
-      id: user_id,
-    })
-  }
+
   @RolesDec(Roles.User)
   @UseGuards(RolesGuard)
   @Mutation(() => Number)

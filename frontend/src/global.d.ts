@@ -1,6 +1,9 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: string
-    Some_Key: string
+    GRAPHQL_SERVER_URL: string
+    NEST_SERVER_URL:string
+    BASE_URL:string
   }
 }
+

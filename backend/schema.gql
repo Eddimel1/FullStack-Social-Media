@@ -694,7 +694,6 @@ type Mutation {
   updateUserInfo(updateUserInfoInput: UpdateUserInfoInput!): UserInfoEntity!
   updateUserPrivateSide(updateUserPrivateSide: UpdateRelationShip_U!): UpdatePrivateUserSide_O!
   updateUserSide(UpdateRelationShip_U: UpdateRelationShip_U!): UpdateUserSide_O!
-  updateUsersSensitiveData(updateUser: UpdateUserInput!): UserEntity!
 }
 
 type PostEntity_G {
@@ -880,6 +879,7 @@ type SanitizedUser {
   commentForPostEntity_U: [CommentForPostEntity_U!]!
   commentForVideoEntity_G: [CommentForVideoEntity_G!]!
   commentForVideoEntity_U: [CommentForVideoEntity_U!]!
+  confirmed: Boolean!
   cover: U_Cover_EN!
   createdAt: DateTime!
   friends: [UserEntity!]!
@@ -895,6 +895,7 @@ type SanitizedUser {
   replyForPostEntity_U: [ReplyForPostEntity_U!]!
   replyForVideoEntity_G: [ReplyForVideoEntity_G!]!
   replyForVideoEntity_U: [ReplyForVideoEntity_U!]!
+  role: String!
   updatedAt: DateTime!
   username: String!
   videos: [Galery_Video_U!]!
@@ -1013,11 +1014,6 @@ input UpdateUserInfoInput {
   last_name: String
 }
 
-input UpdateUserInput {
-  email: String
-  username: String
-}
-
 input UpdateUserSide {
   proposal: String
   wish: String
@@ -1072,6 +1068,7 @@ type UserEntity {
   commentForPostEntity_U: [CommentForPostEntity_U!]!
   commentForVideoEntity_G: [CommentForVideoEntity_G!]!
   commentForVideoEntity_U: [CommentForVideoEntity_U!]!
+  confirmed: Boolean!
   cover: U_Cover_EN!
   createdAt: DateTime!
   email: String!
@@ -1088,6 +1085,7 @@ type UserEntity {
   replyForPostEntity_U: [ReplyForPostEntity_U!]!
   replyForVideoEntity_G: [ReplyForVideoEntity_G!]!
   replyForVideoEntity_U: [ReplyForVideoEntity_U!]!
+  role: String!
   updatedAt: DateTime!
   username: String!
   videos: [Galery_Video_U!]!

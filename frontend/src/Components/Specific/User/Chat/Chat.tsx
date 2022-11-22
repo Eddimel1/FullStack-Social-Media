@@ -1,7 +1,7 @@
 import {
   GetFreshMessageSub,
   GET_FRESH_MESSAGE,
-} from '../../../../GraphQl/User/Subscriptions/getMessageSubscription'
+} from '../../../../GraphQl/User/Subscriptions/getMessage'
 import React from 'react'
 import { useSubscription } from '@apollo/client'
 

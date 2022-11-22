@@ -17,11 +17,13 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
             .split(';')
             .find((el) => el.includes('access_token'))
             .split('=')[1]
+
+          console.log(request.cookies.access_token)
           const access_token = request?.cookies?.access_token
-          if (!access_token) {
-            return access_token_for_sockets
-          } else {
+          if (access_token) {
             return access_token
+          } else if (access_token_for_sockets) {
+            return access_token_for_sockets
           }
         },
       ]),

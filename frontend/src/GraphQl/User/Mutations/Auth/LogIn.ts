@@ -3,8 +3,8 @@ import React from 'react'
 import { gql, useMutation} from '@apollo/client'
 
 const LOG_IN = gql`
-  mutation login($user: LoginUserInput!) {
-    login(loginUserInput: $user) {
+  mutation login($input: LoginUserInput!) {
+    login(loginUserInput: $input) {
       username
       
     }

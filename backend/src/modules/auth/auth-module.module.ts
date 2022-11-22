@@ -1,3 +1,4 @@
+import { MailModule } from './../mails/mails.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigService } from '@nestjs/config'
 import { Module } from '@nestjs/common'
@@ -10,13 +11,17 @@ import { JwtStrategy } from './strategies/jwt-access-token'
 import { UserEntity } from '../users/entities/user.entity'
 import { UserService } from '../users/services/user.service'
 import { UserModule } from '../users/user.module'
+import { AuthController } from './controllers/auth.controller'
+import { UserAuthService } from '../users/services/user-auth.service'
 
 @Module({
+  controllers: [AuthController],
   imports: [
     TypeOrmModule.forFeature([UserEntity]),
     PassportModule,
     UserModule,
     AuthModule,
+    MailModule,
     JwtModule.register({}),
   ],
   providers: [
@@ -26,6 +31,7 @@ import { UserModule } from '../users/user.module'
     ConfigService,
     AuthResolver,
     UserService,
+    UserAuthService,
   ],
   exports: [AuthService],
 })

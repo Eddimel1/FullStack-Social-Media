@@ -1,6 +1,7 @@
 import React from 'react'
 import './main.scss'
-import CustomRouter from './Routes/CustomRouter'
+import CustomRouter from './Routes/Routers/CustomRouter'
+
 
 export const App = () => {
   return (

@@ -1,0 +1,19 @@
+.logIn{
+    color:black;
+    background-color: rgb(201, 214, 21);
+}
+.signUp{
+    color:black;
+    background-color: rgba(201, 15, 191, 0.603);
+    margin-right: 2rem;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.buttons{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 4rem;
+}
+

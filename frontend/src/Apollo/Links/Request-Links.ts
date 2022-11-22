@@ -2,7 +2,8 @@ import { HttpLink } from "@apollo/client";
 import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { createUploadLink } from "apollo-upload-client";
 import { createClient } from "graphql-ws";
-import { ApolloLink } from '@apollo/client';
+import { ApolloClient, ApolloLink } from '@apollo/client';
+
 
 //get url from env
 export const uploadLink = createUploadLink({ 
@@ -31,3 +32,4 @@ export const logContext = new ApolloLink((operation, forward) => {
  console.log(operation)
   return forward(operation);
 })
+

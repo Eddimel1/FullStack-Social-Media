@@ -1,8 +1,13 @@
 {
-  "cSpell.words": ["Dtos", "entitites", "galery", "nestjs", "replyo", "typeorm"],
-  "eslint.workingDirectories": [
-    "./backend", 
-    "./frontend",
-    "./shared"
-],
+  "cSpell.words": [
+    "Dtos",
+    "entitites",
+    "galery",
+    "nestjs",
+    "replyo",
+    "signup",
+    "typeorm"
+  ],
+  "eslint.workingDirectories": ["./backend", "./frontend", "./shared"],
+  "typescript.preferences.importModuleSpecifier": "relative"
 }

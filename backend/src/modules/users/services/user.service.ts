@@ -1,3 +1,5 @@
+import { ConfigService } from '@nestjs/config'
+import { JwtService } from '@nestjs/jwt'
 import {
   Injectable,
   NotFoundException,
@@ -9,21 +11,21 @@ import { ERROR_MESSAGES } from 'src/global/exceptions/messages'
 import { UserAlreadyExists_EX } from 'src/global/exceptions/user-exceptions'
 import { fromFindAndCount } from 'src/global/globalUtils/transforms/transforms'
 import { Repository, Not } from 'typeorm'
-import { CreateUserInput, SensitiveUserInput } from '../dto/input.dto'
+import { CreateUserInput } from '../dto/input.dto'
 import { getAllUser_O } from '../dto/output.dto'
 import { UserEntity } from '../entities/user.entity'
-import {
-  UsersRefreshTokenInput,
-  RELATIONS,
-  relationsFilterT,
-} from '../types/types'
+import { RELATIONS, relationsFilterT } from '../types/types'
 import * as bcrypt from 'bcrypt'
+import { MailService } from 'src/modules/mails/services/mails.service'
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly mailService: MailService,
+    private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   async createUser(createUserInput: CreateUserInput): Promise<UserEntity> {
@@ -44,7 +46,24 @@ export class UserService {
     user.password = hashedPassword
     user.email = email
     user.username = username
-    return await this.userRepository.save(user)
+
+    try {
+      const created_user = await this.userRepository.save(user)
+      const token = await this.jwtService.signAsync(
+        { id: created_user.id },
+        {
+          secret: `${this.configService.get('MAIL_SECRET')}`,
+        },
+      )
+      const result = await this.mailService.sendUserConfirmation(
+        created_user.email,
+        created_user.username,
+        token,
+      )
+      return created_user
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
   async getOneUser(id: number): Promise<UserEntity> {
@@ -59,6 +78,12 @@ export class UserService {
       throw new NotFoundException(
         `user with username {${username}} was not found`,
       )
+    return user
+  }
+  async getOneUserByEmail(email: string): Promise<UserEntity> {
+    const user = await this.userRepository.findOneBy({ email })
+    if (!user)
+      throw new NotFoundException(`user with username {${email}} was not found`)
     return user
   }
 
@@ -80,33 +105,11 @@ export class UserService {
     return id
   }
 
-  async updateUsersSensitiveData({
-    id,
-    ...updateUserInput
-  }: SensitiveUserInput): Promise<UserEntity> {
-    await this.userRepository.update({ id }, { ...updateUserInput })
-    return await this.getOneUser(id)
-  }
-  async updateTokens(usersRefreshToken: UsersRefreshTokenInput) {
-    const user = await this.userRepository.update(
-      { id: usersRefreshToken.id },
-      { ...usersRefreshToken },
-    )
-    return user
-  }
-
-  async logOutUser(id: number) {
-    const update = { r_token: null }
-    const isSuccess = await this.userRepository.update({ id: id }, update)
-    if (isSuccess) return true
-    return false
-  }
   async returnFullUser(id: number) {
     const user = await this.userRepository.findOne({
       where: { id },
       relations: RELATIONS,
     })
-
     return user
   }
 
@@ -118,17 +121,5 @@ export class UserService {
     const user = await queryBuilder.where({ id }).getOne()
     console.log('_USER : ', user)
     return user
-  }
-  async getRelationalDataById(id: number, relation: relationsFilterT) {
-    const queryBuilder = this.userRepository.createQueryBuilder('user')
-
-    queryBuilder.leftJoinAndSelect(`user.${relation}`, `${relation}`)
-
-    const relationalEntities = await queryBuilder.where({ id }).getOne()
-    console.log(`${relation}`, relationalEntities[relation])
-    return relationalEntities[relation]
-  }
-  getUserQueryBuilder() {
-    return this.userRepository.createQueryBuilder('user')
   }
 }

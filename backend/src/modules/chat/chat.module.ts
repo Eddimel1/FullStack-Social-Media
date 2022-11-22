@@ -15,16 +15,8 @@ import { UserModule } from '../users/user.module'
   imports: [
     TypeOrmModule.forFeature([ChatEntity, MessageEntity, UserEntity]),
     UserModule,
-    RestFilesModule,
   ],
-  providers: [
-    MessageResolver,
-    ChatResolver,
-    MessageService,
-    UserService,
-
-    ChatService,
-  ],
+  providers: [MessageResolver, ChatResolver, MessageService, ChatService],
   exports: [MessageService, ChatService],
 })
 export class ChatModule {}

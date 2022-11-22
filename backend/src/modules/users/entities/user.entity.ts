@@ -37,6 +37,14 @@ export class SanitizedUser extends BasicEntity {
   @Column()
   username: string
 
+  @Field({ defaultValue: false })
+  @Column({ default: false })
+  confirmed: boolean
+
+  @Field()
+  @Column({ default: 'user' })
+  role: 'admin' | 'user'
+
   @Field(() => UserInfoEntity)
   @OneToOne(() => UserInfoEntity, (info) => info.owner)
   info: UserInfoEntity
@@ -142,8 +150,9 @@ export class UserEntity extends SanitizedUser {
   @Column()
   email: string
 
-  @Column({ default: 'user' })
-  role: 'admin' | 'user'
+  @Exclude()
+  @Column({ nullable: true })
+  reset_token: string
 
   @Exclude()
   @Column({ nullable: true })
