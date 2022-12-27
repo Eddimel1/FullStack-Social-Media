@@ -15,8 +15,11 @@ import { UserAuthService } from 'src/modules/users/services/user-auth.service'
 
 @Injectable()
 export class RefreshStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
-  constructor(private readonly  userService: UserService,private readonly  userAuthService: UserAuthService,
-     configService: ConfigService) {
+  constructor(
+    private readonly userService: UserService,
+    private readonly userAuthService: UserAuthService,
+    configService: ConfigService,
+  ) {
     super({
       ignoreExpiration: false,
       passReqToCallback: true,

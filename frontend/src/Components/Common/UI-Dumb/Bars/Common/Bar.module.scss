@@ -1,0 +1,17 @@
+
+.barItem{
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+    padding:0.4rem;
+    &:hover{
+        box-shadow: 3px 0px 5px  black;
+    }
+}
+.arrow {
+    transform: translateX(-50%);
+    position:absolute;
+    bottom:-5px;
+    left:50%;
+    transition:transform 0.15s ease-out;
+}

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ReplyForPhotoEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-photo.entity'
-import { ReplyForPostEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-post.entity'
-import { ReplyForVideoEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-video.entity'
+import { ReplyForPhoto_G } from 'src/modules/replies/group-replies/entities/reply-f-photo.entity'
+import { ReplyForPost_G } from 'src/modules/replies/group-replies/entities/reply-f-post.entity'
+import { ReplyForVideo_G } from 'src/modules/replies/group-replies/entities/reply-f-video.entity'
 import { Audio_F_Reply_F_Photo_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/audio-f-photo.entity'
 import { Audio_F_Reply_F_Post_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/audio-f-post.entity'
 import { Audio_F_Reply_F_Video_G } from 'src/modules/rest-files/entities/groups/entities-for-replies/audio-f-video.entity'
@@ -38,9 +38,9 @@ import { ReplyForVideoService_G } from './services/for-video.service'
       Audio_F_Reply_F_Post_G,
       Video_F_Reply_F_Post_G,
       Image_F_Reply_F_Post_G,
-      ReplyForPhotoEntity_G,
-      ReplyForVideoEntity_G,
-      ReplyForPostEntity_G,
+      ReplyForPhoto_G,
+      ReplyForVideo_G,
+      ReplyForPost_G,
     ]),
     ConfigModule,
   ],

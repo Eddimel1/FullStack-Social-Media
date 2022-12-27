@@ -1,7 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { CommentForPhotoEntity_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
-import { CommentForPostEntity_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
+import { CommentForPost_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
 import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 
 @ObjectType()
@@ -9,10 +8,10 @@ import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBas
 export class Video_F_Comment_F_Post_G extends BaseVideoEntity {
   @Column()
   ownerId: number
-  @Field(() => CommentForPostEntity_G)
-  @OneToOne(() => CommentForPostEntity_G, (comment) => comment.video, {
+  @Field(() => CommentForPost_G)
+  @OneToOne(() => CommentForPost_G, (comment) => comment.video, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
-  comment: CommentForPhotoEntity_G
+  owner: CommentForPost_G
 }

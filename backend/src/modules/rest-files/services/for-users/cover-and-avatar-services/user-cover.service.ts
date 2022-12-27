@@ -16,7 +16,23 @@ export class CoverService_U {
     image.file_name = filename
     image.url = url
     image.ownerId = id
-    return await this.userCoverRepository.save(image)
+
+    const existing_cover = await this.userCoverRepository.findOneBy({
+      ownerId: id,
+    })
+
+    if (existing_cover) {
+      const updated = await this.userCoverRepository.update(
+        { ownerId: id },
+        image,
+      )
+
+      if (updated.affected > 0) {
+        return this.userCoverRepository.findOneBy({ ownerId: id })
+      }
+    } else if (!existing_cover) {
+      return this.userCoverRepository.save(image)
+    }
   }
   async deleteImageById(id: number) {
     return await this.userCoverRepository.delete({ id })

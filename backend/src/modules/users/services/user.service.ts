@@ -14,7 +14,7 @@ import { Repository, Not } from 'typeorm'
 import { CreateUserInput } from '../dto/input.dto'
 import { getAllUser_O } from '../dto/output.dto'
 import { UserEntity } from '../entities/user.entity'
-import { RELATIONS, relationsFilterT } from '../types/types'
+import { RELATIONS } from '../types/types'
 import * as bcrypt from 'bcrypt'
 import { MailService } from 'src/modules/mails/services/mails.service'
 
@@ -29,7 +29,8 @@ export class UserService {
   ) {}
 
   async createUser(createUserInput: CreateUserInput): Promise<UserEntity> {
-    const { password, email, username } = createUserInput
+    const { password, email, username, birthDate, sex, country } =
+      createUserInput
     const hashedPassword = await bcrypt.hash(password, 3)
     const _is_already_exists = await this.userRepository
       .createQueryBuilder('user')
@@ -46,6 +47,9 @@ export class UserService {
     user.password = hashedPassword
     user.email = email
     user.username = username
+    user.birthDate = birthDate
+    user.sex = sex
+    user.country = country
 
     try {
       const created_user = await this.userRepository.save(user)
@@ -67,7 +71,20 @@ export class UserService {
   }
 
   async getOneUser(id: number): Promise<UserEntity> {
-    const user = await this.userRepository.findOneBy({ id })
+    const user = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.id = :id', { id })
+      .leftJoinAndSelect('user.posts', 'posts')
+      .leftJoinAndSelect('user.avatar', 'avatar')
+      .leftJoinAndSelect('user.cover', 'cover')
+      .leftJoinAndSelect('posts.audio', 'audio')
+      .leftJoinAndSelect('posts.video', 'video')
+      .leftJoinAndSelect('posts.image', 'image')
+      .leftJoinAndSelect('posts.owner', 'owner')
+      .orderBy('posts.published', 'ASC')
+      .addOrderBy('posts.createdAt', 'DESC')
+      .getOne()
+    console.log(user)
     if (!user)
       throw new NotFoundException(`user with id :  ${id}  was not found`)
     return user
@@ -82,6 +99,7 @@ export class UserService {
   }
   async getOneUserByEmail(email: string): Promise<UserEntity> {
     const user = await this.userRepository.findOneBy({ email })
+
     if (!user)
       throw new NotFoundException(`user with username {${email}} was not found`)
     return user

@@ -1,8 +1,10 @@
 import { WasNotCreated_EX } from '../../global/exceptions/db-exceptions'
 import { File_Crud } from 'src/generics/generic-interfaces/base-file-crud-interface'
 import { Repository } from 'typeorm'
-import { Sim_File_EN_Delete_O, File_EN_Delete_O } from 'src/global/globalDtos/output.dto'
-
+import {
+  Sim_File_EN_Delete_O,
+  File_EN_Delete_O,
+} from 'src/global/globalDtos/output.dto'
 
 export type _optional<T = void> = T extends void ? void : Repository<T>
 export type _options = { parentAutoCreate: boolean; userRelation?: boolean }
@@ -36,7 +38,6 @@ export abstract class BaseFileCRUDService<Model, _optional = void>
     console.log('userId : ', userId, 'OPTIONS : ', this.options)
     console.log('OWNERID : ', ownerId)
     if (this.options && this.options.parentAutoCreate && parent_of_owner_id) {
-      console.log('there')
       const new_parent_entity = new this.parent_model()
       console.log(new_parent_entity)
       new_parent_entity.ownerId = parent_of_owner_id

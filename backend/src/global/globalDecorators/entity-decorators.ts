@@ -15,5 +15,5 @@ export const Text_Dto = (options?: FieldOptions) =>
 export const Text_Entity = (options?: FieldOptions) =>
   applyDecorators(
     Column('varchar', { length: 500, nullable: true }),
-    Field() as PropertyDecorator,
+    Field({ nullable: true }) as PropertyDecorator,
   )

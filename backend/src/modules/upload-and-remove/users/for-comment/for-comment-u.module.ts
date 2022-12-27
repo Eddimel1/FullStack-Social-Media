@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { CommentForPhotoEntity_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
+import { CommentForPhoto_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
 import { Audio_F_Comment_F_Photo_Service_U } from 'src/modules/rest-files/services/for-users/CommentServices/for-photo-services/audio.service'
 import { Image_F_Comment_F_Photo_Service_U } from 'src/modules/rest-files/services/for-users/CommentServices/for-photo-services/image.service'
 import { Video_F_Comment_F_Photo_Service_U } from 'src/modules/rest-files/services/for-users/CommentServices/for-photo-services/video.service'
@@ -14,8 +14,8 @@ import { Video_F_Comment_F_Video_Service_U } from 'src/modules/rest-files/servic
 import { CommentForPhotoService_U } from './services/for-photo.service'
 import { CommentForPostService_U } from './services/for-post.service'
 import { CommentForVideoService_U } from './services/for-video.service'
-import { CommentForPostEntity_U } from 'src/modules/comments/user/entities/comment-for-post.entity'
-import { CommentForVideoEntity_U } from 'src/modules/comments/user/entities/comment-for-video.entity'
+import { CommentForPost_U } from 'src/modules/comments/user/entities/comment-for-post.entity'
+import { CommentForVideo_U } from 'src/modules/comments/user/entities/comment-for-video.entity'
 import { Audio_F_Comment_F_Photo_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/audio-f-photo.entity'
 import { Audio_F_Comment_F_Post_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/audio-f-post.entity'
 import { Audio_F_Comment_F_Video_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/audio-f-video.entity'
@@ -38,9 +38,9 @@ import { Video_F_Comment_F_Video_U } from 'src/modules/rest-files/entities/users
       Audio_F_Comment_F_Post_U,
       Video_F_Comment_F_Post_U,
       Image_F_Comment_F_Post_U,
-      CommentForPhotoEntity_U,
-      CommentForVideoEntity_U,
-      CommentForPostEntity_U,
+      CommentForPhoto_U,
+      CommentForVideo_U,
+      CommentForPost_U,
     ]),
     ConfigModule,
   ],

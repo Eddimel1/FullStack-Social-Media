@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ReplyForPhotoEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-photo.entity'
-import { ReplyForPostEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-post.entity'
-import { ReplyForVideoEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-video.entity'
+import { ReplyForPhoto_U } from 'src/modules/replies/user-replies/entities/reply-f-photo.entity'
+import { ReplyForPost_U } from 'src/modules/replies/user-replies/entities/reply-f-post.entity'
+import { ReplyForVideo_U } from 'src/modules/replies/user-replies/entities/reply-f-video.entity'
 import { Audio_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/audio-f-photo.entity'
 import { Audio_F_Reply_F_Post_U } from 'src/modules/rest-files/entities/users/entities-for-replies/audio-f-post.entity'
 import { Audio_F_Reply_F_Video_U } from 'src/modules/rest-files/entities/users/entities-for-replies/audio-f-video.entity'
@@ -19,7 +19,6 @@ import { Video_F_Reply_F_Photo_Service_U } from 'src/modules/rest-files/services
 import { Audio_F_Reply_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-posts-services/audio.service'
 import { Image_F_Reply_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-posts-services/image.service'
 import { Video_F_Reply_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-posts-services/video.service'
-
 import { Audio_F_Reply_F_Video_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-video-services/audio.service'
 import { Image_F_Reply_F_Video_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-video-services/image.service'
 import { Video_F_Reply_F_Video_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-video-services/video.service'
@@ -39,9 +38,9 @@ import { ReplyForVideoService_U } from './services/for-video.service'
       Audio_F_Reply_F_Post_U,
       Video_F_Reply_F_Post_U,
       Image_F_Reply_F_Post_U,
-      ReplyForPhotoEntity_U,
-      ReplyForVideoEntity_U,
-      ReplyForPostEntity_U,
+      ReplyForPhoto_U,
+      ReplyForVideo_U,
+      ReplyForPost_U,
     ]),
     ConfigModule,
   ],

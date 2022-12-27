@@ -1,16 +1,16 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { PostService } from '../services/post.service'
-import { PostEntity_U } from '../entities/post.entity'
+import { Post_U } from '../entities/post.entity'
 import { CreatePostInput, UpdatePostInput } from '../dto/input.dto'
 import { FindAllPosts_O } from '../dto/output.dto'
 import { FindOne_W_Owner_I } from 'src/global/globalDtos/input.dto'
 import { Delete_Message_W_Owner } from 'src/global/globalDtos/output.dto'
 
-@Resolver(() => PostEntity_U)
+@Resolver(() => Post_U)
 export class PostResolver {
   constructor(private readonly postService: PostService) {}
 
-  @Mutation(() => PostEntity_U)
+  @Mutation(() => Post_U)
   async createPost(
     @Context() context,
     @Args('createPostInput') createPostInput: CreatePostInput,
@@ -30,7 +30,7 @@ export class PostResolver {
       : await this.postService.findAll(my_id, 'posts')
   }
 
-  @Query(() => PostEntity_U)
+  @Query(() => Post_U)
   async findOnePost(
     @Context() context,
     @Args('findPost') findPost: FindOne_W_Owner_I,
@@ -41,7 +41,7 @@ export class PostResolver {
       : await this.postService.findOne(my_id, findPost.id, 'post')
   }
 
-  @Mutation(() => PostEntity_U)
+  @Mutation(() => Post_U)
   async updatePost(
     @Context() context,
     @Args('updatePostInput') updatePostInput: UpdatePostInput,

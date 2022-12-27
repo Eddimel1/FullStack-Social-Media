@@ -12,5 +12,5 @@ export class G_Avatar_EN extends BaseImageEntity {
   @Field(() => GroupEntity)
   @OneToOne(() => GroupEntity, (group) => group.avatar, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ownerId' })
-  group: GroupEntity
+  owner: GroupEntity
 }

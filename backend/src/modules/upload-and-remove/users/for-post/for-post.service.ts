@@ -6,7 +6,7 @@ import { Image_F_Post_Service_U } from 'src/modules/rest-files/services/for-user
 import { Video_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/PostServices/post_video.service'
 import { PostFoldersT_U } from 'src/modules/rest-files/types/user-types'
 
-const storageP = '../../storage'
+const storageP = '../../../../storage'
 @Injectable()
 export class ForPostService_U extends Base_Upload_Remove_Service<
   Image_F_Post_Service_U,

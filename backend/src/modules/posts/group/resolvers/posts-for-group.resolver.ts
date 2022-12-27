@@ -5,13 +5,13 @@ import { PostsForGroupService } from '../services/posts-for-group.service'
 import { FindAllGroupPosts_O } from '../dto/output'
 import { FindOne_W_Owner_I } from 'src/global/globalDtos/input.dto'
 import { Delete_Message_W_Owner } from 'src/global/globalDtos/output.dto'
-import { PostEntity_G } from '../entities/posts-for-group.entity'
+import { Post_G } from '../entities/posts-for-group.entity'
 
-@Resolver(() => PostEntity_G)
+@Resolver(() => Post_G)
 export class PostsForGroupResolver {
   constructor(private readonly postsForGroupService: PostsForGroupService) {}
 
-  @Mutation(() => PostEntity_G)
+  @Mutation(() => Post_G)
   createPostForGroup(
     @Args('createPostForGroup')
     createPostForGroupInput: CreatePost_F_Group_I,
@@ -26,7 +26,7 @@ export class PostsForGroupResolver {
     return this.postsForGroupService.findAll(groupId, 'group')
   }
 
-  @Query(() => PostEntity_G)
+  @Query(() => Post_G)
   findOneGroupPost(@Args('findGroupPost') findGroupPost: FindOne_W_Owner_I) {
     return this.postsForGroupService.findOne(
       findGroupPost.ownerId,
@@ -35,7 +35,7 @@ export class PostsForGroupResolver {
     )
   }
 
-  @Mutation(() => PostEntity_G)
+  @Mutation(() => Post_G)
   updatePostForGroup(
     @Args('updatePostsForGroupInput')
     updatePostForGroup: UpdatePostForGroup_I,

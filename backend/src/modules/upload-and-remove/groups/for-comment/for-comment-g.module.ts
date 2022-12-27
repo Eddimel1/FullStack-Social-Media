@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { CommentForPhotoEntity_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
-import { CommentForPostEntity_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
-import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
+import { CommentForPhoto_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
+import { CommentForPost_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
+import { CommentForVideo_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
 import { Audio_F_Comment_F_Photo_G } from 'src/modules/rest-files/entities/groups/entitites-for-comments/audio-f-photo.entity'
 import { Audio_F_Comment_F_Post_G } from 'src/modules/rest-files/entities/groups/entitites-for-comments/audio-f-post.entity'
 import { Audio_F_Comment_F_Video_G } from 'src/modules/rest-files/entities/groups/entitites-for-comments/audio-f-video.entity'
@@ -38,9 +38,9 @@ import { CommentForVideoService_G } from './services/for-video.service'
       Audio_F_Comment_F_Post_G,
       Video_F_Comment_F_Post_G,
       Image_F_Comment_F_Post_G,
-      CommentForPhotoEntity_G,
-      CommentForVideoEntity_G,
-      CommentForPostEntity_G,
+      CommentForPhoto_G,
+      CommentForVideo_G,
+      CommentForPost_G,
     ]),
     ConfigModule,
   ],

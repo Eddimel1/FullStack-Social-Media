@@ -1,6 +1,6 @@
 import { Video_F_Post_G } from 'src/modules/rest-files/entities/groups/entities-for-posts/video_post.entity'
 import { ObjectType, Field } from '@nestjs/graphql'
-import { CommentForPostEntity_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
+import { CommentForPost_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
 
 import {
   Entity,
@@ -18,7 +18,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
 @Entity('posts_g')
-export class PostEntity_G extends BasePostEntity {
+export class Post_G extends BasePostEntity {
   @Column({ name: 'ownerId' })
   ownerId: number
   @Field(() => GroupEntity)
@@ -39,15 +39,15 @@ export class PostEntity_G extends BasePostEntity {
   @JoinColumn({ name: 'userId' })
   user: UserEntity
 
-  @Field(() => [CommentForPostEntity_G])
-  @OneToMany(() => CommentForPostEntity_G, (comment) => comment.post, {
+  @Field(() => [CommentForPost_G])
+  @OneToMany(() => CommentForPost_G, (comment) => comment.owner, {
     onDelete: 'CASCADE',
-    eager: true,
+    nullable: true,
   })
-  comments: CommentForPostEntity_G[]
+  comments: CommentForPost_G[]
 
   @Field(() => Video_F_Post_G)
-  @OneToOne(() => Video_F_Post_G, (video) => video.post, {
+  @OneToOne(() => Video_F_Post_G, (video) => video.owner, {
     onDelete: 'CASCADE',
     nullable: true,
     eager: true,
@@ -55,7 +55,7 @@ export class PostEntity_G extends BasePostEntity {
   video: Video_F_Post_G
 
   @Field(() => Image_F_Post_G)
-  @OneToOne(() => Image_F_Post_G, (image) => image.post, {
+  @OneToOne(() => Image_F_Post_G, (image) => image.owner, {
     onDelete: 'CASCADE',
     nullable: true,
     eager: true,
@@ -63,7 +63,7 @@ export class PostEntity_G extends BasePostEntity {
   image: Image_F_Post_G
 
   @Field(() => Audio_F_Post_G)
-  @OneToOne(() => Audio_F_Post_G, (audio) => audio.post, {
+  @OneToOne(() => Audio_F_Post_G, (audio) => audio.owner, {
     onDelete: 'CASCADE',
     nullable: true,
     eager: true,

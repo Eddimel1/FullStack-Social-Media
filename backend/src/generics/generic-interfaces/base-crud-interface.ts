@@ -11,7 +11,7 @@ export interface Crud_W_Owner<T> {
     id: number,
     update: dto,
     alias: string,
-  ) => Promise<dto>
+  ) => Promise<T>
   removeOne: (
     ownerId: number,
     id: number,
@@ -29,6 +29,6 @@ export interface Crud_WO_Owner<T> {
     id: number,
     update: dto,
     alias: string,
-  ) => Promise<dto>
+  ) => Promise<T>
   removeOne: (id: number, alias: string) => Promise<Delete_Message_WO_Owner>
 }

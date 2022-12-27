@@ -1,5 +1,7 @@
 export const validImageMimeTypes = [
   'image/jpeg',
+  'image/png',
+  'image/svg',
   'image/svg+xml',
   'image/x-icon',
 ]

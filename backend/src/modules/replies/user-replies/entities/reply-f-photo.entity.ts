@@ -1,7 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 import { BaseCommentEntity } from 'src/typeOrm/baseEntities/comment-entities/baseComment'
-import { CommentForPhotoEntity_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
-import { CommentForPhotoEntity_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
+import { CommentForPhoto_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
 import { Audio_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/audio-f-photo.entity'
 import { Image_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/image-f-reply-f.entity'
 import { Video_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/video-f-photo.entity'
@@ -25,19 +24,19 @@ import { UserEntity } from 'src/modules/users/entities/user.entity'
   ancestorColumnName: (column) => 'ancestor_' + column.propertyName,
   descendantColumnName: (column) => 'descendant_' + column.propertyName,
 })
-export class ReplyForPhotoEntity_U extends BaseCommentEntity {
+export class ReplyForPhoto_U extends BaseCommentEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number
 
   @Column({ nullable: true })
   ownerId: number
-  @Field(() => CommentForPhotoEntity_U, { nullable: true })
-  @ManyToOne(() => CommentForPhotoEntity_U, (photo) => photo.replies, {
+  @Field(() => CommentForPhoto_U, { nullable: true })
+  @ManyToOne(() => CommentForPhoto_U, (photo) => photo.replies, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
-  comment: CommentForPhotoEntity_G
+  comment: CommentForPhoto_U
 
   @Column()
   userId: number
@@ -49,7 +48,7 @@ export class ReplyForPhotoEntity_U extends BaseCommentEntity {
   user: UserEntity
 
   @Field(() => Audio_F_Reply_F_Photo_U)
-  @OneToOne(() => Audio_F_Reply_F_Photo_U, (audio) => audio.reply, {
+  @OneToOne(() => Audio_F_Reply_F_Photo_U, (audio) => audio.owner, {
     onDelete: 'CASCADE',
   })
   @Column()
@@ -59,22 +58,22 @@ export class ReplyForPhotoEntity_U extends BaseCommentEntity {
   audio: Audio_F_Reply_F_Photo_U
 
   @Field(() => Image_F_Reply_F_Photo_U)
-  @OneToOne(() => Image_F_Reply_F_Photo_U, (image) => image.reply, {
+  @OneToOne(() => Image_F_Reply_F_Photo_U, (image) => image.owner, {
     onDelete: 'CASCADE',
   })
   image: Image_F_Reply_F_Photo_U
 
   @Field(() => Video_F_Reply_F_Photo_U)
-  @OneToOne(() => Video_F_Reply_F_Photo_U, (video) => video.reply, {
+  @OneToOne(() => Video_F_Reply_F_Photo_U, (video) => video.owner, {
     onDelete: 'CASCADE',
   })
   video: Video_F_Reply_F_Photo_U
 
-  @Field(() => [ReplyForPhotoEntity_U])
+  @Field(() => [ReplyForPhoto_U])
   @TreeChildren({ cascade: true })
-  children: ReplyForPhotoEntity_U[]
+  children: ReplyForPhoto_U[]
 
-  @Field(() => ReplyForPhotoEntity_U)
+  @Field(() => ReplyForPhoto_U)
   @TreeParent({ onDelete: 'CASCADE' })
-  parent: ReplyForPhotoEntity_U
+  parent: ReplyForPhoto_U
 }

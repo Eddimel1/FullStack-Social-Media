@@ -15,7 +15,9 @@ import {
 } from 'src/global/globalDtos/output.dto'
 import { forPagination } from 'src/global/globalUtils/transforms/transforms'
 
-export abstract class BaseCRUDService<Model> implements Crud_W_Owner<Model> {
+export abstract class BaseCRUDService<Model extends { id: any; ownerId?: any }>
+  implements Crud_W_Owner<Model>
+{
   constructor(protected repository: Repository<Model>) {}
 
   async findOne(ownerId: number, id: number, alias: string): Promise<Model> {
@@ -30,13 +32,12 @@ export abstract class BaseCRUDService<Model> implements Crud_W_Owner<Model> {
     if (entity) return entity
     else throw new WasNotFound_EX(`${alias} was not found`)
   }
-
   async updateOne<dto extends Record<string, any>>(
     ownerId: number,
     id: number,
     update: dto,
     alias: string,
-  ): Promise<dto> {
+  ): Promise<Model> {
     const entity = await this.repository
       .createQueryBuilder(alias)
       .where(`ownerId =:ownerId`)
@@ -49,8 +50,14 @@ export abstract class BaseCRUDService<Model> implements Crud_W_Owner<Model> {
       .returning('*')
       .execute()
     console.log(entity)
-    if (entity && entity.affected > 0) return entity.raw[0] as Promise<dto>
-    else throw new WasNotUpdated_EX(`${alias} was not updated`)
+    if (entity && entity.affected > 0) {
+      const _entity = await this.repository.findOne({
+        //@ts-ignore
+        where: { id, ownerId: entity.ownerId },
+      })
+      console.log(_entity)
+      return _entity
+    } else throw new WasNotUpdated_EX(`${alias} was not updated`)
   }
 
   async removeOne(
@@ -95,7 +102,7 @@ export abstract class BaseCRUDService_WO_Owner<Model>
     id: number,
     update: dto,
     alias: string,
-  ): Promise<dto> {
+  ): Promise<Model> {
     const entity = await this.repository
       .createQueryBuilder(alias)
       .where(`id =:id`, { id })
@@ -104,8 +111,14 @@ export abstract class BaseCRUDService_WO_Owner<Model>
       .returning('*')
       .execute()
     console.log(entity)
-    if (entity && entity.affected > 0) return entity.raw[0] as Promise<dto>
-    else throw new WasNotUpdated_EX(`${alias} was not updated`)
+    if (entity && entity.affected > 0) {
+      const _entity = await this.repository.findOne({
+        //@ts-ignore
+        where: { id, ownerId: entity.ownerId },
+      })
+      console.log(_entity)
+      return _entity
+    } else throw new WasNotUpdated_EX(`${alias} was not updated`)
   }
 
   async removeOne(id: number, alias: string): Promise<Delete_Message_WO_Owner> {
@@ -123,7 +136,9 @@ export abstract class BaseCRUDService_WO_Owner<Model>
   }
 }
 
-export abstract class Base_Crud_W_FindAll<Model>
+export abstract class Base_Crud_W_FindAll<
+    Model extends { id: number; ownerId?: number },
+  >
   extends BaseCRUDService<Model>
   implements Crud_W_Owner<Model>, FindAll_W_Owner<Model>
 {

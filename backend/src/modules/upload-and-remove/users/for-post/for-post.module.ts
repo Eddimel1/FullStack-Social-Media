@@ -7,7 +7,7 @@ import { Image_F_Post_U } from 'src/modules/rest-files/entities/users/entities-f
 import { Audio_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/PostServices/post_audio.service'
 import { Image_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/PostServices/post_image.service'
 import { Video_F_Post_Service_U } from 'src/modules/rest-files/services/for-users/PostServices/post_video.service'
-import { PostEntity_U } from 'src/modules/posts/user/entities/post.entity'
+import { Post_U } from 'src/modules/posts/user/entities/post.entity'
 
 
 @Module({
@@ -16,7 +16,7 @@ import { PostEntity_U } from 'src/modules/posts/user/entities/post.entity'
       Video_F_Post_U,
       Image_F_Post_U,
       Audio_F_Post_U,
-      PostEntity_U,
+      Post_U,
     ]),
   ],
 

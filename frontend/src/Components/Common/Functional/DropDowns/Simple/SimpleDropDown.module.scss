@@ -1,0 +1,52 @@
+.container_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: absolute;
+    top:60px;
+    z-index: 99999;
+    right: 5px;
+    gap:1rem;
+}
+.children{
+    cursor: pointer;
+    &:hover{
+        filter:invert(0.4);
+    }
+}
+.container_flex {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 99999;
+    
+}
+.itemsContainer{
+    position: absolute;
+    top:32px;
+    transform: translateX(-50%);
+}
+.dropdown_item {
+    transition:background-image 0.8s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 0 3px black;
+    padding:0.5rem;
+    background-image: linear-gradient(90deg, rgb(230, 226, 226) 0%, rgb(234, 234, 235) 58%, rgb(229, 237, 238) 100%);
+
+    &:hover{
+        background-image:linear-gradient(270deg, rgb(230, 226, 226) 0%, rgb(234, 234, 235) 58%, rgb(229, 237, 238) 100%)
+    }
+}
+
+.arrow {
+    transform: translateX(-50%);
+    position:absolute;
+    bottom:-10px;
+    left:50%;
+    transition:transform 0.15s ease-out;
+}
+.title{
+    width:max-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

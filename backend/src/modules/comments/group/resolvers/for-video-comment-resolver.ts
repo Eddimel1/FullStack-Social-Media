@@ -5,18 +5,18 @@ import {
   UpdateComment,
 } from '../../shared/dto/input.dto'
 
-import { CommentForVideoEntity_G } from '../entities/comment-for-video_g.entity'
+import { CommentForVideo_G } from '../entities/comment-for-video_g.entity'
 
 import { CommentForVideoService_DB_G } from '../services/comment-for-video.service'
 
-@Resolver(() => CommentForVideoEntity_G)
+@Resolver(() => CommentForVideo_G)
 export class Comment_F_Video_Resolver_G {
   constructor(
     private readonly commentForVideoService: CommentForVideoService_DB_G,
   ) {}
 
-  @Mutation(() => CommentForVideoEntity_G)
-  async createCommentForVideoEntity_G(
+  @Mutation(() => CommentForVideo_G)
+  async createCommentForVideo_G(
     @Args('createCommentInput') createCommentInput: CreateComment,
     @Context() context,
   ) {
@@ -24,13 +24,13 @@ export class Comment_F_Video_Resolver_G {
     return await this.commentForVideoService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForVideoEntity_G])
-  async findAllCommentsForVideoEntity_G(@Args('videoId') videoId: number) {
+  @Query(() => [CommentForVideo_G])
+  async findAllCommentsForVideo_G(@Args('videoId') videoId: number) {
     return await this.commentForVideoService.findAll(videoId, 'comment')
   }
 
-  @Query(() => CommentForVideoEntity_G)
-  async findOneCommentForVideoEntity_G(
+  @Query(() => CommentForVideo_G)
+  async findOneCommentForVideo_G(
     @Args('searchAllCommentForVideo')
     searchAllCommentForVideo: SearchComment,
   ) {
@@ -42,8 +42,8 @@ export class Comment_F_Video_Resolver_G {
     )
   }
 
-  @Mutation(() => CommentForVideoEntity_G)
-  async updateCommentForVideoEntity_G(
+  @Mutation(() => CommentForVideo_G)
+  async updateCommentForVideo_G(
     @Args('updateCommentInput') updateCommentInput: UpdateComment,
   ) {
     const { commentId, ownerId, ...update } = updateCommentInput
@@ -55,8 +55,8 @@ export class Comment_F_Video_Resolver_G {
     )
   }
 
-  @Mutation(() => CommentForVideoEntity_G)
-  async removeCommentForVideoEntity_G(
+  @Mutation(() => CommentForVideo_G)
+  async removeCommentForVideo_G(
     @Args('searchAllCommentForVideo')
     searchAllCommentForVideo: SearchComment,
   ) {

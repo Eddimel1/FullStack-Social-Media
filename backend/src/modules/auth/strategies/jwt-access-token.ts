@@ -18,8 +18,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
             .find((el) => el.includes('access_token'))
             .split('=')[1]
 
-          console.log(request.cookies.access_token)
           const access_token = request?.cookies?.access_token
+
+          console.log('COOKIES : ', request.cookies)
+          console.log('ACCESS TOKEN', request.cookies.access_token)
           if (access_token) {
             return access_token
           } else if (access_token_for_sockets) {

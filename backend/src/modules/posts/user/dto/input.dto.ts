@@ -5,6 +5,15 @@ import { Text_Dto } from 'src/global/globalDecorators/entity-decorators'
 export class CreatePostInput {
   @Text_Dto()
   text: string
+
+  @Field()
+  subject: string
+
+  @Field()
+  privacy: string
+
+  @Field()
+  published: boolean
 }
 
 @InputType()
@@ -13,6 +22,16 @@ export class UpdatePostInput {
   postId: number
   @Field()
   text: string
+
+  @Field()
+  subject: string
+
+  @Field()
+  privacy: string
+
+  @Field()
+  published: boolean
+
 }
 
 @InputType()

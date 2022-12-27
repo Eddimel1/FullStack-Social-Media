@@ -1,0 +1,66 @@
+$border : 1px;
+.avatar {
+
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    
+}
+.imgContainer{
+        position: relative;
+    cursor: pointer;
+}
+.onHover {
+    animation: border 2s infinite ease-in alternate;
+}
+.onLeave {
+    animation:border2 0.4s ease-in;
+    }
+@keyframes border {
+    0%{
+        box-shadow: 0px 0 0 black;
+    }
+    25%{
+        box-shadow: 2px 0 0 black;
+       
+    }
+
+    50%{
+        box-shadow: 2px 2px 5px black;
+        
+    }
+
+    75%{
+        box-shadow: 2px 2px 5px black,-2px 5px black;
+    }
+
+   100%{
+    box-shadow: 2px 2px 5px black,-2px -2px 5px black;
+   }
+}
+
+@keyframes border2 {
+    0%{
+        box-shadow: 0px 0 0 black;
+    }
+    25%{
+        box-shadow: 2px 0 0 black;
+       
+    }
+
+    50%{
+        box-shadow: 2px 2px 0 black;
+        
+    }
+
+    75%{
+        box-shadow: 2px 2px 0 black,-2px 0 black;
+    }
+
+   100%{
+    box-shadow: 2px 2px 0 black,-2px -2px 0 black;
+   }
+   
+}
+
+

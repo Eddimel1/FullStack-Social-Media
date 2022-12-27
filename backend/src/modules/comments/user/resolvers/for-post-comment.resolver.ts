@@ -4,17 +4,17 @@ import {
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
-import { CommentForPostEntity_U } from '../entities/comment-for-post.entity'
+import { CommentForPost_U } from '../entities/comment-for-post.entity'
 import { CommentForPostService_DB_U } from '../services/comment-for-post.service'
 
-@Resolver(() => CommentForPostEntity_U)
+@Resolver(() => CommentForPost_U)
 export class Comment_F_Post_Resolver_U {
   constructor(
     private readonly commentForPostService: CommentForPostService_DB_U,
   ) {}
 
-  @Mutation(() => CommentForPostEntity_U)
-  createCommentForPostEntity_U(
+  @Mutation(() => CommentForPost_U)
+  createCommentForPost_U(
     @Args('createCommentInput') createCommentInput: CreateComment,
     @Context() context,
   ) {
@@ -22,13 +22,13 @@ export class Comment_F_Post_Resolver_U {
     return this.commentForPostService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForPostEntity_U])
+  @Query(() => [CommentForPost_U])
   async findAllCommentsForPostEntity_U(@Args('photoId') photoId: number) {
     return await this.commentForPostService.findAll(photoId, 'comments')
   }
 
-  @Query(() => CommentForPostEntity_U)
-  findOneCommentForPostEntity_U(
+  @Query(() => CommentForPost_U)
+  findOneCommentForPost_U(
     @Args('searchAllCommentForPost')
     searchAllCommentForPost: SearchComment,
   ) {
@@ -36,8 +36,8 @@ export class Comment_F_Post_Resolver_U {
     return this.commentForPostService.findOne(ownerId, commentId, 'comment')
   }
 
-  @Mutation(() => CommentForPostEntity_U)
-  updateCommentForPostEntity_U(
+  @Mutation(() => CommentForPost_U)
+  updateCommentForPost_U(
     @Args('updateCommentInput') updateCommentInput: UpdateComment,
   ) {
     const { commentId, ownerId, ...text } = updateCommentInput
@@ -49,8 +49,8 @@ export class Comment_F_Post_Resolver_U {
     )
   }
 
-  @Mutation(() => CommentForPostEntity_U)
-  removeCommentForPostEntity_U(
+  @Mutation(() => CommentForPost_U)
+  removeCommentForPost_U(
     @Args('searchAllCommentForPost')
     searchAllCommentForPost: SearchComment,
   ) {

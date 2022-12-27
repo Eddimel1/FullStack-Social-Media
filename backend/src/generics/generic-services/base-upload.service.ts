@@ -39,25 +39,22 @@ export abstract class Base_Upload_Remove_Service<T1, T2, T3, F>
     if (!validateMimeType(mimeTypeMapper(file.mimetype))) {
       throw new NotValidFileFormat()
     } else {
-      const path0 = path.join(__dirname, `${this.storagePath}/${type}`)
-      const path1 = path.join(
-        __dirname,
-        `${this.storagePath}/${type}/${mainId}`,
-      )
-      const path2 = path.join(
-        __dirname,
-        `${this.storagePath}/${type}/${mainId}/${folder}`,
-      )
-
-      const fileName = crypto.randomUUID()
-      const full_relative_path = `${type}/${mainId}/${folder}/${fileName}`
+      const path0 = path.join(`storage/${type}`)
+      const path1 = path.join(`storage/${type}/${mainId}`)
+      const path2 = path.join(`storage/${type}/${mainId}/${folder}`)
       console.log(path2)
+      const file_extension = file.mimetype.split('/')[1]
+      const fileName = `${crypto.randomUUID()}.${file_extension}`
+      const full_relative_path = `storage/${type}/${mainId}/${folder}/${fileName}`
+      console.log(full_relative_path)
       await ensureDir(path0, (err) => console.log(err))
       await ensureDir(path1, (err) => console.log(err))
       await ensureDir(path2, (err) => console.log(err))
 
-      await writeFile(`storage/${full_relative_path}`, file.buffer)
-      const url = `${this.configService.get('BASE_URL')}/${full_relative_path}`
+      await writeFile(`${full_relative_path}`, file.buffer)
+      const url = `${this.configService.get(
+        'BASE_URL',
+      )}/${type}/${mainId}/${folder}/${fileName}`
 
       return await this._invokeAppropriateService_Up(
         ownerId || mainId,
@@ -77,10 +74,7 @@ export abstract class Base_Upload_Remove_Service<T1, T2, T3, F>
     ownerId?: number,
   ): Promise<File_EN_Delete_O> {
     const full_relative_path = `${type}/${mainId}/${folder}/${file_name}`
-    const _path = path.join(
-      __dirname,
-      `${this.storagePath}/${full_relative_path}`,
-    )
+    const _path = path.join(`storage/${full_relative_path}`)
     console.log(_path)
     const exists = await pathExists(_path)
     if (exists) {

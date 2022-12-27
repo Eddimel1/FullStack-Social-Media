@@ -1,0 +1,17 @@
+.input{
+    height:50px;
+    overflow: hidden;
+}
+
+.icon {
+    font-size: 25px;
+    position: absolute;
+    top: 1.2rem;
+    right: 4rem;
+    transform: rotate(0deg);
+            cursor: pointer;
+            &:hover{
+                transform: rotate(5deg);
+                filter:invert(0.4);
+            }
+}

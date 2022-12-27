@@ -4,18 +4,18 @@ import {
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
-import { CommentForPhotoEntity_U } from '../entities/comment-for-photo.entity'
-import { CommentForPostEntity_U } from '../entities/comment-for-post.entity'
+import { CommentForPhoto_U } from '../entities/comment-for-photo.entity'
+
 import { CommentForPhotoService_DB_U } from '../services/comment-for-photo-service'
 
-@Resolver(() => CommentForPhotoEntity_U)
+@Resolver(() => CommentForPhoto_U)
 export class Comment_F_Photo_Resolver_U {
   constructor(
     private readonly commentForPhotoService: CommentForPhotoService_DB_U,
   ) {}
 
-  @Mutation(() => CommentForPhotoEntity_U)
-  createCommentForPhotoEntity_U(
+  @Mutation(() => CommentForPhoto_U)
+  createCommentForPhoto_U(
     @Args('createCommentInput') createCommentInput: CreateComment,
     @Context() context,
   ) {
@@ -23,13 +23,13 @@ export class Comment_F_Photo_Resolver_U {
     return this.commentForPhotoService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForPhotoEntity_U])
-  async findAllCommentsForPhotoEntity_U(@Args('photoId') photoId: number) {
+  @Query(() => [CommentForPhoto_U])
+  async findAllCommentsForPhoto_U(@Args('photoId') photoId: number) {
     return await this.commentForPhotoService.findAll(photoId, 'comments')
   }
 
-  @Query(() => CommentForPostEntity_U)
-  findOneCommentForPhotoEntity_U(
+  @Query(() => CommentForPhoto_U)
+  findOneCommentForPhoto_U(
     @Args('searchAllCommentForVideo')
     searchAllCommentForPhoto: SearchComment,
   ) {
@@ -37,8 +37,8 @@ export class Comment_F_Photo_Resolver_U {
     return this.commentForPhotoService.findOne(ownerId, commentId, 'comment')
   }
 
-  @Mutation(() => CommentForPhotoEntity_U)
-  updateCommentForPhotoEntity_U(
+  @Mutation(() => CommentForPhoto_U)
+  updateCommentForPhoto_U(
     @Args('updateCommentInput') updateCommentInput: UpdateComment,
   ) {
     const { commentId, ownerId, ...text } = updateCommentInput
@@ -50,8 +50,8 @@ export class Comment_F_Photo_Resolver_U {
     )
   }
 
-  @Mutation(() => CommentForPhotoEntity_U)
-  removeCommentForPhotoEntity_U(
+  @Mutation(() => CommentForPhoto_U)
+  removeCommentForPhoto_U(
     @Args('searchAllCommentForVideo')
     searchAllCommentForPhoto: SearchComment,
   ) {

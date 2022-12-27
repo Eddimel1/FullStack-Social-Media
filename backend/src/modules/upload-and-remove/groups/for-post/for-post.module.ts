@@ -7,7 +7,7 @@ import { Audio_F_Post_Service_G } from 'src/modules/rest-files/services/for-grou
 import { Image_F_Post_Service_G } from 'src/modules/rest-files/services/for-groups/PostServices/post_image.service'
 import { Video_F_Post_Service_G } from 'src/modules/rest-files/services/for-groups/PostServices/post_video.service'
 import { ForPostService_G } from './for-post.service'
-import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
+import { Post_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.e
       Video_F_Post_G,
       Audio_F_Post_G,
       Image_F_Post_G,
-      PostEntity_G,
+      Post_G,
     ]),
   ],
 

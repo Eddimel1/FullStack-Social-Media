@@ -23,5 +23,5 @@ export class GroupInfo extends BasicEntity {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
-  group: GroupEntity
+  owner: GroupEntity
 }

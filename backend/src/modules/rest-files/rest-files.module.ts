@@ -88,11 +88,17 @@ import { Reply_F_Post_Controller_U } from './controllers/users/for-reply/comment
 import { Reply_F_Video_Controller_U } from './controllers/users/for-reply/comment-f-video.controller'
 import { Reply_F_Photo_Controller_G } from './controllers/groups/for-reply/comment-f-photo.controller'
 import { CommentModule } from '../comments/user/comment.module'
-import { PostEntity_G } from '../posts/group/entities/posts-for-group.entity'
-import { PostEntity_U } from '../posts/user/entities/post.entity'
+import { Post_G } from '../posts/group/entities/posts-for-group.entity'
+import { Post_U } from '../posts/user/entities/post.entity'
 import { UserEntity } from '../users/entities/user.entity'
 import { UserService } from '../users/services/user.service'
 import { UserModule } from '../users/user.module'
+import { AvatarAndCoverController_U } from './controllers/users/avatar-a-cover.controllers'
+import { ForCoverAndAvatar_U } from '../upload-and-remove/users/for-avatar-and-cover/for-avatar-and-cover.service'
+import { AvatarService_U } from './services/for-users/cover-and-avatar-services/user-avatar.service'
+import { CoverService_U } from './services/for-users/cover-and-avatar-services/user-cover.service'
+import { U_Avatar_EN } from './entities/users/avatar-and-cover/user-avatar.entity'
+import { U_Cover_EN } from './entities/users/avatar-and-cover/user-cover.entity'
 
 @Module({
   controllers: [
@@ -112,6 +118,7 @@ import { UserModule } from '../users/user.module'
     Reply_F_Video_Controller_G,
     Reply_F_Post_Controller_G,
     Reply_F_Photo_Controller_G,
+    AvatarAndCoverController_U,
   ],
   providers: [
     UserService,
@@ -122,6 +129,7 @@ import { UserModule } from '../users/user.module'
     ForReplyModule_G,
     ForGaleryService_U,
     ForGaleryService_G,
+    ForCoverAndAvatar_U,
     Galery_Image_Service_U,
     Galery_Image_Service_G,
     Galery_Audio_Service_U,
@@ -134,6 +142,8 @@ import { UserModule } from '../users/user.module'
     Video_F_Post_Service_G,
     Image_F_Post_Service_U,
     Image_F_Post_Service_G,
+    AvatarService_U,
+    CoverService_U,
   ],
   imports: [
     UserModule,
@@ -147,8 +157,10 @@ import { UserModule } from '../users/user.module'
     ForReplyModule_G,
     TypeOrmModule.forFeature([
       UserEntity,
-      PostEntity_G,
-      PostEntity_U,
+      U_Avatar_EN,
+      U_Cover_EN,
+      Post_G,
+      Post_U,
       Audio_F_Post_U,
       Audio_F_Post_G,
       Video_F_Post_U,

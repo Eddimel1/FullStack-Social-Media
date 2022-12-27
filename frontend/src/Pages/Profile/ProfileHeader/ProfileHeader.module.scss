@@ -1,0 +1,26 @@
+.wrapper{
+    border-radius: 10px;
+
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 50%;
+}
+.coverOptionsContainer{
+    position: absolute;
+    top: -52px;
+    left: 50px;
+    width: max-content;
+    background: linear-gradient(90deg, rgb(230, 226, 226) 0%, rgb(234, 234, 235) 58%, rgb(229, 237, 238) 100%);
+}
+.coverOptions{
+    border-radius: 3px;
+    padding: 0.2rem;
+    cursor:pointer;
+    position: absolute;
+    top: 25%;
+    right: 15%;
+}
+
+

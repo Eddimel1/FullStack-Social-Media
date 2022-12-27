@@ -1,0 +1,113 @@
+.wrapper{
+    width: 100%;
+}
+.container{
+    width: 100%;
+    max-height: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.container_left{
+    
+    display: flex;
+}
+.left{
+    display: flex;
+    height: 100%;
+}
+.container_center{
+    width: 50%;
+    margin: 0 2rem;
+}
+.trackInfo{
+    display: flex;
+    flex-direction: column;
+}
+.artist{
+    font-weight: 500;
+}
+.trackName{
+    font-weight: 300;
+}
+.iconWrapper{
+    background-color: white;
+    transition: transform 0.3s ease-in-out;
+border-radius: 5%;
+box-shadow: 0px 0px 3.5px rgb(0, 0, 0);
+cursor: pointer;
+&:hover{
+    transform: rotate(360deg);
+}
+}
+
+.progressPad{
+    background-color: white;
+    transition: height 0.1s ease-in-out;
+    position: relative;
+    cursor: pointer;
+    z-index: 4;
+    height: 7px;
+    width: 100%;
+    box-shadow: 0px 0px 3px inset black;
+    &:hover{
+        height: 20px;
+    }
+}
+.bufferingBar{
+    position: absolute;
+    z-index: 2;
+    top:0 ;
+    left: 0;
+    height: 100%;
+    background-color: rgba(247, 231, 231, 0.85);
+}
+.progressBar{
+    position: absolute;
+    z-index: 3;
+    cursor: pointer;
+    height: 100%;
+    transition: height 0.2s ease-in;
+    background-color: rgba(0, 0, 0, 0.7);
+   
+   
+}
+
+.soundIcon{
+
+    position: relative;
+    font-size: 2rem;
+    color: rgb(0, 0, 0);
+    margin-left: 1rem;
+}
+
+.volumeBarContainer_active {
+    transition: all 0.3s ease-out;
+    width: 100px;
+}
+.volumeBarContainer_inActive {
+    transition: all 0.3s ease-out;
+    width: 0;
+}
+
+.volumeBarContainer{
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top:15px;
+    left:40px;
+    height: 10px;
+    cursor: pointer;
+ 
+}
+.volumeBar{
+    height: 10px;
+    width: 100%;
+    box-shadow: 0px 0px 2px black;
+    background-color: rgb(254, 255, 255);
+   
+}
+.volumeProgress{
+    height: 10px;
+    width: 70%;
+    background-color: rgba(0, 0, 0, 0.7);
+}

@@ -1,9 +1,13 @@
 {
   "cSpell.words": [
+    "codegen",
+    "datepicker",
     "Dtos",
     "entitites",
+    "formdata",
     "galery",
     "nestjs",
+    "persistor",
     "replyo",
     "signup",
     "typeorm"

@@ -1,0 +1,18 @@
+.wrapper{
+    width: 100%;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+._label {
+    margin-left: 1rem;
+}
+
+._select{
+    box-shadow: inset 0px 0px 5px grey;
+    height: 30px;
+    padding: 0.2rem;
+    margin-right: 3rem;
+}

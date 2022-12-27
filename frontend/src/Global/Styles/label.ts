@@ -1,5 +1,6 @@
 export const labelStyles:React.CSSProperties = {
     color:'black',
-    fontWeight:700,
-    fontFamily:'sans-serif'
+    fontWeight:500,
+    margin:'0 auto',
+    width:'max-content'
 }

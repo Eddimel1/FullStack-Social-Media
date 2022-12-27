@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 import { BaseCommentEntity } from 'src/typeOrm/baseEntities/comment-entities/baseComment'
-import { ReplyForPostEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-post.entity'
+import { ReplyForPost_U } from 'src/modules/replies/user-replies/entities/reply-f-post.entity'
 import { Audio_F_Comment_F_Post_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/audio-f-post.entity'
 import { Image_F_Comment_F_Post_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/image-f-post.entity'
 import { Video_F_Comment_F_Post_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/video-f-post.entity'
@@ -13,20 +13,20 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm'
-import { PostEntity_U } from 'src/modules/posts/user/entities/post.entity'
+import { Post_U } from 'src/modules/posts/user/entities/post.entity'
 import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
 @Entity('comments_f_post_u')
-export class CommentForPostEntity_U extends BaseCommentEntity {
+export class CommentForPost_U extends BaseCommentEntity {
   @Column()
   ownerId: number
-  @Field(() => PostEntity_U)
-  @ManyToOne(() => PostEntity_U, (post) => post.comments, {
+  @Field(() => Post_U)
+  @ManyToOne(() => Post_U, (post) => post.comments, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
-  post: PostEntity_U
+  owner: Post_U
 
   @Column()
   userId: number
@@ -39,29 +39,29 @@ export class CommentForPostEntity_U extends BaseCommentEntity {
   user: UserEntity
 
   @Field(() => Audio_F_Comment_F_Post_U)
-  @OneToOne(() => Audio_F_Comment_F_Post_U, (audio) => audio.comment, {
+  @OneToOne(() => Audio_F_Comment_F_Post_U, (audio) => audio.owner, {
     onDelete: 'CASCADE',
     eager: true,
   })
   audio: Audio_F_Comment_F_Post_U
 
   @Field(() => Image_F_Comment_F_Post_U)
-  @OneToOne(() => Image_F_Comment_F_Post_U, (image) => image.comment, {
+  @OneToOne(() => Image_F_Comment_F_Post_U, (image) => image.owner, {
     onDelete: 'CASCADE',
     eager: true,
   })
   image: Image_F_Comment_F_Post_U
 
   @Field(() => Video_F_Comment_F_Post_U)
-  @OneToOne(() => Video_F_Comment_F_Post_U, (video) => video.comment, {
+  @OneToOne(() => Video_F_Comment_F_Post_U, (video) => video.owner, {
     onDelete: 'CASCADE',
     eager: true,
   })
   video: Video_F_Comment_F_Post_U
 
-  @Field(() => ReplyForPostEntity_U)
-  @OneToMany(() => ReplyForPostEntity_U, (reply) => reply.comment, {
+  @Field(() => ReplyForPost_U)
+  @OneToMany(() => ReplyForPost_U, (reply) => reply.comment, {
     onDelete: 'CASCADE',
   })
-  replies: ReplyForPostEntity_U
+  replies: ReplyForPost_U
 }

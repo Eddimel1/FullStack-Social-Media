@@ -1,0 +1,23 @@
+
+.pad{
+    width:100%;
+    height: 100%;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:99999;
+    background:rgba(255,255,255,0.5);
+    animation:onAppear 0.5s ease-in-out;
+
+}
+@keyframes onAppear {
+    0%{
+ opacity: 0;
+
+    }
+
+    100%{
+
+        opacity:1
+    }
+}

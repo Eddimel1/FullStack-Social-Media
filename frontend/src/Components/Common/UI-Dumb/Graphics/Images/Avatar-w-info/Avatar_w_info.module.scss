@@ -1,0 +1,30 @@
+.friendWrapper{
+
+}
+
+.friendContainer{
+    display: flex;
+    align-items: center;
+    &:hover{
+        background-color: rgb(255, 246, 246);
+    }
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.info_row {
+    display: flex;
+    margin-left: 1.5rem;
+    order: 2;
+}
+
+.info_column {
+    display: flex;
+    margin-top: 0.5rem;
+}

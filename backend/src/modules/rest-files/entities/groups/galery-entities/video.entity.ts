@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { GroupEntity } from 'src/modules/groups/modules/groups/entities/group.entity'
-import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
+import { CommentForVideo_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
 import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 
 @ObjectType()
@@ -16,14 +16,10 @@ export class Galery_Video_G extends BaseVideoEntity {
   @JoinColumn({ name: 'ownerId' })
   owner: GroupEntity
 
-  @Field(() => CommentForVideoEntity_G)
-  @ManyToOne(
-    () => CommentForVideoEntity_G,
-    (comment) => comment.commented_video,
-    {
-      onDelete: 'CASCADE',
-    },
-  )
+  @Field(() => CommentForVideo_G)
+  @ManyToOne(() => CommentForVideo_G, (comment) => comment.owner, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
-  comments: CommentForVideoEntity_G[]
+  comments: CommentForVideo_G[]
 }

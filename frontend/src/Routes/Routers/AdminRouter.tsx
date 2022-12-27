@@ -15,7 +15,7 @@ export default function _AdminRouter() {
 }
 
 export function AdminRouter(){
-    const routes =  extendRouter(_AdminRouter,[PublicRouter,UserRouter])
+    const routes =  extendRouter(_AdminRouter,[])
     return(
         <>{routes}</>
     )

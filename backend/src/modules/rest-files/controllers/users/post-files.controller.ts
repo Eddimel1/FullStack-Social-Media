@@ -3,6 +3,7 @@ import {
   Delete,
   Param,
   Post,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -18,17 +19,17 @@ import { ForPostService_U } from 'src/modules/upload-and-remove/users/for-post/f
 @Controller('user/post')
 export class PostFilesController_U {
   constructor(private readonly forPostService: ForPostService_U) {}
-
   @Post('/upload/:folder')
   @UseInterceptors(FileInterceptor('file'))
   async create(
     @UploadedFile() file: Express.Multer.File,
     @Param('folder') folder,
     @Context() context,
+    @Res() res,
   ) {
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
-    const image = await this.forPostService.uploadFile(
+    const entity = await this.forPostService.uploadFile(
       file,
       folder,
       'users',
@@ -36,7 +37,7 @@ export class PostFilesController_U {
       ownerId,
       ownerId ? null : userId,
     )
-    return image
+    res.send(entity)
   }
 
   @Delete('/delete/:folder/:file_name')
@@ -44,9 +45,11 @@ export class PostFilesController_U {
     @Param('file_name') file_name: string,
     @Param('folder') folder: any,
     @Context() context,
+    @Res() res,
   ) {
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
+    console.log(context.req.body)
     const isDeleted = await this.forPostService.removeFile(
       file_name,
       folder,
@@ -54,6 +57,6 @@ export class PostFilesController_U {
       userId,
       ownerId,
     )
-    return isDeleted
+    res.send(isDeleted)
   }
 }

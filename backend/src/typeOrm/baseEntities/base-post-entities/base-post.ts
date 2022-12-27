@@ -27,4 +27,16 @@ export abstract class BasePostEntity {
   @Field()
   @Column({ default: 0 })
   likes: number
+
+  @Field({ nullable: true })
+  @Column({ default: false, nullable: true })
+  published: boolean
+
+  @Field({ nullable: true })
+  @Column({ default: 'public', nullable: true })
+  privacy: string
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  subject: string
 }

@@ -1,0 +1,42 @@
+.ellipsis{
+
+font-size: 40px;
+border-radius: 50%;
+cursor: pointer;
+
+}
+
+@keyframes onHover {
+
+    0%{
+        box-shadow: 1px 0px 5px black;
+        transform: rotate(0deg);
+    }
+    100%{
+        box-shadow: 1px 0px 5px black;
+        transform: rotate(360deg);
+    }
+
+    
+}
+
+@keyframes onLeave {
+    0%{
+        box-shadow: 1px 0px 5px black;
+        transform: rotate(360deg);
+    }
+    100%{
+        box-shadow: 0px 0px 0px black;
+        transform: rotate(0deg);
+    }
+
+    
+}
+
+.onHover{
+animation:onHover 3s infinite ease-out ;
+}
+.onLeave{
+        animation:onLeave 0.2s ease-in;
+        
+}

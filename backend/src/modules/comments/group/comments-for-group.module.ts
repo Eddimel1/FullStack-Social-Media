@@ -1,8 +1,8 @@
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Module } from '@nestjs/common'
-import { CommentForPhotoEntity_G } from './entities/comment-for-photo_g.entity'
-import { CommentForPostEntity_G } from './entities/comment-for-post_g.entity'
-import { CommentForVideoEntity_G } from './entities/comment-for-video_g.entity'
+import { CommentForPhoto_G } from './entities/comment-for-photo_g.entity'
+import { CommentForPost_G } from './entities/comment-for-post_g.entity'
+import { CommentForVideo_G } from './entities/comment-for-video_g.entity'
 import { CommentForPhotoService_DB_G } from './services/comment-for-photo-service'
 import { CommentForVideoService_DB_G } from './services/comment-for-video.service'
 import { Comment_F_Photo_Resolver_G } from './resolvers/for-photo-comment.resolver'
@@ -13,9 +13,9 @@ import { CommentForPostService_DB_G } from './services/comment-for-post.service'
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      CommentForPhotoEntity_G,
-      CommentForPostEntity_G,
-      CommentForVideoEntity_G,
+      CommentForPhoto_G,
+      CommentForPost_G,
+      CommentForVideo_G,
     ]),
   ],
   providers: [

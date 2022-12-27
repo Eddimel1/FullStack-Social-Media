@@ -1,0 +1,9 @@
+.barItem{
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+    padding:0.6rem;
+    &:hover{
+        box-shadow: 3px 0px 5px  black;
+    }
+}

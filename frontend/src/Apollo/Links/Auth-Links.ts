@@ -42,10 +42,10 @@ export const retry_Link = new RetryLink()
     
 // )
 
-const switcher = async () => {
+export const refreshTokenIf401 = async () => {
     
           const res = () => {
-            return Protected_Instance.post(process.env.GRAPHQL_SERVER_URL!, {
+            return Protected_Instance.post(process.env.GRAPHQL_SERVER_URL, {
               operationName: 'refreshToken',
               query: `mutation refreshToken{
                           refreshToken{
@@ -71,7 +71,7 @@ export const errorLink = onError(
               // when AuthenticationError thrown in resolver
   
               return fromPromise(
-                switcher().catch(error => {
+                refreshTokenIf401().catch(error => {
                   // Handle token refresh errors e.g clear stored tokens, redirect to login, ...
                   return;
                 })

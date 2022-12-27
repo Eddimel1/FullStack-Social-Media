@@ -4,6 +4,7 @@ declare namespace NodeJS {
     GRAPHQL_SERVER_URL: string
     NEST_SERVER_URL:string
     BASE_URL:string
+    STORAGE_SECRET :string
   }
 }
 

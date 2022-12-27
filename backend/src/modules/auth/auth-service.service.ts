@@ -94,19 +94,23 @@ export class AuthService {
     }
   }
   async updateAccessToken(context: any) {
-    const user = context.req.user
+    try {
+      const user = context.req.user
+      const payload: JwtPayLoad = { id: user.id, role: user.role }
 
-    const payload: JwtPayLoad = { id: user.id, role: user.role }
+      const new_access_token = await this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('AT_SECRET'),
+        expiresIn: ACCESS_TOKEN_EXPIRATION_TIME,
+      })
+      context.res.cookie(TOKEN_VERSION, user.r_token_version, {
+        httpOnly: true,
+      })
 
-    const new_access_token = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>('AT_SECRET'),
-      expiresIn: ACCESS_TOKEN_EXPIRATION_TIME,
-    })
-    context.res.cookie(TOKEN_VERSION, user.r_token_version, {
-      httpOnly: true,
-    })
-
-    context.res.cookie(ACCESS_TOKEN, new_access_token, { httpOnly: true })
+      context.res.cookie(ACCESS_TOKEN, new_access_token, { httpOnly: true })
+      return true
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async logOut(context: any) {

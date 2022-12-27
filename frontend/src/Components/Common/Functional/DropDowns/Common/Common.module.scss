@@ -1,0 +1,21 @@
+.container_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(234,234,235,1) 58%, rgba(255,255,255,1) 100%);
+    position: absolute;
+    top:60px;
+    z-index: 99999;
+    right: 5px;
+    gap:1rem;
+}
+
+.container_flex {
+    display: flex;
+    flex-direction: column;
+     background: linear-gradient(90deg, rgba(230,226,226,1) 0%, rgba(234,234,235,1) 58%, rgba(229,237,238,1) 100%);
+    position: absolute;
+    top:60px;
+    z-index: 99999;
+    right: 5px;
+    
+}

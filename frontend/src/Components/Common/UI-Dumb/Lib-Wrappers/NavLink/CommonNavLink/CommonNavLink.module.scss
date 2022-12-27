@@ -1,0 +1,7 @@
+
+.navLink {
+    transition: border-bottom text-transform 0.2s ease-in ;
+    &:hover{
+        text-decoration: underline;
+    }
+}

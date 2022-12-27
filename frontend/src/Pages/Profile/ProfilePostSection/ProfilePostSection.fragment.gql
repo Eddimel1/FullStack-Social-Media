@@ -1,0 +1,43 @@
+fragment ProfilePostSection on UserEntity {
+  posts {
+    id
+    ownerId
+    owner{
+        id
+        username
+        avatar{
+             id
+      url
+      file_name
+        }
+    }
+    audio {
+      id
+      url
+      file_name
+      ownerId
+    }
+    video {
+      id
+      url
+      file_name
+      ownerId
+    }
+    image {
+      id
+      url
+       file_name
+       ownerId
+    }
+    comments {
+      id
+    }
+    text
+    likes
+    createdAt
+    updatedAt
+    published
+    privacy
+    subject
+  }
+}

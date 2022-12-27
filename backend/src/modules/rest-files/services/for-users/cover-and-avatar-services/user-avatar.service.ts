@@ -3,7 +3,6 @@ import { U_Avatar_EN } from './../../../entities/users/avatar-and-cover/user-ava
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { BaseFileCRUDService } from 'src/generics/generic-services/base-file-crud.service'
 
 @Injectable()
 export class AvatarService_U {
@@ -17,7 +16,20 @@ export class AvatarService_U {
     image.file_name = filename
     image.url = url
     image.ownerId = id
-    return await this.userAvatarRepository.save(image)
+    const existing_avatar = await this.userAvatarRepository.findOneBy({
+      ownerId: id,
+    })
+    if (existing_avatar) {
+      const updated = await this.userAvatarRepository.update(
+        { ownerId: id },
+        image,
+      )
+      if (updated.affected > 0) {
+        return this.userAvatarRepository.findOneBy({ ownerId: id })
+      }
+    } else if (!existing_avatar) {
+      return this.userAvatarRepository.save(image)
+    }
   }
   async deleteImageById(id: number) {
     return await this.userAvatarRepository.delete({ id })

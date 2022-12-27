@@ -4,8 +4,8 @@ import React from 'react'
 import { gql, useMutation } from '@apollo/client'
 
 const CREATE_USER = gql`
-mutation createUserMutation($user: CreateUserInput!){
-    createUser(createUser:$user){
+mutation createUserMutation($input: CreateUserInput!){
+    createUser(createUser:$input){
     id
     username
    
@@ -17,8 +17,8 @@ export function CreateUserMutation() {
     const [createUserMutation, { data, loading, error }] = useMutation(CREATE_USER)
   return {
     createUserMutation,
-    error,
-    data,
-    loading,
+    _error:error,
+    _data : data,
+    _loading : loading,
   }
 }

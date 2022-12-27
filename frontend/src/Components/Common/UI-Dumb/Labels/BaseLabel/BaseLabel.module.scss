@@ -1,0 +1,6 @@
+.hover{
+    transition: border-bottom 0.2s ease-in ;
+    &:hover{
+        border-bottom: black;
+    }
+}

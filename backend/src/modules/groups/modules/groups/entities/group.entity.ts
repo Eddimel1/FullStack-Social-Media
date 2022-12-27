@@ -14,7 +14,7 @@ import {
   OneToMany,
 } from 'typeorm'
 import { GroupInfo } from 'src/modules/infos/group/entities/group-info.entity'
-import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
+import { Post_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
 import { UserEntity } from 'src/modules/users/entities/user.entity'
 import { BasicEntity } from 'src/typeOrm/baseEntities/most-base-entities/base.entity'
 
@@ -43,9 +43,9 @@ export class GroupEntity extends BasicEntity {
   @OneToMany(() => Galery_Image_G, (image) => image.owner)
   images: Galery_Image_G[]
 
-  @Field(() => [PostEntity_G])
-  @OneToMany(() => PostEntity_G, (post) => post.owner)
-  posts: PostEntity_G[]
+  @Field(() => [Post_G])
+  @OneToMany(() => Post_G, (post) => post.owner)
+  posts: Post_G[]
 
   @Field(() => G_Avatar_EN)
   @OneToOne(() => G_Avatar_EN, (group_avatar) => group_avatar.ownerId, {
@@ -60,7 +60,7 @@ export class GroupEntity extends BasicEntity {
   cover: G_Cover_EN
 
   @Field(() => GroupInfo)
-  @OneToOne(() => GroupInfo, (group_info) => group_info.group, {
+  @OneToOne(() => GroupInfo, (group_info) => group_info.owner, {
     onDelete: 'CASCADE',
   })
   group_info: GroupInfo

@@ -6,10 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const PostcssPresetEnv = require('postcss-preset-env');
 
-
-
-
-
 module.exports = {
     entry: '/src/index.tsx',
     devtool:"source-map",
@@ -24,10 +20,9 @@ module.exports = {
             template : 'index.html'
         }), new MiniCssExtractPlugin(),
         new webpack.ProvidePlugin({
-            // Make a global `process` variable that points to the `process` package,
-            // because the `util` package expects there to be a global variable named `process`.
-                 // Thanks to https://stackoverflow.com/a/65018686/14239942
-            process: 'process/browser'})
+            process: 'process/browser',
+            'React':     'react'
+        })
     ],
     resolve: {
         extensions: ['.tsx', '.ts', '.js' ,'.jsx' ,'css' ,'module.css','.scss','module.scss'],
@@ -69,7 +64,7 @@ module.exports = {
     }, 'sass-loader',  'postcss-loader']
   },
 {
-    test: /\.(png|jpe?g|gif|svg)$/i,
+    test: /\.(png|jpe?g|gif|svg|mp4|mp3)$/i,
     type: 'asset/resource'
 },{
     test: /\.(woff(2)?|eot|ttf|otf|svg)$/i,

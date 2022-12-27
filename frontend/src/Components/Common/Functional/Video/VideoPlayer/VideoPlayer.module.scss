@@ -1,0 +1,117 @@
+.videoPlayerWrapper{
+    background-color: #303120;
+    padding:0 25rem;
+    display: flex;
+    justify-content: center;
+}
+  .videoPlayerContainer {
+    position: relative;
+  }
+.videoPlayer {
+    max-height: 50rem;
+    box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
+}
+.videoPlayerBottom{
+    transition:opacity 0.3s ease-in-out;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+.controlsContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 1rem;
+}
+.controls_active{
+
+opacity: 1;
+}
+.controls_inActive{
+
+opacity: 0;
+}
+.left{
+    display: flex;
+    align-items: center;
+}
+.playIcons{
+  
+}
+.control_icon  {
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    transition: color ;
+    &:hover{
+        color:rgb(0, 255, 255);
+    }
+}
+.soundIcon{
+    position: relative;
+    font-size: 2rem;
+    color: white;
+    margin-left: 1rem;
+}
+
+.volumeBarContainer_active {
+    transition: all 0.5s ease-out;
+    width: 100px;
+}
+.volumeBarContainer_inActive {
+    transition: all 0.5s ease-out;
+    width: 0;
+}
+.progressPad{
+    position: relative;
+    cursor: pointer;
+    z-index: 4;
+    height: 7px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    &:hover{
+        height: 20px;
+    }
+}
+.bufferingBar{
+    position: absolute;
+    z-index: 2;
+    top:0 ;
+    left: 0;
+    height: 100%;
+    background-color: rgba(247, 231, 231, 0.85);
+}
+.progressBar{
+    position: absolute;
+    z-index: 3;
+    cursor: pointer;
+    height: 100%;
+    transition: height 0.2s ease-in;
+    background-color: rgba(0, 255, 255,0.7);
+   
+   
+}
+.volumeBarContainer{
+    transition: all 0.3s ease-in-out;
+    position: absolute;
+    top:15px;
+    left:40px;
+    height: 10px;
+    cursor: pointer;
+ 
+}
+.volumeBar{
+    height: 10px;
+    width: 100%;
+    background-color: #ffffff;
+}
+.volumeProgress{
+    height: 10px;
+    width: 70%;
+    background-color: rgb(0, 255, 255);
+}

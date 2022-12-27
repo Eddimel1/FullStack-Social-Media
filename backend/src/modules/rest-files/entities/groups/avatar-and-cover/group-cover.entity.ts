@@ -12,5 +12,5 @@ export class G_Cover_EN extends BaseImageEntity {
   @Field(() => GroupEntity)
   @OneToOne(() => GroupEntity, (group) => group.cover, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ownerId' })
-  group: GroupEntity
+  owner: GroupEntity
 }

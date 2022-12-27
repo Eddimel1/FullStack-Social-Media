@@ -1,0 +1,19 @@
+  fragment ProfileHeader on UserEntity {
+  username
+     cover{
+    id
+    createdAt
+    updatedAt
+    file_name
+    url
+    }
+    avatar{
+    id
+    createdAt
+    updatedAt
+    file_name
+    url
+    }
+   
+}
+

@@ -2,19 +2,19 @@ import { Base_Crud_W_FindAll } from 'src/generics/generic-services/base-crud.ser
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { CommentForVideoEntity_G } from '../entities/comment-for-video_g.entity'
+import { CommentForVideo_G } from '../entities/comment-for-video_g.entity'
 import { CreateComment } from '../../shared/dto/input.dto'
 
 @Injectable()
-export class CommentForVideoService_DB_G extends Base_Crud_W_FindAll<CommentForVideoEntity_G> {
+export class CommentForVideoService_DB_G extends Base_Crud_W_FindAll<CommentForVideo_G> {
   constructor(
-    @InjectRepository(CommentForVideoEntity_G)
-    protected repository: Repository<CommentForVideoEntity_G>,
+    @InjectRepository(CommentForVideo_G)
+    protected repository: Repository<CommentForVideo_G>,
   ) {
     super(repository)
   }
   async create(createCommentInput: CreateComment, userId: number) {
-    const new_comment = new CommentForVideoEntity_G()
+    const new_comment = new CommentForVideo_G()
     new_comment.ownerId = createCommentInput.ownerId
     new_comment.text = createCommentInput.text
     new_comment.userId = userId

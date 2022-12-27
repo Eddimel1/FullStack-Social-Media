@@ -1,22 +1,22 @@
-import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql'
-import { CommentForPostEntity_U } from 'src/modules/comments/user/entities/comment-for-post.entity'
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
+
 import {
   CreateComment,
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
-import { CommentForPostEntity_G } from '../entities/comment-for-post_g.entity'
+import { CommentForPost_G } from '../entities/comment-for-post_g.entity'
 
 import { CommentForPostService_DB_G } from '../services/comment-for-post.service'
 
-@Resolver(() => CommentForPostEntity_G)
+@Resolver(() => CommentForPost_G)
 export class Comment_F_Post_Resolver_G {
   constructor(
     private readonly commentForPostService: CommentForPostService_DB_G,
   ) {}
 
-  @Mutation(() => CommentForPostEntity_G)
-  createCommentForPostEntity_G(
+  @Mutation(() => CommentForPost_G)
+  createCommentForPost_G(
     @Args('createCommentInput') createCommentInput: CreateComment,
     @Context() context,
   ) {
@@ -24,13 +24,13 @@ export class Comment_F_Post_Resolver_G {
     return this.commentForPostService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForPostEntity_G])
-  async findAllCommentsForPostEntity_G(@Args('photoId') postId: number) {
+  @Query(() => [CommentForPost_G])
+  async findAllCommentsForPost_G(@Args('photoId') postId: number) {
     return await this.commentForPostService.findAll(postId, 'comment')
   }
 
-  @Query(() => CommentForPostEntity_G)
-  findOneCommentForPostEntity_G(
+  @Query(() => CommentForPost_G)
+  findOneCommentForPost_G(
     @Args('searchAllCommentForPost')
     searchAllCommentForPost: SearchComment,
   ) {
@@ -38,8 +38,8 @@ export class Comment_F_Post_Resolver_G {
     return this.commentForPostService.findOne(ownerId, commentId, 'comment')
   }
 
-  @Mutation(() => CommentForPostEntity_G)
-  updateCommentForPostEntity_G(
+  @Mutation(() => CommentForPost_G)
+  updateCommentForPost_G(
     @Args('updateCommentInput') updateCommentInput: UpdateComment,
   ) {
     const { commentId, ownerId, ...update } = updateCommentInput
@@ -51,8 +51,8 @@ export class Comment_F_Post_Resolver_G {
     )
   }
 
-  @Mutation(() => CommentForPostEntity_U)
-  removeCommentForPostEntity_G(
+  @Mutation(() => CommentForPost_G)
+  removeCommentForPost_G(
     @Args('searchAllCommentForPost')
     searchAllCommentForPost: SearchComment,
   ) {

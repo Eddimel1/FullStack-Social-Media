@@ -1,0 +1,1 @@
+export const BASE_BAR_BACKGROUND = 'linear-gradient(90deg, rgba(235,250,252,1) 0%, rgba(245,245,245,1) 53%, rgba(241,253,255,1) 100%)'

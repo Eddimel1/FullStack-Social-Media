@@ -1,5 +1,4 @@
-import { UserEntity } from "src/modules/users/entities/user.entity"
-
+import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 export type sanitized_user_props =
   | 'password'

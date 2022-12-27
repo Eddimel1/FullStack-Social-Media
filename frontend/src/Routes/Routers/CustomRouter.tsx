@@ -9,6 +9,7 @@ type _props = {
   user_role: roles
 }
 export default function CustomRouter({ user_role }: _props) {
+    console.log(user_role)
   switch (user_role) {
     case 'admin':
       return <AdminRouter />

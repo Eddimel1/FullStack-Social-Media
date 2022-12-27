@@ -1,7 +1,6 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { ReplyForPhotoEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-photo.entity'
-import { ReplyForPostEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-post.entity'
+import { ReplyForPost_G } from 'src/modules/replies/group-replies/entities/reply-f-post.entity'
 import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBase'
 
 @ObjectType()
@@ -9,10 +8,10 @@ import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBas
 export class Video_F_Reply_F_Post_G extends BaseVideoEntity {
   @Column()
   ownerId: number
-  @Field(() => ReplyForPostEntity_G)
-  @OneToOne(() => ReplyForPostEntity_G, (reply) => reply.video, {
+  @Field(() => ReplyForPost_G)
+  @OneToOne(() => ReplyForPost_G, (reply) => reply.video, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
-  reply: ReplyForPhotoEntity_G
+  owner: ReplyForPost_G
 }

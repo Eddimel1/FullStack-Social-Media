@@ -13,23 +13,24 @@ import {
 import { Field, ObjectType } from '@nestjs/graphql'
 import { GroupEntity } from 'src/modules/groups/modules/groups/entities/group.entity'
 import { U_Avatar_EN } from 'src/modules/rest-files/entities/users/avatar-and-cover/user-avatar.entity'
-import { CommentForPhotoEntity_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
-import { CommentForPostEntity_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
-import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
-import { CommentForVideoEntity_U } from 'src/modules/comments/user/entities/comment-for-video.entity'
-import { CommentForPostEntity_U } from 'src/modules/comments/user/entities/comment-for-post.entity'
-import { CommentForPhotoEntity_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
-import { ReplyForPhotoEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-photo.entity'
-import { ReplyForPostEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-post.entity'
-import { ReplyForVideoEntity_G } from 'src/modules/replies/group-replies/entities/reply-f-video.entity'
-import { ReplyForPhotoEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-photo.entity'
-import { ReplyForPostEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-post.entity'
-import { ReplyForVideoEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-video.entity'
+import { CommentForPhoto_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
+import { CommentForPost_G } from 'src/modules/comments/group/entities/comment-for-post_g.entity'
+import { CommentForVideo_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
+import { CommentForVideo_U } from 'src/modules/comments/user/entities/comment-for-video.entity'
+import { CommentForPost_U } from 'src/modules/comments/user/entities/comment-for-post.entity'
+import { CommentForPhoto_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
+import { ReplyForPhoto_G } from 'src/modules/replies/group-replies/entities/reply-f-photo.entity'
+import { ReplyForPost_G } from 'src/modules/replies/group-replies/entities/reply-f-post.entity'
+import { ReplyForVideo_G } from 'src/modules/replies/group-replies/entities/reply-f-video.entity'
+import { ReplyForPhoto_U } from 'src/modules/replies/user-replies/entities/reply-f-photo.entity'
+import { ReplyForPost_U } from 'src/modules/replies/user-replies/entities/reply-f-post.entity'
+import { ReplyForVideo_U } from 'src/modules/replies/user-replies/entities/reply-f-video.entity'
 import { Exclude } from 'class-transformer'
 import { UserInfoEntity } from 'src/modules/infos/user/entities/user-info.entity'
-import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
-import { PostEntity_U } from 'src/modules/posts/user/entities/post.entity'
+import { Post_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
+import { Post_U } from 'src/modules/posts/user/entities/post.entity'
 import { BasicEntity } from 'src/typeOrm/baseEntities/most-base-entities/base.entity'
+import { Galery_Image_U } from '../../rest-files/entities/users/galery-entities/image.entity'
 
 @ObjectType()
 export class SanitizedUser extends BasicEntity {
@@ -45,13 +46,25 @@ export class SanitizedUser extends BasicEntity {
   @Column({ default: 'user' })
   role: 'admin' | 'user'
 
+  @Field()
+  @Column()
+  birthDate: string
+
+  @Field()
+  @Column()
+  sex: string
+
+  @Field()
+  @Column()
+  country: string
+
   @Field(() => UserInfoEntity)
   @OneToOne(() => UserInfoEntity, (info) => info.owner)
   info: UserInfoEntity
 
-  @Field(() => ChatEntity)
+  @Field(() => [ChatEntity])
   @OneToMany(() => ChatEntity, (chat) => chat.owner)
-  chats: ChatEntity
+  chats: ChatEntity[]
 
   @Field(() => [Galery_Video_U])
   @OneToMany(() => Galery_Video_U, (video) => video.owner)
@@ -61,25 +74,31 @@ export class SanitizedUser extends BasicEntity {
   @OneToMany(() => Galery_Audio_U, (audio) => audio.owner)
   audio: Galery_Audio_U[]
 
-  @Field(() => [Galery_Audio_U])
-  @OneToMany(() => Galery_Audio_U, (image) => image.owner)
-  images: Galery_Audio_U[]
+  @Field(() => [Galery_Image_U])
+  @OneToMany(() => Galery_Image_U, (image) => image.owner)
+  images: Galery_Image_U[]
 
-  @Field(() => U_Avatar_EN)
-  @OneToOne(() => U_Avatar_EN, (avatar) => avatar.owner)
+  @Field(() => U_Avatar_EN, { nullable: true })
+  @OneToOne(() => U_Avatar_EN, (avatar) => avatar.owner, {
+    nullable: true,
+    eager: true,
+  })
   avatar: U_Avatar_EN
 
-  @Field(() => U_Cover_EN)
-  @OneToOne(() => U_Cover_EN, (cover) => cover.owner)
+  @Field(() => U_Cover_EN, { nullable: true })
+  @OneToOne(() => U_Cover_EN, (cover) => cover.owner, {
+    nullable: true,
+    eager: true,
+  })
   cover: U_Cover_EN
 
-  @Field(() => [PostEntity_U])
-  @OneToMany(() => PostEntity_U, (post) => post.owner)
-  posts: PostEntity_U[]
+  @Field(() => [Post_U])
+  @OneToMany(() => Post_U, (post) => post.owner)
+  posts: Post_U[]
 
-  @Field(() => [PostEntity_G])
-  @OneToMany(() => PostEntity_G, (post) => post.user)
-  group_posts: PostEntity_G[]
+  @Field(() => [Post_G])
+  @OneToMany(() => Post_G, (post) => post.user)
+  group_posts: Post_G[]
 
   @Field(() => [GroupEntity])
   @OneToMany(() => GroupEntity, (group) => group.ownerId)
@@ -90,53 +109,53 @@ export class SanitizedUser extends BasicEntity {
   @JoinTable()
   friends: UserEntity[]
 
-  @Field(() => [CommentForPhotoEntity_G])
-  @OneToMany(() => CommentForPhotoEntity_G, (comment) => comment.user)
-  commentForPhotoEntity_G: CommentForPhotoEntity_G[]
+  @Field(() => [CommentForPhoto_G])
+  @OneToMany(() => CommentForPhoto_G, (comment) => comment.user)
+  commentForPhotoEntity_G: CommentForPhoto_G[]
 
-  @Field(() => [CommentForPostEntity_G])
-  @OneToMany(() => CommentForPostEntity_G, (comment) => comment.user)
-  commentForPostEntity_G: CommentForPostEntity_G[]
+  @Field(() => [CommentForPost_G])
+  @OneToMany(() => CommentForPost_G, (comment) => comment.user)
+  commentForPostEntity_G: CommentForPost_G[]
 
-  @Field(() => [CommentForVideoEntity_G])
-  @OneToMany(() => CommentForVideoEntity_G, (comment) => comment.user)
-  commentForVideoEntity_G: CommentForVideoEntity_G[]
+  @Field(() => [CommentForVideo_G])
+  @OneToMany(() => CommentForVideo_G, (comment) => comment.user)
+  commentForVideoEntity_G: CommentForVideo_G[]
 
-  @Field(() => [CommentForVideoEntity_U])
-  @OneToMany(() => CommentForVideoEntity_U, (comment) => comment.user)
-  commentForVideoEntity_U: CommentForVideoEntity_U[]
+  @Field(() => [CommentForVideo_U])
+  @OneToMany(() => CommentForVideo_U, (comment) => comment.user)
+  commentForVideoEntity_U: CommentForVideo_U[]
 
-  @Field(() => [CommentForPostEntity_U])
-  @OneToMany(() => CommentForPostEntity_U, (comment) => comment.user)
-  commentForPostEntity_U: CommentForPostEntity_U[]
+  @Field(() => [CommentForPost_U])
+  @OneToMany(() => CommentForPost_U, (comment) => comment.user)
+  commentForPostEntity_U: CommentForPost_U[]
 
-  @Field(() => [CommentForPhotoEntity_U])
-  @OneToMany(() => CommentForPhotoEntity_U, (comment) => comment.user)
-  commentForPhotoEntity_U: CommentForPhotoEntity_U[]
+  @Field(() => [CommentForPhoto_U])
+  @OneToMany(() => CommentForPhoto_U, (comment) => comment.user)
+  commentForPhotoEntity_U: CommentForPhoto_U[]
 
-  @Field(() => [ReplyForPhotoEntity_G])
-  @OneToMany(() => ReplyForPhotoEntity_G, (reply) => reply.user)
-  replyForPhotoEntity_G: ReplyForPhotoEntity_G[]
+  @Field(() => [ReplyForPhoto_G])
+  @OneToMany(() => ReplyForPhoto_G, (reply) => reply.user)
+  replyForPhotoEntity_G: ReplyForPhoto_G[]
 
-  @Field(() => [ReplyForPostEntity_G])
-  @OneToMany(() => ReplyForPostEntity_G, (reply) => reply.user)
-  replyForPostEntity_G: ReplyForPostEntity_G[]
+  @Field(() => [ReplyForPost_G])
+  @OneToMany(() => ReplyForPost_G, (reply) => reply.user)
+  replyForPostEntity_G: ReplyForPost_G[]
 
-  @Field(() => [ReplyForVideoEntity_G])
-  @OneToMany(() => ReplyForVideoEntity_G, (reply) => reply.user)
-  replyForVideoEntity_G: ReplyForVideoEntity_G[]
+  @Field(() => [ReplyForVideo_G])
+  @OneToMany(() => ReplyForVideo_G, (reply) => reply.user)
+  replyForVideoEntity_G: ReplyForVideo_G[]
 
-  @Field(() => [ReplyForPhotoEntity_U])
-  @OneToMany(() => ReplyForPhotoEntity_U, (reply) => reply.user)
-  replyForPhotoEntity_U: ReplyForPhotoEntity_U[]
+  @Field(() => [ReplyForPhoto_U])
+  @OneToMany(() => ReplyForPhoto_U, (reply) => reply.user)
+  replyForPhotoEntity_U: ReplyForPhoto_U[]
 
-  @Field(() => [ReplyForPostEntity_U])
-  @OneToMany(() => ReplyForPostEntity_U, (reply) => reply.user)
-  replyForPostEntity_U: ReplyForPostEntity_U[]
+  @Field(() => [ReplyForPost_U])
+  @OneToMany(() => ReplyForPost_U, (reply) => reply.user)
+  replyForPostEntity_U: ReplyForPost_U[]
 
-  @Field(() => [ReplyForVideoEntity_U])
-  @OneToMany(() => ReplyForVideoEntity_U, (reply) => reply.user)
-  replyForVideoEntity_U: ReplyForVideoEntity_U[]
+  @Field(() => [ReplyForVideo_U])
+  @OneToMany(() => ReplyForVideo_U, (reply) => reply.user)
+  replyForVideoEntity_U: ReplyForVideo_U[]
 }
 
 @ObjectType()

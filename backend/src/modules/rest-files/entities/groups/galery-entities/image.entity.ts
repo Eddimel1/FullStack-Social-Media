@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBase'
 import { GroupEntity } from 'src/modules/groups/modules/groups/entities/group.entity'
-import { CommentForPhotoEntity_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
+import { CommentForPhoto_G } from 'src/modules/comments/group/entities/comment-for-photo_g.entity'
 
 @ObjectType()
 @Entity('galery_images_g')
@@ -16,14 +16,10 @@ export class Galery_Image_G extends BaseImageEntity {
   @JoinColumn({ name: 'ownerId' })
   owner: GroupEntity
 
-  @Field(() => CommentForPhotoEntity_G)
-  @ManyToOne(
-    () => CommentForPhotoEntity_G,
-    (comment) => comment.commented_photo,
-    {
-      onDelete: 'CASCADE',
-    },
-  )
+  @Field(() => CommentForPhoto_G)
+  @ManyToOne(() => CommentForPhoto_G, (comment) => comment.owner, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
-  comments: CommentForPhotoEntity_G[]
+  comments: CommentForPhoto_G[]
 }

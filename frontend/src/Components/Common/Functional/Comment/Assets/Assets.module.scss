@@ -1,0 +1,40 @@
+.assets{
+    margin:4rem;
+    width: 70%;
+ 
+}
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bottom{
+    margin-top: 2rem;
+}
+.activeActionInModal {
+    font-size:40px; 
+    cursor:pointer;
+    position:absolute ;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    &:hover{
+        filter:invert(0.4);
+    }
+}
+.deleteAudioIcon{
+    margin-left: 0.7rem;
+    &:hover{
+        filter: invert(0.4);
+    }
+}
+.removeInModal {
+    font-size:40px; 
+    cursor:pointer;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    &:hover{
+        filter:invert(0.4);
+    }
+}

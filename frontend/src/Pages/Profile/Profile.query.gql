@@ -1,0 +1,10 @@
+query getUserProfile($id:Float){
+    getOneUser(id:$id){
+         ...ProfileHeader
+         ...ProfilePostSection
+   } 
+   }
+
+ 
+
+

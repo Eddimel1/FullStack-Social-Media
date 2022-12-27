@@ -1,15 +1,15 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBase'
-import { PostEntity_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
+import { Post_G } from 'src/modules/posts/group/entities/posts-for-group.entity'
 
 @ObjectType()
 @Entity('image_f_post_g')
 export class Image_F_Post_G extends BaseImageEntity {
   @Column()
   ownerId: number
-  @Field(() => PostEntity_G)
-  @OneToOne(() => PostEntity_G, (post) => post.image, { onDelete: 'CASCADE' })
+  @Field(() => Post_G)
+  @OneToOne(() => Post_G, (post) => post.image, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ownerId' })
-  post: PostEntity_G
+  owner: Post_G
 }

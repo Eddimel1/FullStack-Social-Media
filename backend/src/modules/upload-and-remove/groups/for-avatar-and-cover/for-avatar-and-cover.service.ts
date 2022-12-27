@@ -10,11 +10,12 @@ import * as path from 'path'
 import { AvatarOrCover } from '../../shared-types/file-system'
 import { AvatarService_G } from 'src/modules/rest-files/services/for-groups/cover-and-avatar-services/group-avatar.service'
 import { CoverService_G } from 'src/modules/rest-files/services/for-groups/cover-and-avatar-services/group-cover.service'
+import { NotValidFileFormat } from '../../../../global/exceptions/file-exceptions'
 
 const storageP = '../../../../storage'
-const mainFolder = 'users'
+const mainFolder = 'groups'
 @Injectable()
-export class ForCoverAndAvatarService {
+export class ForCoverAndAvatar_G {
   constructor(
     private readonly avatarService_G: AvatarService_G,
     private readonly coverService_G: CoverService_G,
@@ -25,27 +26,30 @@ export class ForCoverAndAvatarService {
     folder: AvatarOrCover,
     id: number,
   ): Promise<G_Avatar_EN | G_Cover_EN> {
-    const path1 = path.join(__dirname, `${storageP}/${mainFolder}/${id}`)
-    const path2 = path.join(
-      __dirname,
-      `${storageP}/${mainFolder}/${id}/${folder}`,
-    )
-
-    const fileName = file.originalname
-    const filePath = `/${mainFolder}/${id}${folder}/${fileName}`
-    const url = `${this.configService.get('BASE_URL')}/${filePath}`
-    await ensureDir(path1, (err) => console.log(err))
-    await ensureDir(path2, (err) => console.log(err))
-    const type = validateMimeType(mimeTypeMapper(file.mimetype))
-
-    if (type) {
-      await writeFile(
-        `storage/${mainFolder}/${id}/${folder}/${fileName}`,
-        file.buffer,
+    if (!validateMimeType(mimeTypeMapper(file.mimetype))) {
+      throw new NotValidFileFormat()
+    } else {
+      const path0 = path.join(__dirname, `${storageP}/${mainFolder}`)
+      const path1 = path.join(__dirname, `${storageP}/${mainFolder}/${id}`)
+      const path2 = path.join(
+        __dirname,
+        `${storageP}/${mainFolder}/${id}/${folder}`,
       )
-      return await this.invokeAppropriateServiceU(id, folder, fileName, url)
-    } else if (!type) {
-      throw new Error('corrupted file or invalid mime-type')
+      console.log(path0, path1, path2)
+      await ensureDir(path0, (err) => console.log(err))
+      await ensureDir(path1, (err) => console.log(err))
+      await ensureDir(path2, (err) => console.log(err))
+
+      const file_extension = file.mimetype.split('/')[1]
+      const fileName = `${crypto.randomUUID()}.${file_extension}`
+      const filePath = `/${mainFolder}/${id}/${folder}/${fileName}`
+      const url = `${this.configService.get('BASE_URL')}/${filePath}`
+
+      const type = validateMimeType(mimeTypeMapper(file.mimetype))
+      if (type) {
+        await writeFile(`storage/${filePath}`, file.buffer)
+        return await this.invokeAppropriateServiceU(id, folder, fileName, url)
+      }
     }
   }
 

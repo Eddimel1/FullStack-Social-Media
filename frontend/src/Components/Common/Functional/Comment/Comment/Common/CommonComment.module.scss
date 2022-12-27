@@ -1,0 +1,52 @@
+.wrapper{
+    width: 100%;
+}
+.container{
+    width: 85%;
+    margin: 2rem auto;
+    display: flex;
+}
+.left{
+    align-self: flex-start;
+    flex:1;
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    flex:4;
+}
+.right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex:1;
+}
+.meta_data {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+.text{
+    margin-top: 0.5rem;
+}
+.icon{
+    cursor: pointer;
+    font-size: 25px;
+    &:hover{
+        filter: invert(0.4);
+    }
+}
+
+.metaItem{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+}
+.showMore{
+    cursor: pointer;
+    color: rgb(9, 2, 104);
+    &:hover{
+        text-decoration: underline;
+    }
+}

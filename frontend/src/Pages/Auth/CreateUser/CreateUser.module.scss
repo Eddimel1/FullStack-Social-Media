@@ -1,0 +1,11 @@
+.bottom{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.successMessage{
+    font-size: 7rem;
+    position: absolute;
+    bottom: 15%;
+    left: 20%;
+}

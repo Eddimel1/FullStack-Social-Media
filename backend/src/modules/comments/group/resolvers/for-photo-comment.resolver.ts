@@ -4,18 +4,18 @@ import {
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
-import { CommentForPhotoEntity_G } from '../entities/comment-for-photo_g.entity'
+import { CommentForPhoto_G } from '../entities/comment-for-photo_g.entity'
 
 import { CommentForPhotoService_DB_G } from '../services/comment-for-photo-service'
 
-@Resolver(() => CommentForPhotoEntity_G)
+@Resolver(() => CommentForPhoto_G)
 export class Comment_F_Photo_Resolver_G {
   constructor(
     private readonly commentForPhotoService: CommentForPhotoService_DB_G,
   ) {}
 
-  @Mutation(() => CommentForPhotoEntity_G)
-  createCommentForPhotoEntity_G(
+  @Mutation(() => CommentForPhoto_G)
+  createCommentForPhoto_G(
     @Args('createCommentInput') createCommentInput: CreateComment,
     @Context() context,
   ) {
@@ -23,12 +23,12 @@ export class Comment_F_Photo_Resolver_G {
     return this.commentForPhotoService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForPhotoEntity_G])
-  async findAllCommentsForPhotoEntity_G(@Args('photoId') photoId: number) {
+  @Query(() => [CommentForPhoto_G])
+  async findAllCommentsForPhoto_G(@Args('photoId') photoId: number) {
     return await this.commentForPhotoService.findAll(photoId, 'comment')
   }
 
-  @Query(() => CommentForPhotoEntity_G)
+  @Query(() => CommentForPhoto_G)
   findOne(
     @Args('searchAllCommentForVideo')
     searchAllCommentForPhoto: SearchComment,
@@ -37,8 +37,8 @@ export class Comment_F_Photo_Resolver_G {
     return this.commentForPhotoService.findOne(ownerId, commentId, 'comment')
   }
 
-  @Mutation(() => CommentForPhotoEntity_G)
-  updateCommentForPhotoEntity_G(
+  @Mutation(() => CommentForPhoto_G)
+  updateCommentForPhoto_G(
     @Args('updateCommentInput') updateCommentInput: UpdateComment,
   ) {
     const { commentId, ownerId, ...update } = updateCommentInput
@@ -50,8 +50,8 @@ export class Comment_F_Photo_Resolver_G {
     )
   }
 
-  @Mutation(() => CommentForPhotoEntity_G)
-  removeCommentForPhotoEntity_G(
+  @Mutation(() => CommentForPhoto_G)
+  removeCommentForPhoto_G(
     @Args('searchAllCommentForVideo')
     searchAllCommentForPhoto: SearchComment,
   ) {

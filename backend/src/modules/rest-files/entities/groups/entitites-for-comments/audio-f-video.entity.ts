@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudio'
-import { CommentForVideoEntity_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
+import { CommentForVideo_G } from 'src/modules/comments/group/entities/comment-for-video_g.entity'
 import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
 
 @ObjectType()
@@ -8,10 +8,10 @@ import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
 export class Audio_F_Comment_F_Video_G extends BaseAudioEntity {
   @Column()
   ownerId: number
-  @Field(() => CommentForVideoEntity_G)
-  @OneToOne(() => CommentForVideoEntity_G, (comment) => comment.audio, {
+  @Field(() => CommentForVideo_G)
+  @OneToOne(() => CommentForVideo_G, (comment) => comment.audio, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
-  comment: CommentForVideoEntity_G
+  owner: CommentForVideo_G
 }

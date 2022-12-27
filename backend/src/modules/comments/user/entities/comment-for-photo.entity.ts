@@ -12,12 +12,12 @@ import { Galery_Image_U } from 'src/modules/rest-files/entities/users/galery-ent
 import { Audio_F_Comment_F_Photo_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/audio-f-photo.entity'
 import { Image_F_Comment_F_Photo_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/image-f-photo.entity'
 import { Video_F_Comment_F_Photo_U } from 'src/modules/rest-files/entities/users/entitites-for-comments/video-f-photo.entity'
-import { ReplyForPhotoEntity_U } from 'src/modules/replies/user-replies/entities/reply-f-photo.entity'
+import { ReplyForPhoto_U } from 'src/modules/replies/user-replies/entities/reply-f-photo.entity'
 import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
 @Entity('comments_f_galery_image_u')
-export class CommentForPhotoEntity_U extends BaseCommentEntity {
+export class CommentForPhoto_U extends BaseCommentEntity {
   @Column()
   ownerId: number
   @Field(() => Galery_Image_U)
@@ -25,7 +25,7 @@ export class CommentForPhotoEntity_U extends BaseCommentEntity {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'ownerId' })
-  commented_photo: Galery_Image_U
+  owner: Galery_Image_U
 
   @Column()
   userId: number
@@ -38,29 +38,29 @@ export class CommentForPhotoEntity_U extends BaseCommentEntity {
   user: UserEntity
 
   @Field(() => Audio_F_Comment_F_Photo_U)
-  @OneToOne(() => Audio_F_Comment_F_Photo_U, (audio) => audio.comment, {
+  @OneToOne(() => Audio_F_Comment_F_Photo_U, (audio) => audio.owner, {
     onDelete: 'CASCADE',
     eager: true,
   })
   audio: Audio_F_Comment_F_Photo_U
 
   @Field(() => Image_F_Comment_F_Photo_U)
-  @OneToOne(() => Image_F_Comment_F_Photo_U, (image) => image.comment, {
+  @OneToOne(() => Image_F_Comment_F_Photo_U, (image) => image.owner, {
     onDelete: 'CASCADE',
     eager: true,
   })
   image: Image_F_Comment_F_Photo_U
 
   @Field(() => Video_F_Comment_F_Photo_U)
-  @OneToOne(() => Video_F_Comment_F_Photo_U, (video) => video.comment, {
+  @OneToOne(() => Video_F_Comment_F_Photo_U, (video) => video.owner, {
     onDelete: 'CASCADE',
     eager: true,
   })
   video: Video_F_Comment_F_Photo_U
 
-  @Field(() => ReplyForPhotoEntity_U)
-  @OneToMany(() => ReplyForPhotoEntity_U, (reply) => reply.comment, {
+  @Field(() => ReplyForPhoto_U)
+  @OneToMany(() => ReplyForPhoto_U, (reply) => reply.comment, {
     onDelete: 'CASCADE',
   })
-  replies: ReplyForPhotoEntity_U
+  replies: ReplyForPhoto_U
 }

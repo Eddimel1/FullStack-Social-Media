@@ -4,7 +4,7 @@ import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBas
 import { UserEntity } from 'src/modules/users/entities/user.entity'
 
 @ObjectType()
-@Entity('avatar_u')
+@Entity('cover_u')
 export class U_Cover_EN extends BaseImageEntity {
   @Column()
   ownerId: number

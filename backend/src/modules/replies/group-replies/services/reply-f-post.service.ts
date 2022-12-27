@@ -4,22 +4,17 @@ import { TypeOrmConfigService } from 'src/typeOrm/config/typeorm.service'
 import { Base_Closure_Tree_Reply_Service } from 'src/generics/generic-services/base-closure-tree-reply.service'
 import { DataSource, TreeRepository } from 'typeorm'
 
-import { ReplyForPostEntity_G } from '../entities/reply-f-post.entity'
+import { ReplyForPost_G } from '../entities/reply-f-post.entity'
 
 @Injectable()
-export class ReplyForPostService_DB_G extends Base_Closure_Tree_Reply_Service<ReplyForPostEntity_G> {
+export class ReplyForPostService_DB_G extends Base_Closure_Tree_Reply_Service<ReplyForPost_G> {
   constructor(
-    @InjectRepository(ReplyForPostEntity_G)
-    tree_repository: TreeRepository<ReplyForPostEntity_G>,
+    @InjectRepository(ReplyForPost_G)
+    tree_repository: TreeRepository<ReplyForPost_G>,
     @InjectDataSource()
     dataSource: DataSource,
     typeOrmConfigService: TypeOrmConfigService,
   ) {
-    super(
-      ReplyForPostEntity_G,
-      tree_repository,
-      dataSource,
-      typeOrmConfigService,
-    )
+    super(ReplyForPost_G, tree_repository, dataSource, typeOrmConfigService)
   }
 }
