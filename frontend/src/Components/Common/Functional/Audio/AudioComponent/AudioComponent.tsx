@@ -6,6 +6,7 @@ import { PlayCircleOutlined, PauseCircleOutlined, PauseCircleFilled, SoundOutlin
 import defaultAudioTrack  from '../../../../../../assets/defaultAudioTrack.mp3'
 import { CommonEqualizer } from '../../Canvas/Equalizer/Common/CommonEqualizer'
 type _props = React.HTMLAttributes<HTMLAudioElement> &{
+// force:React.Dispatch<React.SetStateAction<boolean>>
 src?:string,
 css?:React.CSSProperties
 }

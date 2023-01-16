@@ -17,6 +17,7 @@ import classes from './Assets.module.scss'
 export const CommentAssets = React.memo(({ audio, video, image }: assetType) => {
   const [showPhotoPad, setShowPhotoPad] = useState(false)
   const [showVideoPad, setShowVideoPad] = useState(false)
+
   const [isShow, setShowModal] = useState(false)
   const [showVideoPlayer, setShowVideoPlayer] = useState(false)
   const [_, force] = useState(false)
@@ -31,7 +32,7 @@ export const CommentAssets = React.memo(({ audio, video, image }: assetType) => 
     <>
       {(anyServerUrl) && (
         <div className={classes.assets}>
-          {(imageOrVideoServerUrl || imageOrVideoLocalUrl) && (
+          {(imageOrVideoServerUrl) && (
             <div className={classes.top}>
               <div
                 className={classes.imageWrapper}
@@ -109,17 +110,18 @@ export const CommentAssets = React.memo(({ audio, video, image }: assetType) => 
           )}
 
           <div className={classes.bottom}>
-            {(audio?.entity?.url || audio.local_url) && (
+            {(audio?.entity?.url) && (
               <>
                 <DeleteOutlined
                   className={classes.deleteAudioIcon}
                   onClick={() => {
-                    audio.operation_type = 'delete/audio_f_post_u'
+                    audio.operation_type = 'delete/audio_f_post_u';
                     force((prev) => !prev)
                   }}
                 ></DeleteOutlined>
 
                 <AudioComponent
+               
                   src={audio?.entity?.url || audio.local_url}
                 ></AudioComponent>
               </>

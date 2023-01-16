@@ -47,7 +47,7 @@ export const ReplyForm = ({
     Image_F_Comment_F_Post_U
   >('reply')
   let state = useRef(replyFormInitialState)
-  const avatar_url = authState().user.avatar.url
+  const avatar_url = authState().user.avatar?.url
   const handleBeforeUnload = useCallback(() => {
     const anyEntity =
       state.current.audio.entity ||

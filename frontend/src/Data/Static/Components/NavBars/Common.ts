@@ -89,12 +89,12 @@ return [
             icon: NotificationOutlined,
           },
         },
-        {
-          options:{dropdown_name:'user_state',display:'flex'},
-          type: 'dropdown',  
-          dropdown:[{title:'Log Out',type:'state'}],
-          asset: {type:'image', image:  avatar_url },
-        },
+        // {
+        //   options:{dropdown_name:'user_state',display:'flex'},
+        //   type: 'dropdown',  
+        //   dropdown:[{title:'Log Out',type:'state'}],
+        //   asset: {type:'image', image:  avatar_url },
+        // },
       ]
 }
 

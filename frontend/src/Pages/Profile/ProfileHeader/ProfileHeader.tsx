@@ -121,6 +121,7 @@ export const ProfileHeader = ({ user }: _props) => {
                     },
                   }}
                 >
+                    
                   <div className={classes.coverOptionsContainer}>
                     <CommonFileInput
                       children_type="text"
@@ -148,7 +149,7 @@ export const ProfileHeader = ({ user }: _props) => {
         </div>
         <div
           className={classes.header_bottom}
-         
+         onMouseLeave={() => showAvatarOptions(false)}
           style={{ boxShadow: '0px 0px 4px black', height: '100px' ,position:'relative' , display:'flex',justifyContent:'space-around'}}
         >
              <div

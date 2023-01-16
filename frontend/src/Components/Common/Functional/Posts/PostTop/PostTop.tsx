@@ -31,7 +31,7 @@ export const PostTop = ({avatar_url,date,username,postId}:_props) => {
         <div className={classes.top_bottom} >
             <div className={classes.postOptions} onClick={()=>showPostOptions(true)}>
             <EllipsisOutlinedIcon></EllipsisOutlinedIcon>
-           { postOptions && <SimpleDropDown setShow={showPostOptions} show={postOptions} showArrow={false} >
+           { postOptions && <SimpleDropDown setShow={showPostOptions} show={postOptions} showArrow={false}  >
                 <div className={classes.dropDownItem}>Complain</div>
                 <div className={classes.dropDownItem} onClick={()=>{
              removePost({variables:{id:Number(postId)},update:(cache,{data})=>{

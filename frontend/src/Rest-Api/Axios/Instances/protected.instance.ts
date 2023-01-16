@@ -3,7 +3,7 @@ import { getEnv } from '../../../../envs/envHelper'
 import { refreshTokenIf401 } from '../../../Apollo/Links/Auth-Links'
 // const BASE_URL = getEnv('NEST_SERVER_URL')
 export const Protected_Instance = axios.create({
-  timeout: 10000,
+  timeout: 15000,
   withCredentials: true,
 })
 

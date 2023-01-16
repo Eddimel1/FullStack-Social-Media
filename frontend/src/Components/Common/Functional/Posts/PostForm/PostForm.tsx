@@ -22,14 +22,15 @@ import { PublishForm } from '../../PublishForm/PublishForm'
 import { getAssetsInitialState } from '../../PublishForm/Utility/factories'
 import { useremovePostMutation } from './__generated__/PostRemove.mutation'
 
-const postFormInitialState = getAssetsInitialState<
+
+
+export const PostForm = React.memo(
+  ({ unPublishedPost }: { unPublishedPost: filteredPosts | null }) => {
+    const postFormInitialState = getAssetsInitialState<
   Audio_F_Post_U,
   Video_F_Post_U,
   Image_F_Post_U
 >('post')
-
-export const PostForm = React.memo(
-  ({ unPublishedPost }: { unPublishedPost: filteredPosts | null }) => {
     const [_, force] = useState(false)
     const [createPost, created_post] = usecreatePostMutation()
     const [updatePost, updated_post] = useupdatePostMutation()
@@ -82,7 +83,8 @@ export const PostForm = React.memo(
                   })
                 },
               })
-              state.current = null
+              console.log('initial : ' ,postFormInitialState , 'STATE : ' ,state.current)
+              state.current = postFormInitialState
               unPublishedPost = { ...postFormInitialState, posts: [] }
               reset.current = true
             } else if (!entity) {
@@ -147,7 +149,8 @@ export const PostForm = React.memo(
             }
           } else if (state.current[type]['entity']) {
             if (operation_type === 'delete') {
-              if ((state.current.number_of_files = 1)) {
+                console.log(state.current.number_of_files)
+              if ((state.current.number_of_files === 1)) {
                 removePost({
                   variables: { id: state.current[type]['entity']['ownerId'] },
                   update: (cache, { data }) => {
@@ -155,7 +158,7 @@ export const PostForm = React.memo(
                     state.current[type]['entity'] = null
                     cache.evict({ id: identity })
                   },
-                })
+                }).catch((e)=>console.log(e))
               } else if (state.current.number_of_files > 1) {
                 Protected_Instance.delete(
                   `${
@@ -175,20 +178,26 @@ export const PostForm = React.memo(
             }
           }
         } else {
-          obj[prop] = new_val
+            console.log(obj,prop,new_val)
+          obj[prop] = new_val 
         }
+         console.log(state.current)
         return true
       },
     }
     useEffect(() => {
+       
       const image = unPublishedPost?.posts?.[0]?.image
-
       const audio = unPublishedPost?.posts?.[0]?.audio
       const video = unPublishedPost?.posts?.[0]?.video
-
-      if (image) state.current.image.entity = image
-      if (video) state.current.video.entity = video
-      if (audio) state.current.audio.entity = audio
+      const entities = [image,audio,video]
+      entities.forEach((entity)=>{
+        if(entity) state.current.number_of_files++
+      })
+      if (image) state.current.image.entity = image;
+      if (video) state.current.video.entity = video;
+      if (audio) state.current.audio.entity = audio;
+      console.log(state.current)
     }, [unPublishedPost])
 
     state = new Proxy<React.MutableRefObject<typeof postFormInitialState>>(
