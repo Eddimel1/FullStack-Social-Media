@@ -24,6 +24,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity'
   descendantColumnName: (column) => 'descendant_' + column.propertyName,
 })
 export class ReplyForPhoto_G extends BaseCommentEntity {
+  @Field()
   @Column({ nullable: true })
   ownerId: number
   @Field(() => CommentForPhoto_G, { nullable: true })
@@ -65,7 +66,7 @@ export class ReplyForPhoto_G extends BaseCommentEntity {
   })
   video: Video_F_Reply_F_Photo_G
 
-  @Field(() => [ReplyForPhoto_G])
+  @Field(() => [ReplyForPhoto_G], { nullable: true })
   @TreeChildren()
   children: ReplyForPhoto_G[]
 

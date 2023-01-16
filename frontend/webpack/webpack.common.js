@@ -10,8 +10,10 @@ module.exports = {
     entry: '/src/index.tsx',
     devtool:"source-map",
     output: {
-        path: path.join(__dirname,'/dist'),
-        filename: "bundle.js",
+        filename: '[name].[contenthash].js',
+        chunkFilename:'[name].bundle.js?=[chunkhash]',
+        path: path.resolve(__dirname, 'dist'),
+        clean: true,
         assetModuleFilename : 'images/[hash][ext][query]'
     },
     plugins : [
@@ -25,8 +27,11 @@ module.exports = {
         })
     ],
     resolve: {
+        alias:{
+            assets:path.resolve(__dirname,'../assets')
+        },
         extensions: ['.tsx', '.ts', '.js' ,'.jsx' ,'css' ,'module.css','.scss','module.scss'],
-        // fallback: {process:require.resolve('process')}
+
          fallback: { 'process/browser': require.resolve('process/browser'), } 
       },
      
@@ -44,11 +49,8 @@ module.exports = {
               "@babel/preset-typescript",
             ],
           },
-        
     },]
-
 },
- 
 
 {
     test: /\.(sc|sa|c)ss$/,
@@ -87,6 +89,19 @@ module.exports = {
               warnings: false,
             }
           },
+    },
+    optimization:{
+        moduleIds: 'deterministic',
+        runtimeChunk: 'single',
+        splitChunks: {
+          cacheGroups: {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+            },
+          },
+        },
     },
     stats: 'errors-only',
 

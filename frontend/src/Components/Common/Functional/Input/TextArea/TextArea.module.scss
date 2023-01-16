@@ -7,11 +7,9 @@
     font-size: 25px;
     position: absolute;
     top: 1.2rem;
-    right: 4rem;
-    transform: rotate(0deg);
+    right: 2.3rem;
             cursor: pointer;
             &:hover{
-                transform: rotate(5deg);
                 filter:invert(0.4);
             }
 }

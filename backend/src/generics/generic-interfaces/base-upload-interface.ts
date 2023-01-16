@@ -1,4 +1,4 @@
-import { File_EN_Delete_O } from "src/global/globalDtos/output.dto"
+import { File_EN_Delete_O } from 'src/global/globalDtos/output.dto'
 
 export interface Base_Upload_Service<T1, T2, T3, F> {
   uploadFile: (
@@ -16,11 +16,14 @@ export interface Base_Upload_Service<T1, T2, T3, F> {
     ownerId: number,
   ) => Promise<File_EN_Delete_O>
   _invokeAppropriateService_Up: (
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: F,
     file_name: string,
     url: string,
     parentOfOwnerId?: number,
+    receiverId?: number,
+    parentId?: number,
   ) => Promise<T1 | T2 | T3>
 
   _invokeAppropriateService_Del: (

@@ -24,6 +24,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity'
   descendantColumnName: (column) => 'descendant_' + column.propertyName,
 })
 export class ReplyForPost_G extends BaseCommentEntity {
+    @Field()
   @Column({ nullable: true })
   ownerId: number
   @Field(() => CommentForPost_G, { nullable: true })
@@ -38,6 +39,7 @@ export class ReplyForPost_G extends BaseCommentEntity {
   @Field(() => UserEntity)
   @ManyToOne(() => UserEntity, (reply) => reply.replyForPostEntity_G, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   @JoinColumn({ name: 'userId' })
   user: UserEntity
@@ -45,22 +47,25 @@ export class ReplyForPost_G extends BaseCommentEntity {
   @Field(() => Audio_F_Reply_F_Post_G)
   @OneToOne(() => Audio_F_Reply_F_Post_G, (audio) => audio.owner, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   audio: Audio_F_Reply_F_Post_G
 
   @Field(() => Image_F_Reply_F_Post_G)
   @OneToOne(() => Image_F_Reply_F_Post_G, (image) => image.owner, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   image: Image_F_Reply_F_Post_G
 
   @Field(() => Video_F_Reply_F_Post_G)
   @OneToOne(() => Video_F_Reply_F_Post_G, (video) => video.owner, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   video: Video_F_Reply_F_Post_G
 
-  @Field(() => [ReplyForPost_G])
+  @Field(() => [ReplyForPost_G], { nullable: true })
   @TreeChildren()
   children: ReplyForPost_G[]
 

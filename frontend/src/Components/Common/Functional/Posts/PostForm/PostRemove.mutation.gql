@@ -1,0 +1,7 @@
+mutation removePost($id:Float!) {
+  removePost(postId:$id){
+    id
+    ownerId
+    __typename
+  }
+}

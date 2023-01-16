@@ -4,7 +4,7 @@ import { CommentForPost_U } from 'src/modules/comments/user/entities/comment-for
 import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBase'
 
 @ObjectType()
-@Entity('image_f_comment_f_post')
+@Entity('image_f_comment_f_post_u')
 export class Image_F_Comment_F_Post_U extends BaseImageEntity {
   @Column()
   ownerId: number

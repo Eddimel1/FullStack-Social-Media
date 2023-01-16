@@ -13,10 +13,9 @@ import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { NestJwtAuthGuard } from 'src/modules/auth/guards/nestj-auth-guard'
 import { CommentForPhotoService_G } from 'src/modules/upload-and-remove/groups/for-comment/services/for-photo.service'
 
-
 @Public()
 @UseGuards(NestJwtAuthGuard)
-@Controller('group/comment_f_photo')
+@Controller('group/comment_f_photo_u')
 export class Comment_F_Photo_Controller_G {
   constructor(private readonly forCommentService: CommentForPhotoService_G) {}
 
@@ -38,7 +37,7 @@ export class Comment_F_Photo_Controller_G {
       groupId,
       ownerId,
       parentOfOwnerId,
-      userId
+      userId,
     )
     return image
   }

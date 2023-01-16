@@ -1,10 +1,12 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
+import { findAll_Generic_O } from '../../../../global/globalDtos/output.dto'
 
 import {
   CreateComment,
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
+import { FindAllComment_F_Post_G } from '../dto/comment-for-post/output.dto'
 import { CommentForPost_G } from '../entities/comment-for-post_g.entity'
 
 import { CommentForPostService_DB_G } from '../services/comment-for-post.service'
@@ -24,7 +26,7 @@ export class Comment_F_Post_Resolver_G {
     return this.commentForPostService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForPost_G])
+  @Query(() => FindAllComment_F_Post_G)
   async findAllCommentsForPost_G(@Args('photoId') postId: number) {
     return await this.commentForPostService.findAll(postId, 'comment')
   }

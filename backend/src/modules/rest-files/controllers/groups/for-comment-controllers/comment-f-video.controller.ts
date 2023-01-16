@@ -15,7 +15,7 @@ import { NestJwtAuthGuard } from 'src/modules/auth/guards/nestj-auth-guard'
 import { CommentForVideoService_G } from 'src/modules/upload-and-remove/groups/for-comment/services/for-video.service'
 import { CommentForVideoService_U } from 'src/modules/upload-and-remove/users/for-comment/services/for-video.service'
 
-@Controller('group/comment_f_video')
+@Controller('group/comment_f_video_u')
 export class Comment_F_Video_Controller_G {
   constructor(private readonly forCommentService: CommentForVideoService_G) {}
   @Public()

@@ -38,30 +38,34 @@ export class CommentForPost_G extends BaseCommentEntity {
   @JoinColumn({ name: 'userId' })
   user: UserEntity
 
-  @Field(() => Audio_F_Comment_F_Post_G)
+  @Field(() => Audio_F_Comment_F_Post_G, { nullable: true })
   @OneToOne(() => Audio_F_Comment_F_Post_G, (audio) => audio.owner, {
     onDelete: 'CASCADE',
     eager: true,
+    nullable: true,
   })
   audio: Audio_F_Comment_F_Post_G
 
-  @Field(() => Image_F_Comment_F_Post_G)
+  @Field(() => Image_F_Comment_F_Post_G, { nullable: true })
   @OneToOne(() => Image_F_Comment_F_Post_G, (image) => image.owner, {
     onDelete: 'CASCADE',
     eager: true,
+    nullable: true,
   })
   image: Image_F_Comment_F_Post_G
 
-  @Field(() => Video_F_Comment_F_Post_G)
+  @Field(() => Video_F_Comment_F_Post_G, { nullable: true })
   @OneToOne(() => Video_F_Comment_F_Post_G, (video) => video.owner, {
     onDelete: 'CASCADE',
     eager: true,
+    nullable: true,
   })
   video: Video_F_Comment_F_Post_G
 
   @Field(() => ReplyForPost_G)
   @OneToMany(() => ReplyForPost_G, (reply) => reply.comment, {
     onDelete: 'CASCADE',
+    nullable: true,
   })
   replies: ReplyForPost_G
 }

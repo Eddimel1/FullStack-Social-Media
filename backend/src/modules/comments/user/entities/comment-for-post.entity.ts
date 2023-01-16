@@ -19,6 +19,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity'
 @ObjectType()
 @Entity('comments_f_post_u')
 export class CommentForPost_U extends BaseCommentEntity {
+  @Field()
   @Column()
   ownerId: number
   @Field(() => Post_U)
@@ -38,30 +39,34 @@ export class CommentForPost_U extends BaseCommentEntity {
   @JoinColumn({ name: 'userId' })
   user: UserEntity
 
-  @Field(() => Audio_F_Comment_F_Post_U)
+  @Field(() => Audio_F_Comment_F_Post_U, { nullable: true })
   @OneToOne(() => Audio_F_Comment_F_Post_U, (audio) => audio.owner, {
     onDelete: 'CASCADE',
     eager: true,
+    nullable: true,
   })
   audio: Audio_F_Comment_F_Post_U
 
-  @Field(() => Image_F_Comment_F_Post_U)
+  @Field(() => Image_F_Comment_F_Post_U, { nullable: true })
   @OneToOne(() => Image_F_Comment_F_Post_U, (image) => image.owner, {
     onDelete: 'CASCADE',
     eager: true,
+    nullable: true,
   })
   image: Image_F_Comment_F_Post_U
 
-  @Field(() => Video_F_Comment_F_Post_U)
+  @Field(() => Video_F_Comment_F_Post_U, { nullable: true })
   @OneToOne(() => Video_F_Comment_F_Post_U, (video) => video.owner, {
     onDelete: 'CASCADE',
     eager: true,
+    nullable: true,
   })
   video: Video_F_Comment_F_Post_U
 
-  @Field(() => ReplyForPost_U)
+  @Field(() => ReplyForPost_U, { nullable: true })
   @OneToMany(() => ReplyForPost_U, (reply) => reply.comment, {
     onDelete: 'CASCADE',
+    nullable: true,
   })
   replies: ReplyForPost_U
 }

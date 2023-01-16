@@ -3,6 +3,7 @@ import {
   Delete,
   Param,
   Post,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -15,7 +16,7 @@ import { ReplyForPostService_U } from 'src/modules/upload-and-remove/users/for-r
 
 @Public()
 @UseGuards(NestJwtAuthGuard)
-@Controller('user/reply_f_post')
+@Controller('user/reply_f_post_u')
 export class Reply_F_Post_Controller_U {
   constructor(private readonly forReplyService: ReplyForPostService_U) {}
 
@@ -25,10 +26,14 @@ export class Reply_F_Post_Controller_U {
     @UploadedFile() file: Express.Multer.File,
     @Param('folder') folder,
     @Context() context,
+    @Res() res,
   ) {
+    
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
     const parentOfOwnerId = context.req.body.parentOfOwnerId
+    const receiverId = context.req.body.receiverId
+    const parentId = context.req.body.parentId
     const image = await this.forReplyService.uploadFile(
       file,
       folder,
@@ -37,8 +42,11 @@ export class Reply_F_Post_Controller_U {
       ownerId,
       parentOfOwnerId,
       userId,
+      receiverId,
+      parentId
     )
-    return image
+    console.log('parentId : ', parentId)
+    res.send(image)
   }
 
   @Delete('/delete/:folder/:file_name')
@@ -46,6 +54,7 @@ export class Reply_F_Post_Controller_U {
     @Param('file_name') file_name: string,
     @Param('folder') folder: any,
     @Context() context,
+    @Res() res,
   ) {
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
@@ -57,6 +66,6 @@ export class Reply_F_Post_Controller_U {
       userId,
       ownerId,
     )
-    return isDeleted
+    res.send(isDeleted)
   }
 }

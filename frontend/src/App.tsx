@@ -5,7 +5,6 @@ import CustomRouter from './Routes/Routers/CustomRouter'
 
 export const App = () => {
     const state = useAppSelector((state) => state)
-   
   let role = (state.reducer.auth?.user?.role) || null
   return <CustomRouter user_role={role}></CustomRouter>
 }

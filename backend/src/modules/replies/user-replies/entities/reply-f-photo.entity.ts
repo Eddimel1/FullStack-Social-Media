@@ -2,7 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql'
 import { BaseCommentEntity } from 'src/typeOrm/baseEntities/comment-entities/baseComment'
 import { CommentForPhoto_U } from 'src/modules/comments/user/entities/comment-for-photo.entity'
 import { Audio_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/audio-f-photo.entity'
-import { Image_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/image-f-reply-f.entity'
+
 import { Video_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/video-f-photo.entity'
 import {
   Entity,
@@ -16,6 +16,7 @@ import {
   TreeParent,
 } from 'typeorm'
 import { UserEntity } from 'src/modules/users/entities/user.entity'
+import { Image_F_Reply_F_Photo_U } from '../../../rest-files/entities/users/entities-for-replies/image-f-photo.entity'
 
 @ObjectType()
 @Entity()
@@ -29,6 +30,7 @@ export class ReplyForPhoto_U extends BaseCommentEntity {
   @PrimaryGeneratedColumn()
   id: number
 
+  @Field()
   @Column({ nullable: true })
   ownerId: number
   @Field(() => CommentForPhoto_U, { nullable: true })
@@ -51,10 +53,6 @@ export class ReplyForPhoto_U extends BaseCommentEntity {
   @OneToOne(() => Audio_F_Reply_F_Photo_U, (audio) => audio.owner, {
     onDelete: 'CASCADE',
   })
-  @Column()
-  @Field()
-  text: string
-
   audio: Audio_F_Reply_F_Photo_U
 
   @Field(() => Image_F_Reply_F_Photo_U)
@@ -69,7 +67,7 @@ export class ReplyForPhoto_U extends BaseCommentEntity {
   })
   video: Video_F_Reply_F_Photo_U
 
-  @Field(() => [ReplyForPhoto_U])
+  @Field(() => [ReplyForPhoto_U], { nullable: true, defaultValue: [] })
   @TreeChildren({ cascade: true })
   children: ReplyForPhoto_U[]
 

@@ -15,7 +15,7 @@ import { NestJwtAuthGuard } from 'src/modules/auth/guards/nestj-auth-guard'
 import { CommentForPostService_G } from 'src/modules/upload-and-remove/groups/for-comment/services/for-post.service'
 import { CommentForPostService_U } from 'src/modules/upload-and-remove/users/for-comment/services/for-post.service'
 
-@Controller('group/comment_f_post')
+@Controller('group/comment_f_post_u')
 export class Comment_F_Post_Controller_G {
   constructor(private readonly forCommentService: CommentForPostService_G) {}
   @Public()

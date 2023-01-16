@@ -26,9 +26,9 @@ export class Reply_F_Photo_Resolver_U {
   findAll_A_Count_RepliesForPhoto_U(@Args('id') id: number) {
     return this.replyForPhotoService_DB_U.findAll_A_Count(id, ReplyForPhoto_U)
   }
-  @Query(() => ReplyForPhoto_U)
+  @Query(() => [ReplyForPhoto_U])
   findDescendantsTree_U(@Args('id') id: number) {
-    return this.replyForPhotoService_DB_U.findDescendantsTree(id)
+    return this.replyForPhotoService_DB_U.findDescendantsTrees(id)
   }
 
   @Query(() => ReplyForPhoto_U)
@@ -36,10 +36,10 @@ export class Reply_F_Photo_Resolver_U {
     return this.replyForPhotoService_DB_U.findAncestorsTree(id)
   }
   @Mutation(() => ReplyForPhoto_U)
-  updateOneReplyForPhoto_U(@Args('updateReply') updateReply: UpdateReply) {
+  updateReplyForPhoto_U(@Args('updateReply') updateReply: UpdateReply) {
     return this.replyForPhotoService_DB_U.updateOne(updateReply)
   }
-  @Mutation(() => isSuccess_Reply)
+  @Mutation(() => ReplyForPhoto_U)
   deleteReplyForPhoto_U(@Args('id') id: number) {
     return this.replyForPhotoService_DB_U.deleteOne(id)
   }

@@ -1,0 +1,30 @@
+mutation UpdateCommentForPost_U_($input: UpdateComment!) {
+  updateCommentForPost_U(updateCommentInput:$input){
+    __typename
+    id
+    ownerId
+    audio{
+      id
+      url
+    }
+    image{
+      id
+      url
+    }
+    video{
+      id 
+      url
+    }
+    user{
+        id
+        username
+      avatar{
+        id
+        url
+      }
+      username
+    }
+    text
+    createdAt
+  }
+}

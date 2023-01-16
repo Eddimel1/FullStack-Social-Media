@@ -1,8 +1,7 @@
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
-import { Field, ObjectType } from '@nestjs/graphql'
-
-import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudio'
-import { ReplyForPost_U } from 'src/modules/replies/user-replies/entities/reply-f-post.entity'
+import { ObjectType, Field } from '@nestjs/graphql'
+import { Entity, Column, OneToOne, JoinColumn } from 'typeorm'
+import { BaseAudioEntity } from '../../../../../typeOrm/baseEntities/file-entities/baseAudio'
+import { ReplyForPost_U } from '../../../../replies/user-replies/entities/reply-f-post.entity'
 
 @ObjectType()
 @Entity('audio_f_reply_f_post_u')

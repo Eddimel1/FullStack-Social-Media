@@ -5,7 +5,7 @@ import { BaseImageEntity } from 'src/typeOrm/baseEntities/file-entities/imageBas
 import { CommentForVideo_U } from 'src/modules/comments/user/entities/comment-for-video.entity'
 
 @ObjectType()
-@Entity('image_f_comment_f_video')
+@Entity('image_f_comment_f_video_u')
 export class Image_F_Comment_F_Video_U extends BaseImageEntity {
   @Column()
   ownerId: number

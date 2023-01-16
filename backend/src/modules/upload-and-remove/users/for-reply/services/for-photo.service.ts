@@ -26,7 +26,8 @@ export class ReplyForPhotoService_U extends Base_Upload_Remove_Service<
   }
 
   async _invokeAppropriateService_Up(
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: string,
     file_name: string,
     url: string,
@@ -38,7 +39,8 @@ export class ReplyForPhotoService_U extends Base_Upload_Remove_Service<
     switch (relation) {
       case 'image_f_reply_f_photo_u': {
         return await this.image_F_Reply_F_Photo_Service_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'image_f_reply_f_photo_u',
@@ -48,7 +50,8 @@ export class ReplyForPhotoService_U extends Base_Upload_Remove_Service<
       }
       case 'video_f_reply_f_photo_u': {
         return await this.video_F_Reply_F_Photo_Service_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'video_f_reply_f_photo_u',
@@ -58,7 +61,8 @@ export class ReplyForPhotoService_U extends Base_Upload_Remove_Service<
       }
       case 'audio_f_reply_f_photo_u': {
         return await this.audio_F_Reply_F_Photo_Service_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'audio_f_reply_f_photo_u',

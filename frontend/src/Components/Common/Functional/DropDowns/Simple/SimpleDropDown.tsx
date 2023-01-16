@@ -9,37 +9,41 @@ import classes from './SimpleDropDown.module.scss'
 
 type _props = React.HTMLAttributes<HTMLDivElement> & {
     showOnClick?:boolean,
+    setShow? : React.Dispatch<React.SetStateAction<boolean>>,
+    show?:boolean
     showArrow?:boolean,
     state?:{selected:string},
     title?:string
     asset?:assetType & {css?:React.CSSProperties},
     options?:{display:'grid' | 'flex' , dropdown_css?:React.CSSProperties}
-
+    
 }
+
 export const SimpleDropDown:React.FC<PropsWithChildren<_props>> = ({state,options,children,asset,showOnClick=true,
-    showArrow=true,title,
+    showArrow=true,title,setShow,show,
     ...atr}) => {
-    const {ref,setIsShow,isShow} = useOutside<HTMLDivElement>(false)
+    const {ref,isShow,setIsShow} = useOutside<HTMLDivElement>(false,setShow)
     const Icon=asset?.icon
     const image=asset?.image
     const icon_css = asset?.css
   return (
-    <div ref={ref}  onClick={()=>setIsShow(true)}  className={`${options?.display === 'flex' ? `${classes.container_flex}` : `${classes.container_grid}`}`} >
-        <div className={classes.title}>{title}</div>
+    <div ref={ref} onClick={()=>setIsShow(true)}  className={`${options?.display === 'flex' ? `${classes.container_flex}` : `${classes.container_grid}`}`}>
+        {title && <div onClick={()=>setShow(true)} className={classes.title}>{title}</div>}
        {showArrow &&  <div className={classes.children}>
        
-        <CaretDownOutlined
-          className={classes.arrow}
-          style={{ transform: `rotate(${isShow ? '180deg' : '0deg'})` }}
-        ></CaretDownOutlined>
+       
         {asset && Icon ? <Icon style={{...asset.css}}></Icon> : <CommonImage options={{
                   src: image?.src,
                   alt: image?.alt
               }}></CommonImage>}
+               <CaretDownOutlined
+          className={classes.arrow}
+          style={{ transform: `rotate(${show ? '180deg' : '0deg'})` }}
+        ></CaretDownOutlined>
         </div>}
 
-   <div className={classes.itemsContainer} {...atr} style={{...options?.dropdown_css}}>
-   {isShow && showOnClick &&  children}
+   <div className={`${!title ? `${classes.noTitleItemsContainer}` : `${classes.ItemsContainer}`}`} {...atr} style={{...options?.dropdown_css}}>
+   {(show || isShow) && showOnClick &&  children}
    {!showOnClick && children}
    </div>
    

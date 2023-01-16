@@ -11,7 +11,7 @@ type _props = BaseInputProps & {required?:boolean,title?:boolean}
 export const TextInput = ({ mutated_obj, prop, required = false,placeholder , css,label=true , title = true }: _props) => {
   const [change, setChange] = useState<string>('')
   const [error, setError] = useState<string>('')
-  const [started_writing, set_is_writing] = useState<boolean>(false)
+  const [started_writing, set_is_started_writing] = useState<boolean>(false)
   const _errorStyles: React.CSSProperties = {
     border: `${error ? '2px solid red' : 'none'}`,
   }
@@ -23,7 +23,7 @@ export const TextInput = ({ mutated_obj, prop, required = false,placeholder , cs
   }
   const setValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    set_is_writing(true)
+    set_is_started_writing(true)
     setError('')
     mutated_obj['error'] = false
     setChange(value)

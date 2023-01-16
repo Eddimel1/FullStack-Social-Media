@@ -11,27 +11,34 @@ type _props = {
     right:React.ReactNode,
     top?:React.ReactNode
 }
-export const Common2SideLayout:FC<PropsWithChildren<_props>> = ({left,right,top}:_props) => {
+export const LeftSideBarLayout:FC<PropsWithChildren<_props>> = ({left,right,top}:_props) => {
 
   return (
     <>
       <NavBar></NavBar>
-
-      <_1SideBarLayout>
-        <LeftSideBar></LeftSideBar>
+        <div style={{display:'flex'}}>
+            <div
+            style={{flex:'1'}}>
+       <LeftSideBar></LeftSideBar>
+            </div>
+        <div style={{flex:'10'}}>
         <div style={{margin:'10rem 10rem'}}>
         {top && top}
         <div style={{display:'flex',marginTop:'5rem'}}
         >
           <div style={{flex:'2'}}>
-          
           {left && left}
           </div>
           <div style={{alignSelf:'flex-start' ,flex:'1'}}>{right}</div>
         </div>
         </div>
+        </div>
+       
+        </div>
+        
      
-      </_1SideBarLayout>
+     
+     
     </>
   )
 }

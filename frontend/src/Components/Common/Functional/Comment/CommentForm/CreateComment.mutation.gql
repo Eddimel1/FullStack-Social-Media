@@ -1,0 +1,30 @@
+mutation CreateCommentForPost_U_($input: CreateComment!) {
+  createCommentForPost_U(createCommentInput:$input){
+    __typename
+    ownerId
+    id
+    audio{
+      id
+      url
+    }
+    image{
+      id
+      url
+    }
+    video{
+      id 
+      url
+    }
+    user{
+        id
+        username
+      avatar{
+        id
+        url
+      }
+      username
+    }
+    text
+    createdAt
+  }
+}

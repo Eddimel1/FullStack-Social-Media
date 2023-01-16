@@ -23,6 +23,9 @@ export class Audio_F_Reply_F_Photo_Service_U extends BaseFileCRUDService<
       ReplyForPhoto_U,
       {
         parentAutoCreate: true,
+        userRelation: true,
+        receiverRelation: true,
+        treeRelation:true
       },
     )
   }

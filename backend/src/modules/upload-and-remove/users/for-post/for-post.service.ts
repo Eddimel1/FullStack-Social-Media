@@ -24,18 +24,19 @@ export class ForPostService_U extends Base_Upload_Remove_Service<
   }
 
   async _invokeAppropriateService_Up(
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: string,
     file_name: string,
     url: string,
     parent_of_owner_id?: number,
   ) {
-    console.log('FOLDER : ', folder, 'ID : ', id)
     const relation = folder as PostFoldersT_U
     switch (relation) {
       case 'image_f_post_u': {
         return await this.image_F_PostService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'image_f_post_u',
@@ -44,7 +45,8 @@ export class ForPostService_U extends Base_Upload_Remove_Service<
       }
       case 'video_f_post_u': {
         return await this.video_F_PostService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'video_f_post_u',
@@ -53,7 +55,8 @@ export class ForPostService_U extends Base_Upload_Remove_Service<
       }
       case 'audio_f_post_u': {
         return await this.audio_F_PostService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'audio_f_post_g',

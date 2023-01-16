@@ -1,0 +1,33 @@
+fragment ReplyChildren on ReplyForPost_U {
+    id
+    ownerId
+    user{
+        id
+      username
+      id
+      avatar{
+        id
+        url
+
+      }
+    }
+    receiver{
+        username
+      id
+    }
+    createdAt
+    text
+    __typename
+    image{
+      id
+      url
+    }
+    video{
+      id
+      url
+    }
+    audio{
+      id
+      url
+    }
+}

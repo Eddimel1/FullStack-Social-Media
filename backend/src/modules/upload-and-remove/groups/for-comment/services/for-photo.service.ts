@@ -25,7 +25,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
   }
 
   async _invokeAppropriateService_Up(
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: string,
     file_name: string,
     url: string,
@@ -37,7 +38,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
     switch (relation) {
       case 'image_f_comment_f_photo_g': {
         return await this.galeryImageService_G.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'image_f_comment_f_photo_g',
@@ -47,7 +49,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
       }
       case 'video_f_comment_f_photo_g': {
         return await this.galeryVideoService_G.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'video_f_comment_f_photo_g',
@@ -57,7 +60,8 @@ export class CommentForPhotoService_G extends Base_Upload_Remove_Service<
       }
       case 'audio_f_comment_f_photo_g': {
         return await this.galeryAudioService_G.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'audio_f_comment_f_photo_g',

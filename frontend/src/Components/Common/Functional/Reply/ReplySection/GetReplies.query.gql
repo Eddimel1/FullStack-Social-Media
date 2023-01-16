@@ -1,0 +1,20 @@
+query FindDescendantsTree_F_Post_U_($id:Float!,$depth:Float!){
+  findDescendantsTree_F_Post_U(id:$id,depth:$depth){
+   ...ReplyChildren
+    children{
+      ...ReplyChildren
+      children{
+        ...ReplyChildren
+      }
+      children{
+       ...ReplyChildren
+        children{
+         ...ReplyChildren
+           children{
+           ...ReplyChildren
+				}
+				}
+      }
+    }
+  }
+}

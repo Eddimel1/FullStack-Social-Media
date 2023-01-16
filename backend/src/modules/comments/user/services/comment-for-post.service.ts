@@ -18,6 +18,7 @@ export class CommentForPostService_DB_U extends Base_Crud_W_FindAll<CommentForPo
     new_comment.ownerId = createCommentInput.ownerId
     new_comment.text = createCommentInput.text
     new_comment.userId = userId
+    new_comment.published = createCommentInput.published
     const id = (await this.repository.save(new_comment)).id
     return this.repository.findOneBy({ id })
   }

@@ -4,6 +4,7 @@ import {
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
+import { FindAllComment_F_Video_G } from '../dto/comment-for-video/output.dto'
 
 import { CommentForVideo_G } from '../entities/comment-for-video_g.entity'
 
@@ -24,7 +25,7 @@ export class Comment_F_Video_Resolver_G {
     return await this.commentForVideoService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForVideo_G])
+  @Query(() =>  FindAllComment_F_Video_G)
   async findAllCommentsForVideo_G(@Args('videoId') videoId: number) {
     return await this.commentForVideoService.findAll(videoId, 'comment')
   }

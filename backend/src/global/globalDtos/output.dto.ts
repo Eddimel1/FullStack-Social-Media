@@ -54,4 +54,5 @@ export class findAll_Generic_O<T> {
   items: T[]
   totalCount: number
   portion: number
+  page: number
 }

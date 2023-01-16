@@ -15,7 +15,7 @@ import { ReplyForVideoService_U } from 'src/modules/upload-and-remove/users/for-
 
 @Public()
 @UseGuards(NestJwtAuthGuard)
-@Controller('user/reply_f_video')
+@Controller('user/reply_f_video_u')
 export class Reply_F_Video_Controller_U {
   constructor(private readonly forReplyService: ReplyForVideoService_U) {}
 

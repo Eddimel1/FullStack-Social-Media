@@ -5,6 +5,7 @@ import {
 
 export interface File_Crud<T> {
   insertOne: (
+    mainId: number,
     ownerId: number,
     url: string,
     file_name: string,

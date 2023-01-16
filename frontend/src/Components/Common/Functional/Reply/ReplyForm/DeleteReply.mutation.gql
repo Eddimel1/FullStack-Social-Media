@@ -1,0 +1,6 @@
+mutation DeleteReply_F_Post_U_($input: Float!) {
+  deleteReplyForPost_U(id: $input) {
+    id
+    __typename
+  }
+}

@@ -16,15 +16,21 @@ export const CommonFileInput:React.FC<PropsWithChildren<_props>> = ({mutated_obj
     const random_id = useRef(randomString(10,'a'))
     const onFileChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
         e.stopPropagation()
-        const file = e.target.files[0]
-        const url = URL.createObjectURL(file)
-            if(mutated_obj && mutated_obj[prop]){
-                mutated_obj[prop]['file'] = file
-                mutated_obj[prop]['local_url'] = url
-                if('operation_type' in mutated_obj[prop]){mutated_obj[prop]['operation_type']= operation_type}
-                done && done((prev)=>{!prev})
-            }
-            else if(updateCb) updateCb(file,operation_type)
+        try {
+            const file = e.target.files[0]
+            const url = URL.createObjectURL(file)
+                if(mutated_obj && mutated_obj[prop]){
+                    mutated_obj[prop]['file'] = file
+                    mutated_obj[prop]['local_url'] = url
+                    if('operation_type' in mutated_obj[prop]){mutated_obj[prop]['operation_type'] = operation_type}
+                    done && done((prev)=>{!prev})
+                }
+                else if(updateCb) updateCb(file,operation_type)
+        }
+        catch(e){
+            console.log(e)
+        }
+      
     }
   return (
     <>

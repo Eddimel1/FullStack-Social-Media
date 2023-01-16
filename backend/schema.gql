@@ -84,11 +84,47 @@ type Audio_F_Reply_F_Photo_G {
   url: String!
 }
 
+type Audio_F_Reply_F_Photo_U {
+  createdAt: DateTime!
+  file_name: String!
+  id: ID!
+  owner: ReplyForPhoto_U!
+  updatedAt: DateTime!
+  url: String!
+}
+
 type Audio_F_Reply_F_Post_G {
   createdAt: DateTime!
   file_name: String!
   id: ID!
   owner: ReplyForPost_G!
+  updatedAt: DateTime!
+  url: String!
+}
+
+type Audio_F_Reply_F_Post_U {
+  createdAt: DateTime!
+  file_name: String!
+  id: ID!
+  owner: ReplyForPost_U!
+  updatedAt: DateTime!
+  url: String!
+}
+
+type Audio_F_Reply_F_Video_G {
+  createdAt: DateTime!
+  file_name: String!
+  id: ID!
+  owner: ReplyForVideo_G!
+  updatedAt: DateTime!
+  url: String!
+}
+
+type Audio_F_Reply_F_Video_U {
+  createdAt: DateTime!
+  file_name: String!
+  id: ID!
+  owner: ReplyForVideo_U!
   updatedAt: DateTime!
   url: String!
 }
@@ -108,6 +144,7 @@ type CommentForPhoto_G {
   id: ID!
   image: Image_F_Comment_F_Photo_G!
   owner: Galery_Image_G!
+  published: Boolean
   replies: ReplyForPhoto_G!
   text: String
   updatedAt: DateTime!
@@ -121,6 +158,8 @@ type CommentForPhoto_U {
   id: ID!
   image: Image_F_Comment_F_Photo_U!
   owner: Galery_Image_U!
+  ownerId: Float!
+  published: Boolean
   replies: ReplyForPhoto_U!
   text: String
   updatedAt: DateTime!
@@ -129,29 +168,32 @@ type CommentForPhoto_U {
 }
 
 type CommentForPost_G {
-  audio: Audio_F_Comment_F_Post_G!
+  audio: Audio_F_Comment_F_Post_G
   createdAt: DateTime!
   id: ID!
-  image: Image_F_Comment_F_Post_G!
+  image: Image_F_Comment_F_Post_G
   owner: Post_G!
+  published: Boolean
   replies: ReplyForPost_G!
   text: String
   updatedAt: DateTime!
   user: UserEntity!
-  video: Video_F_Comment_F_Post_G!
+  video: Video_F_Comment_F_Post_G
 }
 
 type CommentForPost_U {
-  audio: Audio_F_Comment_F_Post_U!
+  audio: Audio_F_Comment_F_Post_U
   createdAt: DateTime!
   id: ID!
-  image: Image_F_Comment_F_Post_U!
+  image: Image_F_Comment_F_Post_U
   owner: Post_U!
-  replies: ReplyForPost_U!
+  ownerId: Float!
+  published: Boolean
+  replies: ReplyForPost_U
   text: String
   updatedAt: DateTime!
   user: UserEntity!
-  video: Video_F_Comment_F_Post_U!
+  video: Video_F_Comment_F_Post_U
 }
 
 type CommentForVideo_G {
@@ -160,6 +202,7 @@ type CommentForVideo_G {
   id: ID!
   image: Image_F_Comment_F_Video_G!
   owner: Galery_Video_G!
+  published: Boolean
   replies: ReplyForVideo_G!
   text: String
   updatedAt: DateTime!
@@ -173,6 +216,8 @@ type CommentForVideo_U {
   id: ID!
   image: Image_F_Comment_F_Video_U!
   owner: Galery_Video_U!
+  ownerId: Float!
+  published: Boolean
   replies: ReplyForVideo_U!
   text: String
   updatedAt: DateTime!
@@ -187,6 +232,7 @@ input CreateChatInput {
 
 input CreateComment {
   ownerId: Float!
+  published: Boolean = false
   text: String!
 }
 
@@ -228,6 +274,8 @@ input CreateRelationShip_G {
 
 input CreateReply {
   ownerId: Float
+  published: Boolean = false
+  receiverId: Float!
   replyId: Float
   text: String!
 }
@@ -282,13 +330,37 @@ type Delete_Message_W_Owner {
   type: String!
 }
 
-type FindAllGroupPosts_O {
-  items: [Post_G!]!
+type FindAllComment_F_Photo_G {
+  items: [CommentForPhoto_G!]!
   portion: Float!
   totalCount: Float!
 }
 
-type FindAllPosts_O {
+type FindAllComment_F_Photo_U {
+  items: [CommentForPhoto_U!]!
+  portion: Float!
+  totalCount: Float!
+}
+
+type FindAllComment_F_Post_G {
+  items: [CommentForPost_G!]!
+  portion: Float!
+  totalCount: Float!
+}
+
+type FindAllComment_F_Post_U {
+  items: [CommentForPost_U!]!
+  portion: Float!
+  totalCount: Float!
+}
+
+type FindAllComment_F_Video_G {
+  items: [CommentForVideo_G!]!
+  portion: Float!
+  totalCount: Float!
+}
+
+type FindAllPosts_U {
   items: [Post_U!]!
   portion: Float!
   totalCount: Float!
@@ -653,11 +725,11 @@ type Mutation {
   declineAllRequests: FriendRequest!
   declineRequest(accepter_id: Float!): FriendRequest!
   deleteReplyForPhoto_G(id: Float!): isSuccess_Reply!
-  deleteReplyForPhoto_U(id: Float!): isSuccess_Reply!
-  deleteReplyForPost_G(id: Float!): isSuccess_Reply!
-  deleteReplyForPost_U(id: Float!): isSuccess_Reply!
+  deleteReplyForPhoto_U(id: Float!): ReplyForPhoto_U!
+  deleteReplyForPost_G(id: Float!): ReplyForPost_G!
+  deleteReplyForPost_U(id: Float!): ReplyForPost_U!
   deleteReplyForVideo_G(id: Float!): isSuccess_Reply!
-  deleteReplyForVideo_U(id: Float!): isSuccess_Reply!
+  deleteReplyForVideo_U(id: Float!): ReplyForVideo_U!
   destroyRelationship_G(FindRelationShip_G: FindRelationShip_G!): isSuccess_G!
   destroyRelationship_U(groupId: Float!): isSuccess_G!
   logOut: messageT!
@@ -673,7 +745,7 @@ type Mutation {
   removeGroup(groupId: Float!): GroupEntity!
   removeGroupInfo(id: Float!): Delete_Message_WO_Owner!
   removeMyRequest(accepter_id: Float!): FriendRequest!
-  removePost(postId: Float!): Delete_Message_W_Owner!
+  removePost(postId: Float!): Post_U!
   removePostForGroup(removeGroupPost: FindOne_W_Owner_I!): Delete_Message_W_Owner!
   removeRequestToGroup(groupId: Float!): DeleteRequest_O!
   removeRequestToUser(findGroupToUserRequest: FindRequest_G!): DeleteRequest_O!
@@ -690,14 +762,14 @@ type Mutation {
   updateMyPrivateSide(myPrivateSideUpdate: UpdatePrivateSide_I!): UserPrivateSide!
   updateMySide(mySideUpdate: UpdateSide_I!): UserSide!
   updateOneReplyForPhoto_G(updateReply: UpdateReply!): ReplyForPhoto_G!
-  updateOneReplyForPhoto_U(updateReply: UpdateReply!): ReplyForPhoto_U!
   updateOneReplyForPost_G(updateReply: UpdateReply!): ReplyForPost_G!
-  updateOneReplyForPost_U(updateReply: UpdateReply!): ReplyForPost_U!
   updateOneReplyForVideo_G(updateReply: UpdateReply!): ReplyForVideo_G!
-  updateOneReplyForVideo_U(updateReply: UpdateReply!): ReplyForVideo_U!
   updateOwnedGroup: GroupEntity!
   updatePost(updatePostInput: UpdatePostInput!): Post_U!
   updatePostForGroup(updatePostsForGroupInput: UpdatePostForGroup_I!): Post_G!
+  updateReplyForPhoto_U(updateReply: UpdateReply!): ReplyForPhoto_U!
+  updateReplyForPost_U(updateReply: UpdateReply!): ReplyForPost_U!
+  updateReplyForVideo_U(updateReply: UpdateReply!): ReplyForVideo_U!
   updateSharedSide(sharedSideUpdate: UpdateSharedSide_I!): UserSide!
   updateUserInfo(updateUserInfoInput: UpdateUserInfoInput!): UserInfoEntity!
   updateUserPrivateSide(updateUserPrivateSide: UpdateRelationShip_U!): UpdatePrivateUserSide_O!
@@ -739,17 +811,17 @@ type Post_U {
 }
 
 type Query {
-  findAllCommentsForPhoto_G(photoId: Float!): [CommentForPhoto_G!]!
-  findAllCommentsForPhoto_U(photoId: Float!): [CommentForPhoto_U!]!
-  findAllCommentsForPostEntity_U(photoId: Float!): [CommentForPost_U!]!
-  findAllCommentsForPost_G(photoId: Float!): [CommentForPost_G!]!
-  findAllCommentsForVideoEntity_U(photoId: Float!): [CommentForVideo_U!]!
-  findAllCommentsForVideo_G(videoId: Float!): [CommentForVideo_G!]!
+  findAllCommentsForPhoto_G(photoId: Float!): FindAllComment_F_Photo_G!
+  findAllCommentsForPhoto_U(photoId: Float!): FindAllComment_F_Photo_U!
+  findAllCommentsForPost_G(photoId: Float!): FindAllComment_F_Post_G!
+  findAllCommentsForPost_U(postId: Float!): FindAllComment_F_Post_U!
+  findAllCommentsForVideoEntity_U(photoId: Float!): FindAllComment_F_Post_U!
+  findAllCommentsForVideo_G(videoId: Float!): FindAllComment_F_Video_G!
   findAllFriends: FindAndCountFriends_O!
-  findAllGroupPosts(groupId: Float!): FindAllGroupPosts_O!
+  findAllGroupPosts(groupId: Float!): FindAllPosts_U!
   findAllMyRequests: FindAndCountRequests_O!
   findAllOwnedGroups: [GroupEntity!]!
-  findAllPosts(id: Float): FindAllPosts_O!
+  findAllPosts(id: Float): FindAllPosts_U!
   findAllRelationshipsWithGroups: [Group_User_Relation!]!
   findAllRelationshipsWithUsers(groupId: Float!): [Group_User_Relation!]!
   findAllRequestsToGroup: [GroupUserRequest!]!
@@ -766,12 +838,12 @@ type Query {
   findAncestorsTree_F_Post_U(id: Float!): ReplyForPost_U!
   findAncestorsTree_F_Video_G(id: Float!): ReplyForVideo_G!
   findAncestorsTree_F_Video_U(id: Float!): ReplyForVideo_U!
-  findDescendantsTree_F_Photo_G(id: Float!): ReplyForPhoto_G!
-  findDescendantsTree_F_Post_G(id: Float!): ReplyForPost_G!
-  findDescendantsTree_F_Post_U(id: Float!): ReplyForPost_U!
-  findDescendantsTree_F_Video_U(id: Float!): ReplyForVideo_U!
-  findDescendantsTree_G(id: Float!): ReplyForVideo_G!
-  findDescendantsTree_U(id: Float!): ReplyForPhoto_U!
+  findDescendantsTree_F_Photo_G(id: Float!): [ReplyForPhoto_G!]!
+  findDescendantsTree_F_Post_G(id: Float!): [ReplyForPost_G!]!
+  findDescendantsTree_F_Post_U(depth: Float!, id: Float!): [ReplyForPost_U!]!
+  findDescendantsTree_F_Video_U(id: Float!): [ReplyForVideo_U!]!
+  findDescendantsTree_G(id: Float!): [ReplyForVideo_G!]!
+  findDescendantsTree_U(id: Float!): [ReplyForPhoto_U!]!
   findOne(searchAllCommentForVideo: SearchComment!): CommentForPhoto_G!
   findOneCommentForPhoto_U(searchAllCommentForVideo: SearchComment!): CommentForPhoto_U!
   findOneCommentForPost_G(searchAllCommentForPost: SearchComment!): CommentForPost_G!
@@ -806,12 +878,14 @@ input ReadSide_I {
 
 type ReplyForPhoto_G {
   audio: Audio_F_Reply_F_Photo_G!
-  children: [ReplyForPhoto_G!]!
+  children: [ReplyForPhoto_G!]
   comment: CommentForPhoto_G
   createdAt: DateTime!
   id: ID!
   image: Image_F_Reply_F_Photo_G!
+  ownerId: Float!
   parent: ReplyForPhoto_G!
+  published: Boolean
   text: String
   updatedAt: DateTime!
   user: UserEntity!
@@ -819,13 +893,16 @@ type ReplyForPhoto_G {
 }
 
 type ReplyForPhoto_U {
-  children: [ReplyForPhoto_U!]!
+  audio: Audio_F_Reply_F_Photo_U!
+  children: [ReplyForPhoto_U!]
   comment: CommentForPhoto_U
   createdAt: DateTime!
   id: Float!
   image: Image_F_Reply_F_Photo_U!
+  ownerId: Float!
   parent: ReplyForPhoto_U!
-  text: String!
+  published: Boolean
+  text: String
   updatedAt: DateTime!
   user: UserEntity!
   video: Video_F_Reply_F_Photo_U!
@@ -833,12 +910,14 @@ type ReplyForPhoto_U {
 
 type ReplyForPost_G {
   audio: Audio_F_Reply_F_Post_G!
-  children: [ReplyForPost_G!]!
+  children: [ReplyForPost_G!]
   comment: CommentForPost_G
   createdAt: DateTime!
   id: ID!
   image: Image_F_Reply_F_Post_G!
+  ownerId: Float!
   parent: ReplyForPost_G!
+  published: Boolean
   text: String
   updatedAt: DateTime!
   user: UserEntity!
@@ -846,25 +925,33 @@ type ReplyForPost_G {
 }
 
 type ReplyForPost_U {
-  children: [ReplyForPost_U!]!
+  audio: Audio_F_Reply_F_Post_U
+  children: [ReplyForPost_U!]
   comment: CommentForPost_U
   createdAt: DateTime!
   id: Float!
-  image: Image_F_Reply_F_Post_U!
+  image: Image_F_Reply_F_Post_U
+  ownerId: Float
   parent: ReplyForPost_U!
-  text: String!
+  parentId: Float
+  published: Boolean
+  receiver: UserEntity!
+  text: String
   updatedAt: DateTime!
   user: UserEntity!
-  video: Video_F_Reply_F_Post_U!
+  video: Video_F_Reply_F_Post_U
 }
 
 type ReplyForVideo_G {
-  children: [ReplyForVideo_G!]!
+  audio: Audio_F_Reply_F_Video_G!
+  children: [ReplyForVideo_G!]
   comment: CommentForVideo_G
   createdAt: DateTime!
   id: Float!
   image: Image_F_Reply_F_Video_G!
+  ownerId: Float!
   parent: ReplyForVideo_G!
+  published: Boolean
   text: String!
   updatedAt: DateTime!
   user: UserEntity!
@@ -872,13 +959,16 @@ type ReplyForVideo_G {
 }
 
 type ReplyForVideo_U {
-  children: [ReplyForVideo_U!]!
+  audio: Audio_F_Reply_F_Video_U!
+  children: [ReplyForVideo_U!]
   comment: CommentForVideo_U
   createdAt: DateTime!
   id: Float!
   image: Image_F_Reply_F_Video_U!
+  ownerId: Float!
   parent: ReplyForVideo_U!
-  text: String!
+  published: Boolean
+  text: String
   updatedAt: DateTime!
   user: UserEntity!
   video: Video_F_Reply_F_Video_U!
@@ -953,6 +1043,7 @@ type U_Cover_EN {
 input UpdateComment {
   commentId: Float!
   ownerId: Float!
+  published: Boolean = false
   text: String!
 }
 
@@ -1014,6 +1105,7 @@ input UpdateRelationShip_U {
 }
 
 input UpdateReply {
+  published: Boolean = false
   replyId: Float!
   text: String!
 }

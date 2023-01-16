@@ -9,6 +9,9 @@ const LOG_IN = gql`
       username
       id
       role
+      avatar{
+        url
+      }
       
     }
   }

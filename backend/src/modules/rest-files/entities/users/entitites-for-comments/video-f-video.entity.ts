@@ -4,7 +4,7 @@ import { BaseVideoEntity } from 'src/typeOrm/baseEntities/file-entities/videoBas
 import { CommentForVideo_U } from 'src/modules/comments/user/entities/comment-for-video.entity'
 
 @ObjectType()
-@Entity('video_f_comment_f_video')
+@Entity('video_f_comment_f_video_u')
 export class Video_F_Comment_F_Video_U extends BaseVideoEntity {
   @Column()
   ownerId: number

@@ -7,8 +7,10 @@ export class CreateComment {
 
   @Field()
   text: string
-}
 
+  @Field({ defaultValue: false })
+  published: boolean
+}
 
 @InputType()
 export class UpdateComment {
@@ -20,6 +22,9 @@ export class UpdateComment {
 
   @Field()
   text: string
+
+  @Field({ defaultValue: false })
+  published: boolean
 }
 
 @InputType()
@@ -29,5 +34,4 @@ export class SearchComment {
 
   @Field()
   commentId: number
-
 }

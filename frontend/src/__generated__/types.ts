@@ -104,12 +104,52 @@ export type Audio_F_Reply_F_Photo_G = {
   url: Scalars['String'];
 };
 
+export type Audio_F_Reply_F_Photo_U = {
+  __typename?: 'Audio_F_Reply_F_Photo_U';
+  createdAt: Scalars['DateTime'];
+  file_name: Scalars['String'];
+  id: Scalars['ID'];
+  owner: ReplyForPhoto_U;
+  updatedAt: Scalars['DateTime'];
+  url: Scalars['String'];
+};
+
 export type Audio_F_Reply_F_Post_G = {
   __typename?: 'Audio_F_Reply_F_Post_G';
   createdAt: Scalars['DateTime'];
   file_name: Scalars['String'];
   id: Scalars['ID'];
   owner: ReplyForPost_G;
+  updatedAt: Scalars['DateTime'];
+  url: Scalars['String'];
+};
+
+export type Audio_F_Reply_F_Post_U = {
+  __typename?: 'Audio_F_Reply_F_Post_U';
+  createdAt: Scalars['DateTime'];
+  file_name: Scalars['String'];
+  id: Scalars['ID'];
+  owner: ReplyForPost_U;
+  updatedAt: Scalars['DateTime'];
+  url: Scalars['String'];
+};
+
+export type Audio_F_Reply_F_Video_G = {
+  __typename?: 'Audio_F_Reply_F_Video_G';
+  createdAt: Scalars['DateTime'];
+  file_name: Scalars['String'];
+  id: Scalars['ID'];
+  owner: ReplyForVideo_G;
+  updatedAt: Scalars['DateTime'];
+  url: Scalars['String'];
+};
+
+export type Audio_F_Reply_F_Video_U = {
+  __typename?: 'Audio_F_Reply_F_Video_U';
+  createdAt: Scalars['DateTime'];
+  file_name: Scalars['String'];
+  id: Scalars['ID'];
+  owner: ReplyForVideo_U;
   updatedAt: Scalars['DateTime'];
   url: Scalars['String'];
 };
@@ -131,6 +171,7 @@ export type CommentForPhoto_G = {
   id: Scalars['ID'];
   image: Image_F_Comment_F_Photo_G;
   owner: Galery_Image_G;
+  published?: Maybe<Scalars['Boolean']>;
   replies: ReplyForPhoto_G;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -145,6 +186,8 @@ export type CommentForPhoto_U = {
   id: Scalars['ID'];
   image: Image_F_Comment_F_Photo_U;
   owner: Galery_Image_U;
+  ownerId: Scalars['Float'];
+  published?: Maybe<Scalars['Boolean']>;
   replies: ReplyForPhoto_U;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -154,30 +197,33 @@ export type CommentForPhoto_U = {
 
 export type CommentForPost_G = {
   __typename?: 'CommentForPost_G';
-  audio: Audio_F_Comment_F_Post_G;
+  audio?: Maybe<Audio_F_Comment_F_Post_G>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
-  image: Image_F_Comment_F_Post_G;
+  image?: Maybe<Image_F_Comment_F_Post_G>;
   owner: Post_G;
+  published?: Maybe<Scalars['Boolean']>;
   replies: ReplyForPost_G;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
-  video: Video_F_Comment_F_Post_G;
+  video?: Maybe<Video_F_Comment_F_Post_G>;
 };
 
 export type CommentForPost_U = {
   __typename?: 'CommentForPost_U';
-  audio: Audio_F_Comment_F_Post_U;
+  audio?: Maybe<Audio_F_Comment_F_Post_U>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
-  image: Image_F_Comment_F_Post_U;
+  image?: Maybe<Image_F_Comment_F_Post_U>;
   owner: Post_U;
-  replies: ReplyForPost_U;
+  ownerId: Scalars['Float'];
+  published?: Maybe<Scalars['Boolean']>;
+  replies?: Maybe<ReplyForPost_U>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
-  video: Video_F_Comment_F_Post_U;
+  video?: Maybe<Video_F_Comment_F_Post_U>;
 };
 
 export type CommentForVideo_G = {
@@ -187,6 +233,7 @@ export type CommentForVideo_G = {
   id: Scalars['ID'];
   image: Image_F_Comment_F_Video_G;
   owner: Galery_Video_G;
+  published?: Maybe<Scalars['Boolean']>;
   replies: ReplyForVideo_G;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -201,6 +248,8 @@ export type CommentForVideo_U = {
   id: Scalars['ID'];
   image: Image_F_Comment_F_Video_U;
   owner: Galery_Video_U;
+  ownerId: Scalars['Float'];
+  published?: Maybe<Scalars['Boolean']>;
   replies: ReplyForVideo_U;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
@@ -215,6 +264,7 @@ export type CreateChatInput = {
 
 export type CreateComment = {
   ownerId: Scalars['Float'];
+  published?: InputMaybe<Scalars['Boolean']>;
   text: Scalars['String'];
 };
 
@@ -263,6 +313,8 @@ export type CreateRelationShip_G = {
 
 export type CreateReply = {
   ownerId?: InputMaybe<Scalars['Float']>;
+  published?: InputMaybe<Scalars['Boolean']>;
+  receiverId: Scalars['Float'];
   replyId?: InputMaybe<Scalars['Float']>;
   text: Scalars['String'];
 };
@@ -357,15 +409,43 @@ export type Find_All_F_Video_U = {
   descendants: Array<ReplyForVideo_U>;
 };
 
-export type FindAllGroupPosts_O = {
-  __typename?: 'FindAllGroupPosts_O';
-  items: Array<Post_G>;
+export type FindAllComment_F_Photo_G = {
+  __typename?: 'FindAllComment_F_Photo_G';
+  items: Array<CommentForPhoto_G>;
   portion: Scalars['Float'];
   totalCount: Scalars['Float'];
 };
 
-export type FindAllPosts_O = {
-  __typename?: 'FindAllPosts_O';
+export type FindAllComment_F_Photo_U = {
+  __typename?: 'FindAllComment_F_Photo_U';
+  items: Array<CommentForPhoto_U>;
+  portion: Scalars['Float'];
+  totalCount: Scalars['Float'];
+};
+
+export type FindAllComment_F_Post_G = {
+  __typename?: 'FindAllComment_F_Post_G';
+  items: Array<CommentForPost_G>;
+  portion: Scalars['Float'];
+  totalCount: Scalars['Float'];
+};
+
+export type FindAllComment_F_Post_U = {
+  __typename?: 'FindAllComment_F_Post_U';
+  items: Array<CommentForPost_U>;
+  portion: Scalars['Float'];
+  totalCount: Scalars['Float'];
+};
+
+export type FindAllComment_F_Video_G = {
+  __typename?: 'FindAllComment_F_Video_G';
+  items: Array<CommentForVideo_G>;
+  portion: Scalars['Float'];
+  totalCount: Scalars['Float'];
+};
+
+export type FindAllPosts_U = {
+  __typename?: 'FindAllPosts_U';
   items: Array<Post_U>;
   portion: Scalars['Float'];
   totalCount: Scalars['Float'];
@@ -790,11 +870,11 @@ export type Mutation = {
   declineAllRequests: FriendRequest;
   declineRequest: FriendRequest;
   deleteReplyForPhoto_G: IsSuccess_Reply;
-  deleteReplyForPhoto_U: IsSuccess_Reply;
-  deleteReplyForPost_G: IsSuccess_Reply;
-  deleteReplyForPost_U: IsSuccess_Reply;
+  deleteReplyForPhoto_U: ReplyForPhoto_U;
+  deleteReplyForPost_G: ReplyForPost_G;
+  deleteReplyForPost_U: ReplyForPost_U;
   deleteReplyForVideo_G: IsSuccess_Reply;
-  deleteReplyForVideo_U: IsSuccess_Reply;
+  deleteReplyForVideo_U: ReplyForVideo_U;
   destroyRelationship_G: IsSuccess_G;
   destroyRelationship_U: IsSuccess_G;
   login: UserEntity;
@@ -810,7 +890,7 @@ export type Mutation = {
   removeGroup: GroupEntity;
   removeGroupInfo: Delete_Message_Wo_Owner;
   removeMyRequest: FriendRequest;
-  removePost: Delete_Message_W_Owner;
+  removePost: Post_U;
   removePostForGroup: Delete_Message_W_Owner;
   removeRequestToGroup: DeleteRequest_O;
   removeRequestToUser: DeleteRequest_O;
@@ -827,14 +907,14 @@ export type Mutation = {
   updateMyPrivateSide: UserPrivateSide;
   updateMySide: UserSide;
   updateOneReplyForPhoto_G: ReplyForPhoto_G;
-  updateOneReplyForPhoto_U: ReplyForPhoto_U;
   updateOneReplyForPost_G: ReplyForPost_G;
-  updateOneReplyForPost_U: ReplyForPost_U;
   updateOneReplyForVideo_G: ReplyForVideo_G;
-  updateOneReplyForVideo_U: ReplyForVideo_U;
   updateOwnedGroup: GroupEntity;
   updatePost: Post_U;
   updatePostForGroup: Post_G;
+  updateReplyForPhoto_U: ReplyForPhoto_U;
+  updateReplyForPost_U: ReplyForPost_U;
+  updateReplyForVideo_U: ReplyForVideo_U;
   updateSharedSide: UserSide;
   updateUserInfo: UserInfoEntity;
   updateUserPrivateSide: UpdatePrivateUserSide_O;
@@ -1157,27 +1237,12 @@ export type MutationUpdateOneReplyForPhoto_GArgs = {
 };
 
 
-export type MutationUpdateOneReplyForPhoto_UArgs = {
-  updateReply: UpdateReply;
-};
-
-
 export type MutationUpdateOneReplyForPost_GArgs = {
   updateReply: UpdateReply;
 };
 
 
-export type MutationUpdateOneReplyForPost_UArgs = {
-  updateReply: UpdateReply;
-};
-
-
 export type MutationUpdateOneReplyForVideo_GArgs = {
-  updateReply: UpdateReply;
-};
-
-
-export type MutationUpdateOneReplyForVideo_UArgs = {
   updateReply: UpdateReply;
 };
 
@@ -1189,6 +1254,21 @@ export type MutationUpdatePostArgs = {
 
 export type MutationUpdatePostForGroupArgs = {
   updatePostsForGroupInput: UpdatePostForGroup_I;
+};
+
+
+export type MutationUpdateReplyForPhoto_UArgs = {
+  updateReply: UpdateReply;
+};
+
+
+export type MutationUpdateReplyForPost_UArgs = {
+  updateReply: UpdateReply;
+};
+
+
+export type MutationUpdateReplyForVideo_UArgs = {
+  updateReply: UpdateReply;
 };
 
 
@@ -1254,17 +1334,17 @@ export type Query = {
   findAll_A_Count_RepliesForPost_G: Find_All_F_Post_G;
   findAll_A_Count_RepliesForPost_U: Find_All_F_Post_U;
   findAll_A_Count_RepliesForVideo_U: Find_All_F_Video_U;
-  findAllCommentsForPhoto_G: Array<CommentForPhoto_G>;
-  findAllCommentsForPhoto_U: Array<CommentForPhoto_U>;
-  findAllCommentsForPost_G: Array<CommentForPost_G>;
-  findAllCommentsForPostEntity_U: Array<CommentForPost_U>;
-  findAllCommentsForVideo_G: Array<CommentForVideo_G>;
-  findAllCommentsForVideoEntity_U: Array<CommentForVideo_U>;
+  findAllCommentsForPhoto_G: FindAllComment_F_Photo_G;
+  findAllCommentsForPhoto_U: FindAllComment_F_Photo_U;
+  findAllCommentsForPost_G: FindAllComment_F_Post_G;
+  findAllCommentsForPost_U: FindAllComment_F_Post_U;
+  findAllCommentsForVideo_G: FindAllComment_F_Video_G;
+  findAllCommentsForVideoEntity_U: FindAllComment_F_Post_U;
   findAllFriends: FindAndCountFriends_O;
-  findAllGroupPosts: FindAllGroupPosts_O;
+  findAllGroupPosts: FindAllPosts_U;
   findAllMyRequests: FindAndCountRequests_O;
   findAllOwnedGroups: Array<GroupEntity>;
-  findAllPosts: FindAllPosts_O;
+  findAllPosts: FindAllPosts_U;
   findAllRelationshipsWithGroups: Array<Group_User_Relation>;
   findAllRelationshipsWithUsers: Array<Group_User_Relation>;
   findAllRequestsToGroup: Array<GroupUserRequest>;
@@ -1276,12 +1356,12 @@ export type Query = {
   findAncestorsTree_F_Post_U: ReplyForPost_U;
   findAncestorsTree_F_Video_G: ReplyForVideo_G;
   findAncestorsTree_F_Video_U: ReplyForVideo_U;
-  findDescendantsTree_F_Photo_G: ReplyForPhoto_G;
-  findDescendantsTree_F_Post_G: ReplyForPost_G;
-  findDescendantsTree_F_Post_U: ReplyForPost_U;
-  findDescendantsTree_F_Video_U: ReplyForVideo_U;
-  findDescendantsTree_G: ReplyForVideo_G;
-  findDescendantsTree_U: ReplyForPhoto_U;
+  findDescendantsTree_F_Photo_G: Array<ReplyForPhoto_G>;
+  findDescendantsTree_F_Post_G: Array<ReplyForPost_G>;
+  findDescendantsTree_F_Post_U: Array<ReplyForPost_U>;
+  findDescendantsTree_F_Video_U: Array<ReplyForVideo_U>;
+  findDescendantsTree_G: Array<ReplyForVideo_G>;
+  findDescendantsTree_U: Array<ReplyForPhoto_U>;
   findOne: CommentForPhoto_G;
   findOneCommentForPhoto_U: CommentForPhoto_U;
   findOneCommentForPost_G: CommentForPost_G;
@@ -1350,8 +1430,8 @@ export type QueryFindAllCommentsForPost_GArgs = {
 };
 
 
-export type QueryFindAllCommentsForPostEntity_UArgs = {
-  photoId: Scalars['Float'];
+export type QueryFindAllCommentsForPost_UArgs = {
+  postId: Scalars['Float'];
 };
 
 
@@ -1426,6 +1506,7 @@ export type QueryFindDescendantsTree_F_Post_GArgs = {
 
 
 export type QueryFindDescendantsTree_F_Post_UArgs = {
+  depth: Scalars['Float'];
   id: Scalars['Float'];
 };
 
@@ -1567,12 +1648,14 @@ export type ReadSide_I = {
 export type ReplyForPhoto_G = {
   __typename?: 'ReplyForPhoto_G';
   audio: Audio_F_Reply_F_Photo_G;
-  children: Array<ReplyForPhoto_G>;
+  children?: Maybe<Array<ReplyForPhoto_G>>;
   comment?: Maybe<CommentForPhoto_G>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   image: Image_F_Reply_F_Photo_G;
+  ownerId: Scalars['Float'];
   parent: ReplyForPhoto_G;
+  published?: Maybe<Scalars['Boolean']>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
@@ -1581,13 +1664,16 @@ export type ReplyForPhoto_G = {
 
 export type ReplyForPhoto_U = {
   __typename?: 'ReplyForPhoto_U';
-  children: Array<ReplyForPhoto_U>;
+  audio: Audio_F_Reply_F_Photo_U;
+  children?: Maybe<Array<ReplyForPhoto_U>>;
   comment?: Maybe<CommentForPhoto_U>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Float'];
   image: Image_F_Reply_F_Photo_U;
+  ownerId: Scalars['Float'];
   parent: ReplyForPhoto_U;
-  text: Scalars['String'];
+  published?: Maybe<Scalars['Boolean']>;
+  text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
   video: Video_F_Reply_F_Photo_U;
@@ -1596,12 +1682,14 @@ export type ReplyForPhoto_U = {
 export type ReplyForPost_G = {
   __typename?: 'ReplyForPost_G';
   audio: Audio_F_Reply_F_Post_G;
-  children: Array<ReplyForPost_G>;
+  children?: Maybe<Array<ReplyForPost_G>>;
   comment?: Maybe<CommentForPost_G>;
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   image: Image_F_Reply_F_Post_G;
+  ownerId: Scalars['Float'];
   parent: ReplyForPost_G;
+  published?: Maybe<Scalars['Boolean']>;
   text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
@@ -1610,26 +1698,34 @@ export type ReplyForPost_G = {
 
 export type ReplyForPost_U = {
   __typename?: 'ReplyForPost_U';
-  children: Array<ReplyForPost_U>;
+  audio?: Maybe<Audio_F_Reply_F_Post_U>;
+  children?: Maybe<Array<ReplyForPost_U>>;
   comment?: Maybe<CommentForPost_U>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Float'];
-  image: Image_F_Reply_F_Post_U;
+  image?: Maybe<Image_F_Reply_F_Post_U>;
+  ownerId?: Maybe<Scalars['Float']>;
   parent: ReplyForPost_U;
-  text: Scalars['String'];
+  parentId?: Maybe<Scalars['Float']>;
+  published?: Maybe<Scalars['Boolean']>;
+  receiver: UserEntity;
+  text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
-  video: Video_F_Reply_F_Post_U;
+  video?: Maybe<Video_F_Reply_F_Post_U>;
 };
 
 export type ReplyForVideo_G = {
   __typename?: 'ReplyForVideo_G';
-  children: Array<ReplyForVideo_G>;
+  audio: Audio_F_Reply_F_Video_G;
+  children?: Maybe<Array<ReplyForVideo_G>>;
   comment?: Maybe<CommentForVideo_G>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Float'];
   image: Image_F_Reply_F_Video_G;
+  ownerId: Scalars['Float'];
   parent: ReplyForVideo_G;
+  published?: Maybe<Scalars['Boolean']>;
   text: Scalars['String'];
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
@@ -1638,13 +1734,16 @@ export type ReplyForVideo_G = {
 
 export type ReplyForVideo_U = {
   __typename?: 'ReplyForVideo_U';
-  children: Array<ReplyForVideo_U>;
+  audio: Audio_F_Reply_F_Video_U;
+  children?: Maybe<Array<ReplyForVideo_U>>;
   comment?: Maybe<CommentForVideo_U>;
   createdAt: Scalars['DateTime'];
   id: Scalars['Float'];
   image: Image_F_Reply_F_Video_U;
+  ownerId: Scalars['Float'];
   parent: ReplyForVideo_U;
-  text: Scalars['String'];
+  published?: Maybe<Scalars['Boolean']>;
+  text?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
   user: UserEntity;
   video: Video_F_Reply_F_Video_U;
@@ -1723,6 +1822,7 @@ export type U_Cover_En = {
 export type UpdateComment = {
   commentId: Scalars['Float'];
   ownerId: Scalars['Float'];
+  published?: InputMaybe<Scalars['Boolean']>;
   text: Scalars['String'];
 };
 
@@ -1788,6 +1888,7 @@ export type UpdateRelationShip_U = {
 };
 
 export type UpdateReply = {
+  published?: InputMaybe<Scalars['Boolean']>;
   replyId: Scalars['Float'];
   text: Scalars['String'];
 };

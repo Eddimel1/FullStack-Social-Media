@@ -25,44 +25,56 @@ export class ReplyForPostService_U extends Base_Upload_Remove_Service<
   }
 
   async _invokeAppropriateService_Up(
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: string,
     file_name: string,
     url: string,
     parent_of_owner_id?: number,
     userId?: number,
+    receiverId?: number,
+    parentId?: number,
   ) {
     console.log('FOLDER : ', folder)
     const relation = folder as Reply_F_Post_U
     switch (relation) {
       case 'image_f_reply_f_post_u': {
         return await this.image_F_Reply_F_Post_Service_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'image_f_reply_f_post_u',
           parent_of_owner_id,
           userId,
+          receiverId,
+          parentId,
         )
       }
       case 'video_f_reply_f_post_u': {
         return await this.video_F_Reply_F_Post_Service_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'video_f_reply_f_post_u',
           parent_of_owner_id,
           userId,
+          receiverId,
+          parentId,
         )
       }
       case 'audio_f_reply_f_post_u': {
         return await this.audio_F_Reply_F_Post_Service_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'audio_f_reply_f_post_u',
           parent_of_owner_id,
           userId,
+          receiverId,
+          parentId,
         )
       }
 

@@ -2,9 +2,8 @@ import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { PostService } from '../services/post.service'
 import { Post_U } from '../entities/post.entity'
 import { CreatePostInput, UpdatePostInput } from '../dto/input.dto'
-import { FindAllPosts_O } from '../dto/output.dto'
+import { FindAllPosts_U } from '../dto/output.dto'
 import { FindOne_W_Owner_I } from 'src/global/globalDtos/input.dto'
-import { Delete_Message_W_Owner } from 'src/global/globalDtos/output.dto'
 
 @Resolver(() => Post_U)
 export class PostResolver {
@@ -19,7 +18,7 @@ export class PostResolver {
     return this.postService.create(my_id, createPostInput)
   }
 
-  @Query(() => FindAllPosts_O)
+  @Query(() => FindAllPosts_U)
   async findAllPosts(
     @Context() context,
     @Args('id', { nullable: true }) id: number,
@@ -53,7 +52,7 @@ export class PostResolver {
     return user
   }
 
-  @Mutation(() => Delete_Message_W_Owner)
+  @Mutation(() => Post_U)
   async removePost(@Context() context, @Args('postId') postId: number) {
     const my_id = context.req.user.id
     return this.postService.removeOne(my_id, postId, 'post')

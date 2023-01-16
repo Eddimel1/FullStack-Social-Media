@@ -29,7 +29,7 @@ export const ProfileRightSide = () => {
         <div className={classes.grid_container}>
             {fake_array1.map((item,i)=>{
                 return (
-                   <Avatar_w_info direction='column' user_id={item.user_id}>{item.username}</Avatar_w_info>
+                   <Avatar_w_info key={i + Date.now()} direction='column' user_id={item.user_id}>{item.username}</Avatar_w_info>
                 )
             })}
         </div>
@@ -40,7 +40,7 @@ export const ProfileRightSide = () => {
 <div className={classes.flex_container}>
    {fake_array2.map((item,i)=>{
        return (
-          <Avatar_w_info direction='row' user_id={item.user_id}><div style={{display:'flex',flexDirection:'column'}}><div>{item.group}</div>
+          <Avatar_w_info key={i + Date.now()} direction='row' user_id={item.user_id}><div style={{display:'flex',flexDirection:'column'}}><div>{item.group}</div>
           <div>Best Group Ever , join now!</div>
           </div></Avatar_w_info>
        )

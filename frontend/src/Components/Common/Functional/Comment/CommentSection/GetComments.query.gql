@@ -1,0 +1,33 @@
+query GetComments_F_Post_U_ ($id:Float!) {
+  findAllCommentsForPost_U(postId:$id){
+    items{
+        audio{
+      id
+      url
+    }
+    ownerId
+    id
+    image{
+      id
+      url
+    }
+    video{
+      url
+      id
+    }
+    user{
+        id
+        username
+      avatar{
+        id
+        url
+      }
+      username
+    }
+    text
+    createdAt
+    }
+  portion
+    totalCount
+}
+}

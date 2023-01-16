@@ -26,9 +26,12 @@ export class Reply_F_Post_Resolver_U {
   findAll_A_Count_RepliesForPost_U(@Args('id') id: number) {
     return this.replyForPostService_DB_U.findAll_A_Count(id, ReplyForPost_U)
   }
-  @Query(() => ReplyForPost_U)
-  findDescendantsTree_F_Post_U(@Args('id') id: number) {
-    return this.replyForPostService_DB_U.findDescendantsTree(id)
+  @Query(() => [ReplyForPost_U])
+  findDescendantsTree_F_Post_U(
+    @Args('id') id: number,
+    @Args('depth') depth: number,
+  ) {
+    return this.replyForPostService_DB_U.findDescendantsTrees(id, depth)
   }
 
   @Query(() => ReplyForPost_U)
@@ -36,10 +39,10 @@ export class Reply_F_Post_Resolver_U {
     return this.replyForPostService_DB_U.findAncestorsTree(id)
   }
   @Mutation(() => ReplyForPost_U)
-  updateOneReplyForPost_U(@Args('updateReply') updateReply: UpdateReply) {
+  updateReplyForPost_U(@Args('updateReply') updateReply: UpdateReply) {
     return this.replyForPostService_DB_U.updateOne(updateReply)
   }
-  @Mutation(() => isSuccess_Reply)
+  @Mutation(() => ReplyForPost_U)
   deleteReplyForPost_U(@Args('id') id: number) {
     return this.replyForPostService_DB_U.deleteOne(id)
   }

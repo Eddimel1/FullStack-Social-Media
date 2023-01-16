@@ -23,6 +23,7 @@ export class Image_F_Comment_F_Video_Service_U extends BaseFileCRUDService<
       CommentForVideo_U,
       {
         parentAutoCreate: true,
+        userRelation: true,
       },
     )
   }

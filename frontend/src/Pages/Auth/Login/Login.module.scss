@@ -16,4 +16,10 @@
     justify-content: flex-end;
     margin-right: 4rem;
 }
-
+.error{
+    color: red;
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+}

@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "chunkhash",
     "codegen",
     "datepicker",
     "Dtos",
@@ -10,7 +11,10 @@
     "persistor",
     "replyo",
     "signup",
-    "typeorm"
+    "typeorm",
+    "usecreate",
+    "useremove",
+    "useupdate"
   ],
   "eslint.workingDirectories": ["./backend", "./frontend", "./shared"],
   "typescript.preferences.importModuleSpecifier": "relative"

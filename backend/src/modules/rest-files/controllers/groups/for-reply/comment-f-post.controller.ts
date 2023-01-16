@@ -13,7 +13,7 @@ import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { NestJwtAuthGuard } from 'src/modules/auth/guards/nestj-auth-guard'
 import { ReplyForPostService_G } from 'src/modules/upload-and-remove/groups/for-reply/services/for-post.service'
 
-@Controller('group/reply_f_post')
+@Controller('group/reply_f_post_u')
 export class Reply_F_Post_Controller_G {
   constructor(private readonly forReplyService: ReplyForPostService_G) {}
   @Public()

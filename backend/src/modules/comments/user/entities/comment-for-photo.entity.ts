@@ -18,6 +18,7 @@ import { UserEntity } from 'src/modules/users/entities/user.entity'
 @ObjectType()
 @Entity('comments_f_galery_image_u')
 export class CommentForPhoto_U extends BaseCommentEntity {
+    @Field()
   @Column()
   ownerId: number
   @Field(() => Galery_Image_U)

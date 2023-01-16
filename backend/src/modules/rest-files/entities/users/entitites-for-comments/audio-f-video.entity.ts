@@ -4,7 +4,7 @@ import { BaseAudioEntity } from 'src/typeOrm/baseEntities/file-entities/baseAudi
 import { CommentForVideo_U } from 'src/modules/comments/user/entities/comment-for-video.entity'
 
 @ObjectType()
-@Entity('audio_f_comment_f_video')
+@Entity('audio_f_comment_f_video_u')
 export class Audio_F_Comment_F_Video_U extends BaseAudioEntity {
   @Column()
   ownerId: number

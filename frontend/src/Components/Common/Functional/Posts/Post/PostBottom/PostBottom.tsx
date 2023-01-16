@@ -1,15 +1,29 @@
 import { MessageOutlined, LikeOutlined, ShareAltOutlined } from '@ant-design/icons'
-import React, { useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import classes from './PostBottom.module.scss'
 import shake from '../../../../../../Global/Styles/modules/animations/shake.module.scss'
 import pulse from '../../../../../../Global/Styles/modules/animations/pulse.module.scss'
 import skew from '../../../../../../Global/Styles/modules/animations/skew.module.scss'
 import { CountBadge } from '../../../../UI-Dumb/Badges/CountBadge/CountBadge'
 import { CommentSection } from '../../../Comment/CommentSection/CommentSection'
-export const PostBottom = () => {
+import React from 'react'
+type _props = {
+    postId:number
+}
+export const PostBottom = React.memo(({postId}:_props) => {
     const activeAnimations = useRef<{comments:boolean,likes:boolean,share:boolean}>({comments:false,likes:false,share:false})
+    const [showCommentSection , setShow] = useState(false)
+    const isShowSection = useRef(false)
+    const state = {} as {_showSection:()=>void,_toggleSection:()=>void}
     const [_,force] = useState(false)
-    const [commentSection , showCommentSection] = useState(false)
+    state._showSection = () => {
+        isShowSection.current = true
+        force((prev)=>!prev)
+    }
+    state._toggleSection = ()=>{
+        isShowSection.current = !isShowSection.current
+        force((prev)=>!prev)
+    }
     const onMouseEnter = (e,el) => {
         activeAnimations.current[el] = true
         force((prev)=>!prev)
@@ -18,13 +32,14 @@ export const PostBottom = () => {
         activeAnimations.current[el] = false
         force((prev)=>!prev)
     }
+
   return (
     <>
       <div className={classes.bottom}>
         <div className={classes.bottomLeft}>
-        <div  className={`${classes.comments} ${activeAnimations.current['comments'] ? skew.start : ''}`}onMouseEnter={(e) => onMouseEnter(e,'comments')} onMouseLeave={(e) => onMouseLeave(e,'comments')} onClick={()=>{showCommentSection((prev)=>!prev)}} >
+        <div  className={`${classes.comments} ${activeAnimations.current['comments'] ? skew.start : ''}`}onMouseEnter={(e) => onMouseEnter(e,'comments')} onMouseLeave={(e) => onMouseLeave(e,'comments')}>
     <CountBadge count={6}></CountBadge>
-    <MessageOutlined style={{fontSize:'30px',color:'rgb(215, 230, 183)'}}></MessageOutlined>
+    <MessageOutlined onClick={()=>{ state._toggleSection()}} style={{fontSize:'30px',color:'rgb(215, 230, 183)'}}></MessageOutlined>
     </div>
     <div  className={`${classes.likes} ${activeAnimations.current['likes'] ? shake.start : ''}`}  onMouseEnter={(e) => onMouseEnter(e,'likes')} onMouseLeave={(e) => onMouseLeave(e,'likes')}>
     <CountBadge count={6}></CountBadge>
@@ -41,20 +56,10 @@ export const PostBottom = () => {
     </div>
     </div>
     
-    {commentSection && <>
-        <hr
-        style={{
-          marginTop: '2rem',
-          color: 'black',
-          backgroundColor: 'black',
-          height: '1px',
-          width:'100%',
-          background:'rgba(0, 0, 0, 0.5)'
-        }}
-      /> <CommentSection></CommentSection>
-    
-    </> }
+
+       <CommentSection state={state} isShow={isShowSection.current} postId={postId}></CommentSection>
+
     </>
   
   )
-}
+})

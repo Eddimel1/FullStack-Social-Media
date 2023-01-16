@@ -29,6 +29,7 @@ export class ReplyForVideo_U extends BaseCommentEntity {
   @PrimaryGeneratedColumn()
   id: number
 
+  @Field()
   @Column({ nullable: true })
   ownerId: number
   @Field(() => CommentForVideo_U, { nullable: true })
@@ -51,10 +52,6 @@ export class ReplyForVideo_U extends BaseCommentEntity {
   @OneToOne(() => Audio_F_Reply_F_Video_U, (audio) => audio.owner, {
     onDelete: 'CASCADE',
   })
-  @Column()
-  @Field()
-  text: string
-
   audio: Audio_F_Reply_F_Video_U
 
   @Field(() => Image_F_Reply_F_Video_U)
@@ -69,11 +66,11 @@ export class ReplyForVideo_U extends BaseCommentEntity {
   })
   video: Video_F_Reply_F_Video_U
 
-  @Field(() => [ReplyForVideo_U])
+  @Field(() => [ReplyForVideo_U], { nullable: true, defaultValue: [] })
   @TreeChildren({ cascade: true })
   children: ReplyForVideo_U[]
 
-  @Field(() => ReplyForVideo_U)
+  @Field(() => ReplyForVideo_U, { defaultValue: [] })
   @TreeParent({ onDelete: 'CASCADE' })
   parent: ReplyForVideo_U
 }

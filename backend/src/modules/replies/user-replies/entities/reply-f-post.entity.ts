@@ -29,6 +29,7 @@ export class ReplyForPost_U extends BaseCommentEntity {
   @PrimaryGeneratedColumn()
   id: number
 
+  @Field({ nullable: true })
   @Column({ nullable: true })
   ownerId: number
   @Field(() => CommentForPost_U, { nullable: true })
@@ -43,35 +44,52 @@ export class ReplyForPost_U extends BaseCommentEntity {
   @Field(() => UserEntity)
   @ManyToOne(() => UserEntity, (reply) => reply.replyForPostEntity_U, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   @JoinColumn({ name: 'userId' })
   user: UserEntity
 
-  @Field(() => Audio_F_Reply_F_Post_U)
+  @Column()
+  receiverId: number
+  @Field(() => UserEntity)
+  @ManyToOne(() => UserEntity, (reply) => reply.replyForPostEntity_U, {
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn({ name: 'receiverId' })
+  receiver: UserEntity
+
+  @Field(() => Audio_F_Reply_F_Post_U, { nullable: true })
   @OneToOne(() => Audio_F_Reply_F_Post_U, (audio) => audio.owner, {
     onDelete: 'CASCADE',
+    eager: true,
+    nullable: true,
   })
-  @Column()
-  @Field()
-  text: string
-
   audio: Audio_F_Reply_F_Post_U
 
-  @Field(() => Image_F_Reply_F_Post_U)
+  @Field(() => Image_F_Reply_F_Post_U, { nullable: true })
   @OneToOne(() => Image_F_Reply_F_Post_U, (image) => image.owner, {
     onDelete: 'CASCADE',
+    eager: true,
+    nullable: true,
   })
   image: Image_F_Reply_F_Post_U
 
-  @Field(() => Video_F_Reply_F_Post_U)
+  @Field(() => Video_F_Reply_F_Post_U, { nullable: true })
   @OneToOne(() => Video_F_Reply_F_Post_U, (video) => video.owner, {
     onDelete: 'CASCADE',
+    eager: true,
+    nullable: true,
   })
   video: Video_F_Reply_F_Post_U
 
-  @Field(() => [ReplyForPost_U])
+  @Field(() => [ReplyForPost_U], { nullable: true, defaultValue: [] })
   @TreeChildren({ cascade: true })
   children: ReplyForPost_U[]
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  parentId: number
 
   @Field(() => ReplyForPost_U)
   @TreeParent({ onDelete: 'CASCADE' })

@@ -23,6 +23,9 @@ export class Image_F_Reply_F_Video_Service_U extends BaseFileCRUDService<
       ReplyForVideo_U,
       {
         parentAutoCreate: true,
+        userRelation: true,
+        receiverRelation: true,
+        treeRelation: true,
       },
     )
   }

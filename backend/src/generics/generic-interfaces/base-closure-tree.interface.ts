@@ -10,7 +10,8 @@ import {
 
 export interface Base_Closure_Tree<T> {
   _findOne: (id: number) => Promise<T>
-  findRoot: () => Promise<T>
+  findRoot: (ownerId: number) => Promise<T>
+  findRoots: (ownerId: number) => Promise<T[]>
   returnWholeTree: () => Promise<T[]>
   findAncestors: (
     id: number,
@@ -24,8 +25,8 @@ export interface Base_Closure_Tree<T> {
     id: number,
     entity: EntityTarget<T>,
   ) => Promise<find_All_TR<T>>
-  findDescendantsTree: (id: number) => Promise<T>
-  findAncestorsTree: (id: number) => Promise<T>
+  findDescendantsTrees: (id: number) => Promise<T[]>
+  findAncestorsTree: (id: number, depth: number) => Promise<T>
   updateOne: (update: any) => Promise<any>
   deleteOne: (id: number) => Promise<isSuccess_TR>
 }

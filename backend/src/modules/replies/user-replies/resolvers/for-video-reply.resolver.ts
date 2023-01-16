@@ -24,9 +24,9 @@ export class Reply_F_Video_Resolver_U {
   findAll_A_Count_RepliesForVideo_U(@Args('id') id: number) {
     return this.replyForVideoService_DB_U.findAll_A_Count(id, ReplyForVideo_U)
   }
-  @Query(() => ReplyForVideo_U)
+  @Query(() => [ReplyForVideo_U])
   findDescendantsTree_F_Video_U(@Args('id') id: number) {
-    return this.replyForVideoService_DB_U.findDescendantsTree(id)
+    return this.replyForVideoService_DB_U.findDescendantsTrees(id)
   }
 
   @Query(() => ReplyForVideo_U)
@@ -34,10 +34,10 @@ export class Reply_F_Video_Resolver_U {
     return this.replyForVideoService_DB_U.findAncestorsTree(id)
   }
   @Mutation(() => ReplyForVideo_U)
-  updateOneReplyForVideo_U(@Args('updateReply') updateReply: UpdateReply) {
+  updateReplyForVideo_U(@Args('updateReply') updateReply: UpdateReply) {
     return this.replyForVideoService_DB_U.updateOne(updateReply)
   }
-  @Mutation(() => isSuccess_Reply)
+  @Mutation(() => ReplyForVideo_U)
   deleteReplyForVideo_U(@Args('id') id: number) {
     return this.replyForVideoService_DB_U.deleteOne(id)
   }

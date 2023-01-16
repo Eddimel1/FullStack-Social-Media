@@ -23,6 +23,9 @@ export class Image_F_Reply_F_Post_Service_U extends BaseFileCRUDService<
       ReplyForPost_U,
       {
         parentAutoCreate: true,
+        userRelation: true,
+        receiverRelation: true,
+        treeRelation: true,
       },
     )
   }

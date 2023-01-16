@@ -1,9 +1,11 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
+import { findAll_Generic_O } from '../../../../global/globalDtos/output.dto'
 import {
   CreateComment,
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
+import { FindAllComment_F_Photo_G } from '../dto/comment-for-photo/output.dto'
 import { CommentForPhoto_G } from '../entities/comment-for-photo_g.entity'
 
 import { CommentForPhotoService_DB_G } from '../services/comment-for-photo-service'
@@ -23,7 +25,7 @@ export class Comment_F_Photo_Resolver_G {
     return this.commentForPhotoService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForPhoto_G])
+  @Query(() =>  FindAllComment_F_Photo_G)
   async findAllCommentsForPhoto_G(@Args('photoId') photoId: number) {
     return await this.commentForPhotoService.findAll(photoId, 'comment')
   }

@@ -7,9 +7,9 @@
     "start": " npx kill-port 9000  &&  webpack serve --config webpack/webpack.config.js --env env=dev  ",
     "start:dev": " npx kill-port 9000  &&  webpack serve --config webpack/webpack.config.js  --env env=dev  ",
     "build": "webpack --config webpack/webpack.config.js --env=prod",
+    "project:start": "concurrently \"npm run start\" \"cd .. & cd backend & npm run start\"",
     "lint": "eslint ./",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "codegen": "graphql-codegen --config codegen.yml",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "author": "",
@@ -63,6 +63,7 @@
     "@typescript-eslint/parser": "^5.43.0",
     "babel-loader": "^8.2.5",
     "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^7.6.0",
     "css-loader": "^6.7.1",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.27.0",

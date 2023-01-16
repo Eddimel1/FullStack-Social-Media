@@ -1,0 +1,33 @@
+
+.imgContainer{
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+    max-width: 100px;
+}
+.navBarRight{
+display:flex;
+float:right;
+
+}
+
+.navBarCenter{
+    display: flex;
+    flex-basis: 0;
+    font-size: 1.8vh;
+justify-content: space-between;
+}
+
+@media only screen and (max-width: 1200px){
+    .navBarCenter{
+        font-size: 1.4vh;
+    }
+}
+
+@media only screen and (max-width: 700px){
+    .imgContainer{
+        display: none;
+    }
+    .navBarCenter{
+    }
+}

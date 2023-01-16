@@ -1,9 +1,9 @@
 export const covertToPostData = (db_timestamp:any) => {
     const d2 = new Date(Date.parse(db_timestamp))
     const d1 = new Date()
-    const year = d2.getFullYear() -  d1.getFullYear()
-    const months = d2.getMonth() - d1.getMonth()
-    const days = d2.getDay() -d1.getDay()
+    const year =   d1.getFullYear()- d2.getFullYear()
+    const months =  d1.getMonth()- d2.getMonth()
+    const days =  d2.getDay() - d1.getDay()
     const hours =  d1.getHours() - d2.getHours()
     const minutes =  d1.getMinutes() - d2.getMinutes()
     const seconds =  d1.getSeconds()- d2.getSeconds()

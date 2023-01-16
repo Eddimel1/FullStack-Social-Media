@@ -8,7 +8,7 @@ import { Audio_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/e
 import { Audio_F_Reply_F_Post_U } from 'src/modules/rest-files/entities/users/entities-for-replies/audio-f-post.entity'
 import { Audio_F_Reply_F_Video_U } from 'src/modules/rest-files/entities/users/entities-for-replies/audio-f-video.entity'
 import { Image_F_Reply_F_Post_U } from 'src/modules/rest-files/entities/users/entities-for-replies/image-f-post.entity'
-import { Image_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/image-f-reply-f.entity'
+
 import { Image_F_Reply_F_Video_U } from 'src/modules/rest-files/entities/users/entities-for-replies/image-f-video.entity'
 import { Video_F_Reply_F_Photo_U } from 'src/modules/rest-files/entities/users/entities-for-replies/video-f-photo.entity'
 import { Video_F_Reply_F_Post_U } from 'src/modules/rest-files/entities/users/entities-for-replies/video-f-post.entity'
@@ -22,6 +22,7 @@ import { Video_F_Reply_F_Post_Service_U } from 'src/modules/rest-files/services/
 import { Audio_F_Reply_F_Video_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-video-services/audio.service'
 import { Image_F_Reply_F_Video_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-video-services/image.service'
 import { Video_F_Reply_F_Video_Service_U } from 'src/modules/rest-files/services/for-users/ReplyServices/for-video-services/video.service'
+import { Image_F_Reply_F_Photo_U } from '../../../rest-files/entities/users/entities-for-replies/image-f-photo.entity'
 import { ReplyForPhotoService_U } from './services/for-photo.service'
 import { ReplyForPostService_U } from './services/for-post.service'
 import { ReplyForVideoService_U } from './services/for-video.service'

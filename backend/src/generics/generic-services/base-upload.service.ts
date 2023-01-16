@@ -34,8 +34,10 @@ export abstract class Base_Upload_Remove_Service<T1, T2, T3, F>
     ownerId?: number,
     parentOfOwnerId?: number,
     userId?: number,
+    receiverId?: number,
+    parentId?: number,
   ): Promise<T1 | T2 | T3> {
-    console.log(file)
+    console.log('parentId' , parentId)
     if (!validateMimeType(mimeTypeMapper(file.mimetype))) {
       throw new NotValidFileFormat()
     } else {
@@ -47,23 +49,28 @@ export abstract class Base_Upload_Remove_Service<T1, T2, T3, F>
       const fileName = `${crypto.randomUUID()}.${file_extension}`
       const full_relative_path = `storage/${type}/${mainId}/${folder}/${fileName}`
       console.log(full_relative_path)
-      await ensureDir(path0, (err) => console.log(err))
-      await ensureDir(path1, (err) => console.log(err))
-      await ensureDir(path2, (err) => console.log(err))
+      await ensureDir(path0)
+        .then(() => ensureDir(path1).then(() => ensureDir(path2)))
+        .catch((e) => console.log(e))
 
       await writeFile(`${full_relative_path}`, file.buffer)
       const url = `${this.configService.get(
         'BASE_URL',
       )}/${type}/${mainId}/${folder}/${fileName}`
 
-      return await this._invokeAppropriateService_Up(
-        ownerId || mainId,
+      const res = await this._invokeAppropriateService_Up(
+        mainId,
+        ownerId,
         folder,
         fileName,
         url,
         parentOfOwnerId,
         userId,
+        receiverId,
+        parentId,
       )
+      console.log(res)
+      return res
     }
   }
   async removeFile(
@@ -88,12 +95,15 @@ export abstract class Base_Upload_Remove_Service<T1, T2, T3, F>
   }
 
   abstract _invokeAppropriateService_Up(
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: F,
     file_name: string,
     url: string,
     parentOfOwnerId: number,
     userId?: number,
+    receiverId?: number,
+    parentId?: number,
   )
 
   abstract _invokeAppropriateService_Del(

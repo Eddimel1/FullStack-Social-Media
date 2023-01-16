@@ -10,6 +10,7 @@ const CREATE_ACC = gql`
     }
   }
 `
+
 export function CreateAccMutation() {
     const [createAccMutation, { data, loading, error }] = useMutation(CREATE_ACC)
   return {

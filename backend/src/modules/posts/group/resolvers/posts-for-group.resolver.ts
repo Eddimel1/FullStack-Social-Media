@@ -1,10 +1,11 @@
+import { FindAllPosts_U } from './../../user/dto/output.dto';
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql'
 import { CreatePost_F_Group_I, UpdatePostForGroup_I } from '../dto/input'
 import { PostsForGroupService } from '../services/posts-for-group.service'
 
 import { FindAllGroupPosts_O } from '../dto/output'
 import { FindOne_W_Owner_I } from 'src/global/globalDtos/input.dto'
-import { Delete_Message_W_Owner } from 'src/global/globalDtos/output.dto'
+import { Delete_Message_W_Owner, findAll_Generic_O } from 'src/global/globalDtos/output.dto'
 import { Post_G } from '../entities/posts-for-group.entity'
 
 @Resolver(() => Post_G)
@@ -21,7 +22,7 @@ export class PostsForGroupResolver {
     return this.postsForGroupService.create(createPostForGroupInput, userId)
   }
 
-  @Query(() => FindAllGroupPosts_O)
+  @Query(() => FindAllPosts_U)
   findAllGroupPosts(@Args('groupId') groupId: number) {
     return this.postsForGroupService.findAll(groupId, 'group')
   }

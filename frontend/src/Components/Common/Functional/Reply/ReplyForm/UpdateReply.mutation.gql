@@ -1,0 +1,40 @@
+mutation UpdateReply_F_Post_U_ ($input:UpdateReply!){
+  updateReplyForPost_U(
+updateReply: $input
+  ){
+    id
+    ownerId
+    parentId
+    children{
+        id
+    }
+    user{
+      username
+      id
+      avatar{
+        id
+        url
+      }
+    }
+    
+    receiver{
+        id
+        username
+    }
+    createdAt
+    text
+    __typename
+    image{
+      id
+      url
+    }
+    video{
+      id
+      url
+    }
+    audio{
+      id
+      url
+    }
+  }
+}

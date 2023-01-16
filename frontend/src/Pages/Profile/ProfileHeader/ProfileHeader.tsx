@@ -7,6 +7,8 @@ import { Button } from '../../../Components/Common/UI-Dumb/Buttons/Common'
 import { Avatar } from '../../../Components/Common/UI-Dumb/Graphics/Images/Avatar/Avatar'
 import { CommonModal } from '../../../Components/Common/UI-Dumb/Modals/Common/CommonModal'
 import { CommonOption } from '../../../Components/Common/UI-Dumb/Options/Common/Common'
+import { updateAvatar } from '../../../Redux/Slices/AuthSlice'
+import { useAppDispatch } from '../../../Redux/Store/Store'
 import { Protected_Instance } from '../../../Rest-Api/Axios/Instances/protected.instance'
 import classes from './ProfileHeader.module.scss'
 import { ProfileHeaderFragment } from './__generated__/ProfileHeader.fragment'
@@ -24,6 +26,7 @@ export const ProfileHeader = ({ user }: _props) => {
   const [_, force] = useState(false)
   const _avatar = useRef<typeof user.avatar>()
   const _cover = useRef<typeof user.cover>()
+  const dispatch = useAppDispatch()
   const background = _cover?.current
     ? `url(${_cover?.current?.url})`
     : 'linear-gradient(90deg, rgba(223,223,223,1) 0%, rgba(222,212,212,1) 53%, rgba(228,228,228,1) 100%)'
@@ -49,6 +52,8 @@ export const ProfileHeader = ({ user }: _props) => {
         .then((res) => {
           if (operation_type === 'upload/avatar') {
             _avatar.current = res.data
+            console.log(res.data)
+                dispatch(updateAvatar(res.data))
             force((prev) => !prev)
           } else if (operation_type === 'upload/cover') {
             _cover.current = res.data
@@ -65,8 +70,6 @@ export const ProfileHeader = ({ user }: _props) => {
         `${process.env.NEST_SERVER_URL}user/${selected}`
       )
         .then(() => {
-          console.log(selected, user, _cover, _avatar)
-          console.log(selected)
           if (_cover.current && selected === `delete/cover/${_cover.current.file_name}`) {
             _cover.current = null
             force((prev) => !prev)
@@ -83,7 +86,9 @@ export const ProfileHeader = ({ user }: _props) => {
   return (
     <div className={classes.wrapper}>
       <CommonModal active={showAvatar} setActive={setShowAvatar}>
+      
         <Avatar
+         onMouseLeave={() => showCoverOptions(false)}
           src={_avatar.current && _avatar.current.url}
           width={500}
           height={500}
@@ -107,13 +112,12 @@ export const ProfileHeader = ({ user }: _props) => {
               {coverOptions && (
                 <SimpleDropDown
                   showOnClick={false}
+                  showArrow={false}
                   onMouseLeave={() => showCoverOptions(false)}
                   options={{
                     display: 'flex',
                     dropdown_css: {
-                      top: '4rem',
-                      right: '1.5rem',
-                      width: '5rem',
+                     top:'55px',
                     },
                   }}
                 >
@@ -151,13 +155,14 @@ export const ProfileHeader = ({ user }: _props) => {
               onMouseEnter={() => showAvatarOptions(true)}
               style={{ position: 'absolute', bottom: '35%', left: '10%' }}
             >
-              <Avatar
+                  <Avatar
                 src={_avatar.current && _avatar.current.url}
                 width={125}
                 height={125}
               >
                <OnlineBadge isOnline={true}></OnlineBadge>
               </Avatar>
+            
               {avatarOptions && (
                 <SimpleDropDown
                   showArrow={false}
@@ -165,7 +170,7 @@ export const ProfileHeader = ({ user }: _props) => {
                   onMouseLeave={() => showAvatarOptions(false)}
                   options={{
                     display: 'flex',
-                    dropdown_css: { transform: 'translate(0,0)', top: '40px' },
+                    dropdown_css: { top:'2.8rem'},
                   }}
                 >
                   <div className={classes.coverOptionsContainer}>
@@ -198,8 +203,6 @@ export const ProfileHeader = ({ user }: _props) => {
                   <div style={{alignSelf:'center'}}>
                   <Button color='black'>Edit Profile</Button>
                   </div>
-           
-
         </div>
       </div>
     </div>

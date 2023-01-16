@@ -29,7 +29,6 @@ const [_rows,setRows] = useState(1)
 }
 
 useEffect(()=>{
-    console.log('RESET : ' , reset)
 if(reset){
     setChange('')
 }

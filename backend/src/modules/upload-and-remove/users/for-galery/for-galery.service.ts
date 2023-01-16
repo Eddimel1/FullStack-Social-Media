@@ -25,7 +25,8 @@ export class ForGaleryService_U extends Base_Upload_Remove_Service<
   }
 
   async _invokeAppropriateService_Up(
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: string,
     file_name: string,
     url: string,
@@ -35,7 +36,8 @@ export class ForGaleryService_U extends Base_Upload_Remove_Service<
     switch (relation) {
       case 'galery_images_u': {
         return await this.galeryImageService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'galery_images_u',
@@ -43,7 +45,8 @@ export class ForGaleryService_U extends Base_Upload_Remove_Service<
       }
       case 'galery_videos_u': {
         return await this.galeryVideoService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'galery_videos_u',
@@ -51,7 +54,8 @@ export class ForGaleryService_U extends Base_Upload_Remove_Service<
       }
       case 'galery_audios_u': {
         return await this.galeryAudioService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'galery_audios_u',

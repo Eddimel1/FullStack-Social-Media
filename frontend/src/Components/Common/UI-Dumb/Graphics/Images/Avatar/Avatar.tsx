@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react'
 import classes from './Avatar.module.scss'
-import DefaultAvatar from '../../../../../../../assets/DefaultAvatar.png'
+import DefaultAvatar from 'assets/DefaultAvatar.png'
 type _props = React.HTMLAttributes<HTMLImageElement> &{
     alt?:string,
     src?:string,

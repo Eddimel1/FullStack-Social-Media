@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Column,
 } from 'typeorm'
 
 @ObjectType()
@@ -16,6 +17,9 @@ export abstract class BaseCommentEntity {
   @CreateDateColumn()
   createdAt: Date
 
+  @Field({ nullable: true })
+  @Column({ default: false })
+  published: boolean
   @Field()
   @UpdateDateColumn()
   updatedAt: Date

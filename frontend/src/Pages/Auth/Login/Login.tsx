@@ -15,15 +15,45 @@ import { authState } from '../../../Redux/Selectors/selectors'
 import { Button } from '../../../Components/Common/UI-Dumb/Buttons/Common'
 
 export default function Login() {
-  const { loginMutation, _data, _error, _loading } = LogInMutation_H()
-  const [redirecting, setIsRedirecting] = useState<boolean>(false)
+  const [error,setError] = useState()
   const [fetch, setFetch] = useState<boolean>(false)
+  const [_,force]= useState(false)
   const navigation = useNavigate()
   const dispatch = useAppDispatch()
+  const [loading , setLoading] = useState(false)
   const _authState = authState()
-  const form = useRef({ password: '', username: '' })
+
+  const initialState = { 
+    password: '', username: '' ,error:false}
+  
+  let handlers = {
+    get(target, key) {
+        
+          return target[key]
+        
+      },
+    set(obj,prop,val){
+        console.log(prop)
+        if(prop === 'error'){
+            console.log('rerender')
+                obj[prop] = val
+                force((prev)=>!prev)
+                return true
+        }
+        return true
+    }
+ 
+}
+
+let form= useRef(initialState)
+   form = new Proxy<React.MutableRefObject<typeof initialState>>(
+    form,
+    handlers
+  )
+ console.log(form)
   useEffect(() => {
     if (fetch) {
+       setLoading(true)
       dispatch(
         login_TH({
           variables: {
@@ -33,12 +63,18 @@ export default function Login() {
             },
           },
         })
-      )
+      ).then((res)=>{
+        if(res.payload){
+              setLoading(false)
+        }
+        else {
+            console.log(res)
+            setError(res.error.message)
+            setLoading(false)
+        }
+      })
       console.log(_authState)
-      setIsRedirecting(true)
-      setTimeout(() => {
-        navigation('/')
-      }, 2000)
+     
     }
   }, [fetch, setFetch])
   return (
@@ -46,11 +82,10 @@ export default function Login() {
       <CommonContainer
         css={{
           width: '50%', padding:'0.5rem',borderRadius:'10px',
-          border: `${_data && !_error ? '2px solid green' : '2px solid black'}`,
-          boxShadow: `${_data && !_error ? '0px 0px 5px green' : 'none'}`,
         }}
       >
-        {_authState.loading || (redirecting && <CommonPad></CommonPad>)}
+        <div className={classes.error}>{error && error}</div>
+        {(loading && <CommonPad></CommonPad>)}
         <div className={classes.container}>
           <TextInput
             mutated_obj={form.current}
@@ -69,7 +104,7 @@ export default function Login() {
 
         <div className={classes.bottomContainer}>
           <div className={classes.buttons}>
-            <Button color='light_blue'>
+            <Button  color='light_blue'>
             <NavLink
               to="/signup"
             >
@@ -77,8 +112,11 @@ export default function Login() {
             </NavLink>
             </Button>
             
-            <Button css={{marginLeft:'0.3rem'}} color='pink'
-              onClick={() => setFetch(true)}
+            <Button 
+            //not working perfectly
+            // disabled={form.current.error} 
+            css={{marginLeft:'0.3rem'}} color='pink'
+              onClick={() => {setFetch((prev)=>!prev);console.log('clicked')}}
             >
               Login
             </Button>
@@ -90,7 +128,7 @@ export default function Login() {
           </Label>
         </div>
       </CommonContainer>
-      {_loading || redirecting ? (
+      {loading ? (
         <MainLoader
           css={{ position: 'absolute', top: '25%', right: '10%' }}
         ></MainLoader>

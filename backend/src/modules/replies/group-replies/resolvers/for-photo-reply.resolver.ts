@@ -25,9 +25,9 @@ export class Reply_F_Photo_Resolver_G {
   findAll_A_Count_RepliesForPhoto_G(@Args('id') id: number) {
     return this.replyForPhotoService_DB_G.findAll_A_Count(id, ReplyForPhoto_G)
   }
-  @Query(() => ReplyForPhoto_G)
+  @Query(() => [ReplyForPhoto_G])
   findDescendantsTree_F_Photo_G(@Args('id') id: number) {
-    return this.replyForPhotoService_DB_G.findDescendantsTree(id)
+    return this.replyForPhotoService_DB_G.findDescendantsTrees(id)
   }
 
   @Query(() => ReplyForPhoto_G)

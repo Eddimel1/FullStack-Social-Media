@@ -1,8 +1,6 @@
 .container{
-    transition: transform 0.3s ease  ;
     display: flex;
     flex-direction: column;
     &:hover{
-        transform: translateX(2px);
     }
 }

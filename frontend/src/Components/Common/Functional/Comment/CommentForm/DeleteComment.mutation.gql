@@ -1,0 +1,7 @@
+mutation RemoveCommentForPost_U_($input: SearchComment!) {
+  removeCommentForPost_U(searchAllCommentForPost:$input){
+    __typename
+    id
+    ownerId
+  }
+}

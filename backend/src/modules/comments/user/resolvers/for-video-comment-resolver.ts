@@ -1,9 +1,11 @@
 import { Resolver, Mutation, Args, Query, Context } from '@nestjs/graphql'
+import { findAll_Generic_O } from '../../../../global/globalDtos/output.dto'
 import {
   CreateComment,
   SearchComment,
   UpdateComment,
 } from '../../shared/dto/input.dto'
+import { FindAllComment_F_Post_U } from '../dto/comment-for-post/output.dto'
 import { CommentForVideo_U } from '../entities/comment-for-video.entity'
 import { CommentForVideoService_DB_U } from '../services/comment-for-video.service'
 
@@ -22,9 +24,12 @@ export class Comment_F_Video_Resolver_U {
     return await this.commentForVideoService.create(createCommentInput, userId)
   }
 
-  @Query(() => [CommentForVideo_U])
+  @Query(() => FindAllComment_F_Post_U)
   async findAllCommentsForVideoEntity_U(@Args('photoId') videoId: number) {
-    return await this.commentForVideoService.findAll(videoId, 'comments')
+    return await this.commentForVideoService.findAllPublished(
+      videoId,
+      'comments',
+    )
   }
 
   @Query(() => CommentForVideo_U)

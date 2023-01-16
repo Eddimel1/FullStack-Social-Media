@@ -24,7 +24,8 @@ export class CommentForPostService_U extends Base_Upload_Remove_Service<
   }
 
   async _invokeAppropriateService_Up(
-    id: number,
+    mainId: number,
+    ownerId: number,
     folder: string,
     file_name: string,
     url: string,
@@ -36,7 +37,8 @@ export class CommentForPostService_U extends Base_Upload_Remove_Service<
     switch (relation) {
       case 'image_f_comment_f_post_u': {
         return await this.postImageService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'image_f_comment_f_post_u',
@@ -46,7 +48,8 @@ export class CommentForPostService_U extends Base_Upload_Remove_Service<
       }
       case 'video_f_comment_f_post_u': {
         return await this.postVideoService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'video_f_comment_f_post_u',
@@ -56,7 +59,8 @@ export class CommentForPostService_U extends Base_Upload_Remove_Service<
       }
       case 'audio_f_comment_f_post_u': {
         return await this.postAudioService_U.insertOne(
-          id,
+          mainId,
+          ownerId,
           url,
           file_name,
           'audio_f_comment_f_post_u',
@@ -75,6 +79,7 @@ export class CommentForPostService_U extends Base_Upload_Remove_Service<
     file_name: string,
   ) {
     const relation = folder as Comment_F_POST_U
+    console.log(id, folder, file_name)
     switch (relation) {
       case 'image_f_comment_f_post_u': {
         return await this.postImageService_U.deleteOneByOwnerId(

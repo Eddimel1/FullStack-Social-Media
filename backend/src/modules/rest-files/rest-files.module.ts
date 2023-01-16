@@ -76,7 +76,7 @@ import { Audio_F_Reply_F_Photo_U } from './entities/users/entities-for-replies/a
 import { Audio_F_Reply_F_Post_U } from './entities/users/entities-for-replies/audio-f-post.entity'
 import { Audio_F_Reply_F_Video_U } from './entities/users/entities-for-replies/audio-f-video.entity'
 import { Image_F_Reply_F_Post_U } from './entities/users/entities-for-replies/image-f-post.entity'
-import { Image_F_Reply_F_Photo_U } from './entities/users/entities-for-replies/image-f-reply-f.entity'
+
 import { Image_F_Reply_F_Video_U } from './entities/users/entities-for-replies/image-f-video.entity'
 import { Video_F_Reply_F_Photo_U } from './entities/users/entities-for-replies/video-f-photo.entity'
 import { Video_F_Reply_F_Post_U } from './entities/users/entities-for-replies/video-f-post.entity'
@@ -99,6 +99,7 @@ import { AvatarService_U } from './services/for-users/cover-and-avatar-services/
 import { CoverService_U } from './services/for-users/cover-and-avatar-services/user-cover.service'
 import { U_Avatar_EN } from './entities/users/avatar-and-cover/user-avatar.entity'
 import { U_Cover_EN } from './entities/users/avatar-and-cover/user-cover.entity'
+import { Image_F_Reply_F_Photo_U } from './entities/users/entities-for-replies/image-f-photo.entity'
 
 @Module({
   controllers: [

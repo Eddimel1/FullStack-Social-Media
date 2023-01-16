@@ -2,13 +2,15 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: absolute;
-    top:60px;
     z-index: 99999;
-    right: 5px;
     gap:1rem;
+    cursor: pointer;
+
 }
 .children{
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
     &:hover{
         filter:invert(0.4);
     }
@@ -18,12 +20,28 @@
     display: flex;
     flex-direction: column;
     z-index: 99999;
-    
+     cursor: pointer;
+  
 }
+
 .itemsContainer{
     position: absolute;
-    top:32px;
-    transform: translateX(-50%);
+    width: max-content;
+    height: max-content;
+    background-image: linear-gradient(90deg, rgb(240, 246, 246) 0%, rgb(234, 244, 235) 58%, rgb(249, 237, 238) 100%);
+    border-radius: 5px;
+     display: flex;
+    flex-direction: column;
+}
+.noTitleItemsContainer{
+    position: absolute;
+    top: 0;
+    width: max-content;
+    height: max-content;
+    background-image: linear-gradient(90deg, rgb(240, 246, 246) 0%, rgb(234, 244, 235) 58%, rgb(249, 237, 238) 100%);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
 }
 .dropdown_item {
     transition:background-image 0.8s ease-in-out;
@@ -38,11 +56,10 @@
 }
 
 .arrow {
-    transform: translateX(-50%);
     position:absolute;
-    bottom:-10px;
-    left:50%;
-    transition:transform 0.15s ease-out;
+    bottom:-13px;
+   right: 0;
+    transition:transform 0.55s ease-out;
 }
 .title{
     width:max-content;

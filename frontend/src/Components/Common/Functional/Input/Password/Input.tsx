@@ -29,27 +29,39 @@ export const PasswordInput = ({ mutated_obj, prop }: _props) => {
     }
   }
   const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(mutated_obj)
-    const value = e.target.value
-    const _isStrong = value.length < 7 ? value : isStrongPassword(value)
-    setError('')
-    mutated_obj['error'] = false
-    setChange(value)
-    mutated_obj[prop] = value
-    if(change.length < 7) mutated_obj['error'] = true
+   
     if (change.length > 1) set_is_writing(true)
-    if (_timeout.current) {
-      setError('')
-      window.clearTimeout(_timeout.current)
-    }
-    if (!_isStrong && started_writing && change.length > 7) {
-      _timeout.current = window.setTimeout(() => {
-        setError(
-          'Your password must be have at least 8 characters long , 1 uppercase character , 1 lowercase character and 1 number'
-        )
+    if(change.length < 7 ){
+        
+        const value = e.target.value
         mutated_obj['error'] = true
-      }, 400)
+        mutated_obj[prop] = value
+         console.log('THEREEE : ',mutated_obj,'PROP :' , prop , 'VALUE : ' ,value)
+        setChange(value)
     }
+    else if(change.length >=7){
+        const value = e.target.value
+        const _isStrong = value.length <= 7 ? value : isStrongPassword(value)
+        setError('')
+        mutated_obj['error'] = false
+        setChange(value)
+        mutated_obj[prop] = value
+        if (change.length > 1) set_is_writing(true)
+        if (_timeout.current) {
+          setError('')
+          window.clearTimeout(_timeout.current)
+        }
+        if (!_isStrong && started_writing && change.length > 7) {
+          _timeout.current = window.setTimeout(() => {
+            setError(
+              'Your password must be have at least 8 characters long , 1 uppercase character , 1 lowercase character and 1 number'
+            )
+            mutated_obj['error'] = true
+          }, 400)
+        }
+    }
+    console.log(mutated_obj)
+  
   }
 
   return (

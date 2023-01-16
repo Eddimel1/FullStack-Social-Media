@@ -4,6 +4,7 @@ import {
   Param,
   Post,
   Req,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -16,7 +17,7 @@ import { CommentForPostService_U } from 'src/modules/upload-and-remove/users/for
 
 @Public()
 @UseGuards(NestJwtAuthGuard)
-@Controller('user/comment_f_post')
+@Controller('user/comment_f_post_u')
 export class Comment_F_Post_Controller_U {
   constructor(private readonly forCommentService: CommentForPostService_U) {}
 
@@ -26,6 +27,7 @@ export class Comment_F_Post_Controller_U {
     @UploadedFile() file: Express.Multer.File,
     @Param('folder') folder,
     @Context() context,
+    @Res() res,
   ) {
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
@@ -37,9 +39,9 @@ export class Comment_F_Post_Controller_U {
       userId,
       ownerId,
       parentOfOwnerId,
-      userId
+      userId,
     )
-    return image
+    res.send(image)
   }
 
   @Delete('/delete/:folder/:file_name')
@@ -47,6 +49,7 @@ export class Comment_F_Post_Controller_U {
     @Param('file_name') file_name: string,
     @Param('folder') folder: any,
     @Context() context,
+    @Res() res,
   ) {
     const userId = context.req.user.id
     const ownerId = context.req.body.ownerId
@@ -56,8 +59,8 @@ export class Comment_F_Post_Controller_U {
       folder,
       'users',
       userId,
-      ownerId
+      ownerId,
     )
-    return isDeleted
+    res.send(isDeleted)
   }
 }

@@ -9,7 +9,7 @@ type _props = React.HTMLAttributes<HTMLButtonElement> & {
 }
 
 export const Button: FC<PropsWithChildren<_props>> = ({ css, children,disabled,options={},color='black',...atr }) => {
-    const styles = css ? css : buttonStyles
+    console.log('DISABLED : ' ,disabled)
     const button_class = color === 'black' ? `${classes.black}` : color === 'light_blue' ?  `${classes.light_blue}` : `${classes.pink}`
   return <button {...atr} className={`${classes.button} ${button_class}`} style={{...options,...css}} disabled={disabled}>{children}</button>
 }

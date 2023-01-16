@@ -1,4 +1,3 @@
-
 import { findAll_Generic_O } from 'src/global/globalDtos/output.dto'
 import { DEFAULT_PORTION } from './../../constants/db.constants'
 
@@ -14,10 +13,13 @@ export const fromFindAndCount = (
 
 export const forPagination = <T>(
   array: [T[], number],
+  page: number,
+  limit?: number,
 ): findAll_Generic_O<T> => {
   return {
     items: array[0],
     totalCount: array[1],
-    portion: DEFAULT_PORTION,
+    portion: limit || DEFAULT_PORTION,
+    page,
   }
 }

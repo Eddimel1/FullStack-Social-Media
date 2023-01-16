@@ -35,7 +35,7 @@ const rootReducer = (state, action) => {
     return appReducer(state, action);
 }
 type _state = {
-        auth: AuthState
+    auth: AuthState
 }
 const persistedReducer = persistReducer<
 _state>(persistConfig, rootReducer)  
@@ -56,5 +56,5 @@ devTools: process.env.NODE_ENV !== 'production',
 export const persistor = persistStore(store)
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
-export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppDispatch = () => useDispatch<AppDispatch>()
 export default store

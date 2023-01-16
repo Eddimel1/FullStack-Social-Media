@@ -13,10 +13,9 @@ import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { NestJwtAuthGuard } from 'src/modules/auth/guards/nestj-auth-guard'
 import { ReplyForPhotoService_G } from 'src/modules/upload-and-remove/groups/for-reply/services/for-photo.service'
 
-
 @Public()
 @UseGuards(NestJwtAuthGuard)
-@Controller('group/reply_f_photo')
+@Controller('group/reply_f_photo_u')
 export class Reply_F_Photo_Controller_G {
   constructor(private readonly forReplyService: ReplyForPhotoService_G) {}
 
@@ -38,7 +37,7 @@ export class Reply_F_Photo_Controller_G {
       groupId,
       ownerId,
       parentOfOwnerId,
-      userId
+      userId,
     )
     return image
   }
@@ -51,7 +50,7 @@ export class Reply_F_Photo_Controller_G {
   ) {
     const groupId = context.req.body.groupId
     const ownerId = context.req.body.ownerId
-   
+
     console.log(file_name, folder)
     const isDeleted = await this.forReplyService.removeFile(
       file_name,

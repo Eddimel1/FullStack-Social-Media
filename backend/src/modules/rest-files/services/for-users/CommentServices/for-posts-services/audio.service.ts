@@ -23,6 +23,7 @@ export class Audio_F_Comment_F_Post_Service_U extends BaseFileCRUDService<
       CommentForPost_U,
       {
         parentAutoCreate: true,
+        userRelation:true
       },
     )
   }

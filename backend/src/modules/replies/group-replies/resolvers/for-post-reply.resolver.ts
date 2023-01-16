@@ -25,9 +25,9 @@ export class Reply_F_Post_Resolver_G {
   findAll_A_Count_RepliesForPost_G(@Args('id') id: number) {
     return this.replyForPostService_DB_G.findAll_A_Count(id, ReplyForPost_G)
   }
-  @Query(() => ReplyForPost_G)
+  @Query(() => [ReplyForPost_G])
   findDescendantsTree_F_Post_G(@Args('id') id: number) {
-    return this.replyForPostService_DB_G.findDescendantsTree(id)
+    return this.replyForPostService_DB_G.findDescendantsTrees(id)
   }
 
   @Query(() => ReplyForPost_G)
@@ -38,7 +38,7 @@ export class Reply_F_Post_Resolver_G {
   updateOneReplyForPost_G(@Args('updateReply') updateReply: UpdateReply) {
     return this.replyForPostService_DB_G.updateOne(updateReply)
   }
-  @Mutation(() => isSuccess_Reply)
+  @Mutation(() => ReplyForPost_G)
   deleteReplyForPost_G(@Args('id') id: number) {
     return this.replyForPostService_DB_G.deleteOne(id)
   }

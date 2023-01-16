@@ -9,7 +9,13 @@ export class CreateReply {
   ownerId?: number
 
   @Field()
+  receiverId: number
+
+  @Field()
   text: string
+
+  @Field({ defaultValue: false })
+  published: boolean
 }
 
 @InputType()
@@ -19,6 +25,9 @@ export class UpdateReply {
 
   @Field()
   text: string
+
+  @Field({ defaultValue: false })
+  published: boolean
 }
 
 @InputType()
