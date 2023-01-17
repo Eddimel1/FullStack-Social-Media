@@ -143,6 +143,7 @@ export abstract class Base_Crud_W_FindAll<
       //   take: limit || DEFAULT_PORTION,
       //   skip: page,
     })
+
     if (entities) return forPagination(entities, page)
     else throw new WasNotFound_EX(alias)
   }
@@ -160,6 +161,7 @@ export abstract class Base_Crud_W_FindAll<
       //   take: limit || DEFAULT_PORTION,
       //   skip: page,
     })
+    console.log('ENTITIES : ', entities)
     if (entities) return forPagination(entities, page)
     else throw new WasNotFound_EX(alias)
   }

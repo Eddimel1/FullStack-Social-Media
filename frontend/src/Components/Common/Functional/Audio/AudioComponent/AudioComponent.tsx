@@ -40,22 +40,23 @@ export const AudioComponent = ({src,css}:_props) => {
             }
            
         }
-
-
         audioRef.current = new Audio(src || defaultAudioTrack)
         audioRef.current.crossOrigin = "anonymous"
         audioRef.current.addEventListener('timeupdate',onTimeUpdate)
     },[])
     
     useEffect(()=>{
+        
         if(isPlaying) audioRef.current.play().catch((e)=>console.log(e))
-        else audioRef.current.pause()
+        else {
+            audioRef.current.pause()
+        }
             
         
     },[isPlaying])
   return (
     <div className={classes.wrapper}style={{position:'relative',...css}} onMouseLeave={()=>setShowVolume(false)}>
-        <CommonEqualizer css={{position:'absolute',bottom:'0',left:'0',zIndex:'-1',transform:'rotate(180deg)',width:'100%' , height:'70px',opacity:'0.5',filter:'blur(20px)'}} audioRef={audioRef}></CommonEqualizer>
+       {isPlaying &&  <CommonEqualizer css={{position:'absolute',bottom:'0',left:'0',zIndex:'-1',transform:'rotate(180deg)',width:'100%' , height:'70px',opacity:'0.5',filter:'blur(20px)'}} audioRef={audioRef}></CommonEqualizer>}
         <div className={classes.container}>
         <div className={classes.container_left}>
         <div className={classes.left}>

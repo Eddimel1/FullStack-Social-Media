@@ -20,6 +20,12 @@ import { useCreateReply_F_Post_U_Mutation } from './__generated__/CreateReply.mu
 import { useDeleteReply_F_Post_U_Mutation } from './__generated__/DeleteReply.mutation'
 import { useUpdateReply_F_Post_U_Mutation } from './__generated__/UpdateReply.mutation'
 
+
+const stateCopy = getAssetsInitialState<
+Audio_F_Comment_F_Post_U,
+Video_F_Comment_F_Post_U,
+Image_F_Comment_F_Post_U
+>('reply')
 export const ReplyForm = ({
   isRootReply,
   commentId,
@@ -110,9 +116,10 @@ export const ReplyForm = ({
                     },
                   },
                 })
-                state.current = replyFormInitialState
+                state.current = stateCopy
                 state.current.text.value = ''
                 reset.current = true
+                console.log(state.current)
 
                 window.setTimeout(() => {
                   if (_openReplies) _openReplies(true)
@@ -152,7 +159,7 @@ export const ReplyForm = ({
                   })
                 }
 
-                state.current = replyFormInitialState
+                state.current = stateCopy
                 state.current.text.value = ''
                 reset.current = true
 

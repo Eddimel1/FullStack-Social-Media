@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function useDelayUnmount(isMounted, delay) {
+export function useDelayedUnmount(isMounted, delay) {
     const [shouldRender, setShouldRender] = useState(false);
   
     useEffect(() => {

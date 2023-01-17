@@ -2,14 +2,12 @@
 
 
 .modal{
-    transition: all 0.5s ease-in;
     top:0;
     left:0;
     width: 100vw;
     height: 100vh;
     position: fixed;
     background-color: white;
-    transform: scale(0) perspective(0px) ;
     z-index: 9999999999;
 
 }
@@ -21,7 +19,10 @@
     border-radius: 8px;
 }
 
-.active{
+.in{
     transform: scale(1) perspective(1000px);
 
+}
+.out{
+  transform: scale(0) perspective(0px) ;
 }

@@ -22,7 +22,11 @@ type _props = {
   postId: number
   _state: any
 }
-
+const stateCopy = getAssetsInitialState<
+  Audio_F_Comment_F_Post_U,
+  Video_F_Comment_F_Post_U,
+  Image_F_Comment_F_Post_U
+>('comment')
 export const CommentForm = React.memo(({ postId, _state }: _props) => {
   const [_, force] = useState(false)
   const [createComment, created_comment] = useCreateCommentForPost_U_Mutation()
@@ -38,11 +42,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
   >('comment')
   let state = useRef(commentFormInitialState)
   const avatar_url = authState().user.avatar?.url
-  const anyEntity =
-    state.current.audio.entity ||
-    state.current.video.entity ||
-    state.current.image.entity
-
+ 
   //this is needed when comment is in a database but still is unpublished , send beacon and remove it in a database
   const handleBeforeUnload = () => {
     if (anyEntity && commentId.current) {
@@ -77,6 +77,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
           if (new_val) {
             obj[prop] = new_val
             const s = state.current
+            const anyEntity = s.audio.entity || s.video.entity || s.image.entity
             if (anyEntity) {
               updateComment({
                 variables: {
@@ -107,7 +108,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
                   console.log('AFTER : ', cache)
                 },
               })
-              state.current = commentFormInitialState
+              state.current = stateCopy
               reset.current = true
               _state._showSection()
             } else if (!anyEntity) {
@@ -134,7 +135,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
                       )
                     }),
                   })
-                  state.current = commentFormInitialState
+                  state.current = stateCopy
                   reset.current = true
                   _state._showSection()
                 },

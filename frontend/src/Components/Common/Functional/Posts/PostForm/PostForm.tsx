@@ -23,7 +23,11 @@ import { getAssetsInitialState } from '../../PublishForm/Utility/factories'
 import { useremovePostMutation } from './__generated__/PostRemove.mutation'
 
 
-
+const stateCopy = getAssetsInitialState<
+Audio_F_Post_U,
+Video_F_Post_U,
+Image_F_Post_U
+>('post')
 export const PostForm = React.memo(
   ({ unPublishedPost }: { unPublishedPost: filteredPosts | null }) => {
     const postFormInitialState = getAssetsInitialState<
@@ -31,6 +35,7 @@ export const PostForm = React.memo(
   Video_F_Post_U,
   Image_F_Post_U
 >('post')
+
     const [_, force] = useState(false)
     const [createPost, created_post] = usecreatePostMutation()
     const [updatePost, updated_post] = useupdatePostMutation()
@@ -84,8 +89,8 @@ export const PostForm = React.memo(
                 },
               })
               console.log('initial : ' ,postFormInitialState , 'STATE : ' ,state.current)
-              state.current = postFormInitialState
-              unPublishedPost = { ...postFormInitialState, posts: [] }
+              state.current = stateCopy
+              unPublishedPost = { ...stateCopy, posts: [] }
               reset.current = true
             } else if (!entity) {
               createPost({
@@ -110,7 +115,7 @@ export const PostForm = React.memo(
                       x.getOneUser.posts.unshift(data.createPost)
                     }),
                   })
-                  state.current = postFormInitialState
+                  state.current = stateCopy
                   unPublishedPost = null
                   reset.current = true
                 },
