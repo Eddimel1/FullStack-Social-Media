@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 type _props = React.HTMLAttributes<HTMLImageElement> &{
     options:{
@@ -11,7 +11,7 @@ type _props = React.HTMLAttributes<HTMLImageElement> &{
 export const CommonImage = ({scale=1,css,options ,...atr}:_props) => {
     const [loaded , setLoaded] = useState<boolean>(false)
     const img = useRef<HTMLImageElement>(null)
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         const baseScale = img.current.naturalHeight > 1000 ? 0.5 : img.current.naturalHeight > 800 ? 0.7 : img.current.naturalHeight > 600 ? 0.85 : 1
         const width = img.current.naturalWidth * scale * baseScale 
         const height = img.current.naturalHeight * scale * baseScale 

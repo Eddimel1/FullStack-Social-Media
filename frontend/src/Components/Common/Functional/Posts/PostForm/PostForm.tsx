@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { BarItems } from '../../Bars/BarItems/BarItems'
 import { postFormItems } from './data'
 import classes from './PostForm.module.scss'
@@ -39,7 +39,7 @@ export const PostForm = React.memo(
     const user_id = authState().user.id
     let state = useRef(postFormInitialState)
     const avatar_url = authState().user.avatar?.url
-    const handlers = {
+    const handlers = useMemo(() => ({
       get(target, key) {
         if (typeof target[key] === 'object' && target[key] !== null) {
           return new Proxy(target[key], handlers)
@@ -184,7 +184,7 @@ export const PostForm = React.memo(
          console.log(state.current)
         return true
       },
-    }
+    }),[])
     useEffect(() => {
        
       const image = unPublishedPost?.posts?.[0]?.image

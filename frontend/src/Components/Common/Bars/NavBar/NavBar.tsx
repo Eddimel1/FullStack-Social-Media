@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
   NavBarItems_Center,
-  NavBarItems_Right,
   returnNavBarItems_Right,
 } from '../../../../Data/Static/Components/NavBars/Common'
 import { TextInput } from '../../Functional/Input/Text/Input'

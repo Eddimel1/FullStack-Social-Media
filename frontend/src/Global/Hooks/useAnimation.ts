@@ -1,4 +1,4 @@
-import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from 'react'
+import React, { MutableRefObject, RefObject, useCallback, useEffect, useRef, useState } from 'react'
 
 type _props = {
     startType:string,
@@ -11,13 +11,13 @@ export const UseAnimation = ({endType,startType,refs,isSet}:_props) => {
     const [isAnim,showAnim] = useState(false)
     const _refs = useRef<React.MutableRefObject<React.RefObject<HTMLElement>>[]>([])
     
-    const onMouseEnter = () => {
+    const onMouseEnter = useCallback(() => {
         showAnim(true)
-    }
-    const onMouseLeave = () => {
+    },[])
+    const onMouseLeave = useCallback(() => {
 
         showAnim(false)
-    }
+    },[])
     useEffect(()=>{
             for(let i = 0 ; i < refs.length; i++){
                     if(refs[i] && refs[i].current){

@@ -1,5 +1,5 @@
 import produce from 'immer'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useState, useRef, useCallback } from 'react'
 import { authState } from '../../../../../Redux/Selectors/selectors'
 import { Protected_Instance } from '../../../../../Rest-Api/Axios/Instances/protected.instance'
@@ -63,7 +63,7 @@ export const ReplyForm = ({
     }
   }, [])
 
-  const handlers = {
+  const handlers = useMemo(() => ({
     get(target, key) {
       if (typeof target[key] === 'object' && target[key] !== null) {
         return new Proxy(target[key], handlers)
@@ -239,7 +239,7 @@ export const ReplyForm = ({
       }
       return true
     },
-  }
+  }),[])
   useEffect(() => {
     return () => handleBeforeUnload()
   }, [])

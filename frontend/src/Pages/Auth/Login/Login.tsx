@@ -81,7 +81,7 @@ let form= useRef(initialState)
     <div>
       <CommonContainer
         css={{
-          width: '50%', padding:'0.5rem',borderRadius:'10px',
+          width: '50%', padding:'0.5rem',borderRadius:'10px',boxShadow:'0 0 3px black'
         }}
       >
         <div className={classes.error}>{error && error}</div>
