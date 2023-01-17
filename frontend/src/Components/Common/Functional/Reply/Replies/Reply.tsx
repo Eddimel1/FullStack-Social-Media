@@ -85,16 +85,10 @@ export const Reply = React.memo(({ reply, loadMore, depth,state}: _props) => {
               <div className={classes.asset}>
                 <div
                   className={classes.imgAndVideoContainer}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
                 >
                   {reply?.image?.url && (
                     <CommonImage
                       onClick={() => setShowModal(true)}
-                      scale={0.3}
                       css={{ borderRadius: '15px', cursor: 'pointer' }}
                       options={{
                         alt: 'reply-image',
@@ -106,7 +100,7 @@ export const Reply = React.memo(({ reply, loadMore, depth,state}: _props) => {
                   {reply?.video?.url && (
                     <CommonVideo
                       onClick={() => setShowVideoPlayer(true)}
-                      css={{ height: '300px', cursor: 'pointer' }}
+                      css={{ borderRadius: '15px', cursor: 'pointer' }}
                       options={{
                         src: reply.video?.url,
                       }}

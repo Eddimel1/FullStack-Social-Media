@@ -45,8 +45,9 @@ export const NavBar = () => {
     <NavBarLayOut proportion={['1', '2', '1']}>
       <div className={classes.imgContainer}>
         <CommonImage
-          scale={0.1}
-          options={{ alt: 'logo', src: fakeLogo }}
+          scale={0.05}
+          
+          options={{ alt: 'logo', src: fakeLogo}}
         ></CommonImage>
         <TextInput placeholder="search people..."></TextInput>
       </div>

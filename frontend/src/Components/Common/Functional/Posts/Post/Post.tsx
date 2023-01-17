@@ -45,14 +45,11 @@ export const Post = ({
                   <div className={classes.asset}>
                     <div
                       className={classes.imgAndVideoContainer}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                      }}
+                     
                     >
                       {post.image?.url && (
-                        <CommonImage
+                      
+                              <CommonImage
                           onClick={() => setShowModal(true)}
                           scale={0.5}
                           css={{ borderRadius: '15px', cursor: 'pointer' }}
@@ -61,6 +58,8 @@ export const Post = ({
                             src: post.image?.url,
                           }}
                         ></CommonImage>
+                       
+                      
                       )}
 
                       {post.video?.url && (

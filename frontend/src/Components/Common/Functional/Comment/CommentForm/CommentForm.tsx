@@ -42,7 +42,10 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
   >('comment')
   let state = useRef(commentFormInitialState)
   const avatar_url = authState().user.avatar?.url
- 
+  const anyEntity =
+      state.current.audio.entity ||
+      state.current.video.entity ||
+      state.current.image.entity
   //this is needed when comment is in a database but still is unpublished , send beacon and remove it in a database
   const handleBeforeUnload = () => {
     if (anyEntity && commentId.current) {
@@ -77,8 +80,8 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
           if (new_val) {
             obj[prop] = new_val
             const s = state.current
-            const anyEntity = s.audio.entity || s.video.entity || s.image.entity
-            if (anyEntity) {
+            const entity = s.audio.entity || s.video.entity || s.image.entity
+            if (entity) {
               updateComment({
                 variables: {
                   input: {
@@ -111,7 +114,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
               state.current = stateCopy
               reset.current = true
               _state._showSection()
-            } else if (!anyEntity) {
+            } else if (!entity) {
               createComment({
                 variables: {
                   input: {

@@ -87,11 +87,11 @@ export const ReplyForm = ({
         if (new_val) {
           obj[prop] = new_val
           const s = state.current
-          const anyEntity =
+          const entity =
             state.current.audio.entity ||
             state.current.video.entity ||
             state.current.image.entity
-          if (anyEntity) {
+          if (entity) {
             updateReply({
               variables: {
                 input: {
@@ -126,7 +126,7 @@ export const ReplyForm = ({
                 }, 500)
               },
             })
-          } else if (!anyEntity) {
+          } else if (!entity) {
             createReply({
               variables: {
                 input: {
