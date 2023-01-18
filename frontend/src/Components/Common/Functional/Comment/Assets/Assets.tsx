@@ -23,16 +23,17 @@ export const CommentAssets = React.memo(({ audio, video, image }: assetType) => 
   const [_, force] = useState(false)
   const imageOrVideoLocalUrl = video?.local_url || image?.local_url
   const imageOrVideoServerUrl = video?.entity?.url || image?.entity?.url
-  const anyLocalUrl = audio?.local_url || imageOrVideoLocalUrl
-  const anyServerUrl = audio?.entity?.url || imageOrVideoServerUrl
+  const anyLocalUrl = (audio?.local_url || imageOrVideoLocalUrl)
+  const anyServerUrl = (audio?.entity?.url || imageOrVideoServerUrl)
+  console.log('IN ASSETS : ', 'ANYLOCAL : ' , anyLocalUrl , 'ANYSERVER : ' ,anyServerUrl)
   useEffect(() => {
     if (audio || image || video) force((prev) => !prev)
   }, [audio, video, image])
   return (
     <>
-      {(anyServerUrl) && (
+      {(anyServerUrl || anyLocalUrl) && (
         <div className={classes.assets}>
-          {(imageOrVideoServerUrl) && (
+          {(imageOrVideoServerUrl || imageOrVideoLocalUrl) && (
             <div className={classes.top}>
               <div
                 className={classes.imageWrapper}
@@ -83,10 +84,10 @@ export const CommentAssets = React.memo(({ audio, video, image }: assetType) => 
                     ></DeleteOutlined>
                   </CommonPad>
                 )}
-                {(video?.entity?.url) && (
+                {(video?.entity?.url || video?.local_url) && (
                   <CommonVideo
                     css={{ width: '250px', height: '250px' }}
-                    options={{ src: video?.entity?.url }}
+                    options={{ src: video?.entity?.url ||video?.local_url}}
                   ></CommonVideo>
                 )}
               </div>
@@ -110,7 +111,7 @@ export const CommentAssets = React.memo(({ audio, video, image }: assetType) => 
           )}
 
           <div className={classes.bottom}>
-            {(audio?.entity?.url) && (
+            {(audio?.entity?.url || audio?.local_url) && (
               <>
                 <DeleteOutlined
                   className={classes.deleteAudioIcon}

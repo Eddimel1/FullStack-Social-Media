@@ -60,7 +60,7 @@ export const AudioComponent = ({src,css}:_props) => {
         <div className={classes.container}>
         <div className={classes.container_left}>
         <div className={classes.left}>
-    <CommonImage scale={0.2} options={{src:defaultAudioImage,alt:'defaultImage'}}></CommonImage>
+    <CommonImage  options={{src:defaultAudioImage,alt:'defaultImage'}}></CommonImage>
     <div className={classes.trackInfo}>
         <div className={classes.artist}>
                 Artist

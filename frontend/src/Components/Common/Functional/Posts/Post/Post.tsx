@@ -74,9 +74,10 @@ export const Post = ({
                     </div>
 
                     {post.audio?.url && (
-                     
+                        
                         <AudioComponent
                           css={{
+                            width:'70%',
                             marginTop: '2rem',
                           }}
                           src={post.audio?.url}

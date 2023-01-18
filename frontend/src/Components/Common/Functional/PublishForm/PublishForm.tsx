@@ -1,5 +1,5 @@
 import { CameraOutlined, PaperClipOutlined, CustomerServiceOutlined, PlaySquareOutlined, SendOutlined } from "@ant-design/icons"
-import { memo, PropsWithChildren } from "react"
+import { memo, PropsWithChildren, useCallback, useState } from "react"
 import { iconContainerStyles } from "../../../../Global/Styles/icons"
 import { Avatar } from "../../UI-Dumb/Graphics/Images/Avatar/Avatar"
 import { CommentAssets } from "../Comment/Assets/Assets"
@@ -30,6 +30,9 @@ export const PublishForm: React.FC<PropsWithChildren<_props>> = memo(({
   placeholder
 }: _props) => {
   const _type = getFoldersFromType({ type: mappingType })
+  const [_,force] = useState(false)
+  const forceUpdate = useCallback(()=>{force((prev)=>!prev)},[])
+  console.log('PUBLISH_FORM_STATE : ' ,state)
     return (
     <div className={classes.wrapper}>
       <div className={classes.main_container}>
@@ -67,6 +70,7 @@ export const PublishForm: React.FC<PropsWithChildren<_props>> = memo(({
                   <CameraOutlined  style={{ fontSize: '25px' }}></CameraOutlined>
                 </CommonFileInput>
                 <CommonFileInput
+                
                   operation_type={`upload/${_type.audio}`}
                   mutated_obj={state}
                   prop="audio"
@@ -76,6 +80,7 @@ export const PublishForm: React.FC<PropsWithChildren<_props>> = memo(({
                   ></CustomerServiceOutlined>
                 </CommonFileInput>
                 <CommonFileInput
+                  done={forceUpdate}
                   operation_type={`upload/${_type.video}`}
                   mutated_obj={state}
                   prop="video"

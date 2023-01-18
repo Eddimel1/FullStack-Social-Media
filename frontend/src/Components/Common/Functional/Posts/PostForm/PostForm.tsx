@@ -92,6 +92,7 @@ export const PostForm = React.memo(
               state.current = stateCopy
               unPublishedPost = { ...stateCopy, posts: [] }
               reset.current = true
+              force((prev)=>!prev)
             } else if (!entity) {
               createPost({
                 variables: {
@@ -118,6 +119,7 @@ export const PostForm = React.memo(
                   state.current = stateCopy
                   unPublishedPost = null
                   reset.current = true
+                  
                 },
               })
             }
