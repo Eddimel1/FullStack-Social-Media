@@ -10,14 +10,16 @@ export type getUserProfileQueryVariables = Types.Exact<{
 }>;
 
 
-export type getUserProfileQuery = { __typename?: 'Query', getOneUser: { __typename?: 'UserEntity', username: string, cover?: { __typename?: 'U_Cover_EN', id: string, createdAt: any, updatedAt: any, file_name: string, url: string } | null, avatar?: { __typename?: 'U_Avatar_EN', id: string, createdAt: any, updatedAt: any, file_name: string, url: string } | null, posts: Array<{ __typename?: 'Post_U', id: string, ownerId: number, text?: string | null, likes: number, createdAt: any, updatedAt: any, published?: boolean | null, privacy?: string | null, subject?: string | null, owner: { __typename?: 'UserEntity', id: number, username: string, avatar?: { __typename?: 'U_Avatar_EN', id: string, url: string, file_name: string } | null }, audio?: { __typename?: 'Audio_F_Post_U', id: string, url: string, file_name: string, ownerId: number } | null, video?: { __typename?: 'Video_F_Post_U', id: string, url: string, file_name: string, ownerId: number } | null, image?: { __typename?: 'Image_F_Post_U', id: string, url: string, file_name: string, ownerId: number } | null, comments?: Array<{ __typename?: 'CommentForPost_U', id: string }> | null }> } };
+export type getUserProfileQuery = { __typename?: 'Query', getOneUser: { __typename?: 'getOneUser_O', user: { __typename?: 'UserEntity', username: string, cover?: { __typename?: 'U_Cover_EN', id: string, createdAt: any, updatedAt: any, file_name: string, url: string } | null, avatar?: { __typename?: 'U_Avatar_EN', id: string, createdAt: any, updatedAt: any, file_name: string, url: string } | null, posts: Array<{ __typename?: 'Post_U', id: string, ownerId: number, text?: string | null, likes: number, createdAt: any, updatedAt: any, published?: boolean | null, privacy?: string | null, subject?: string | null, owner: { __typename?: 'UserEntity', id: number, username: string, avatar?: { __typename?: 'U_Avatar_EN', id: string, url: string, file_name: string } | null }, audio?: { __typename?: 'Audio_F_Post_U', id: string, url: string, file_name: string, ownerId: number } | null, video?: { __typename?: 'Video_F_Post_U', id: string, url: string, file_name: string, ownerId: number } | null, image?: { __typename?: 'Image_F_Post_U', id: string, url: string, file_name: string, ownerId: number } | null, comments?: Array<{ __typename?: 'CommentForPost_U', id: string }> | null }> } } };
 
 
 export const getUserProfileDocument = gql`
     query getUserProfile($id: Float) {
   getOneUser(id: $id) {
-    ...ProfileHeader
-    ...ProfilePostSection
+    user {
+      ...ProfileHeader
+      ...ProfilePostSection
+    }
   }
 }
     ${ProfileHeaderFragmentDoc}

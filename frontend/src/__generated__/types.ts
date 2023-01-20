@@ -585,6 +585,12 @@ export type GetAllUser_O = {
   users: Array<UserEntity>;
 };
 
+export type GetOneUser_O = {
+  __typename?: 'getOneUser_O';
+  my_user: Scalars['Boolean'];
+  user: UserEntity;
+};
+
 export type Group_User_Relation = {
   __typename?: 'Group_User_Relation';
   group: GroupEntity;
@@ -1381,7 +1387,7 @@ export type Query = {
   findOneRequestToUser: GroupUserRequest;
   findOneUserInfo: UserInfoEntity;
   getAllUsers: GetAllUser_O;
-  getOneUser: UserEntity;
+  getOneUser: GetOneUser_O;
   readMyFriendsSide: UserSide;
   readMyPrivateSide: UserPrivateSide;
   readMySide: UserSide;

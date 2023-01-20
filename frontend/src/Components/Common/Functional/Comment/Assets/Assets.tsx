@@ -25,7 +25,6 @@ export const CommentAssets = React.memo(({ audio, video, image }: assetType) => 
   const imageOrVideoServerUrl = video?.entity?.url || image?.entity?.url
   const anyLocalUrl = (audio?.local_url || imageOrVideoLocalUrl)
   const anyServerUrl = (audio?.entity?.url || imageOrVideoServerUrl)
-  console.log('IN ASSETS : ', 'ANYLOCAL : ' , anyLocalUrl , 'ANYSERVER : ' ,anyServerUrl)
   useEffect(() => {
     if (audio || image || video) force((prev) => !prev)
   }, [audio, video, image])

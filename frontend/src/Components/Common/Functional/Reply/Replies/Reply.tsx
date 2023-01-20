@@ -168,17 +168,17 @@ export const Reply = React.memo(({ reply, loadMore, depth,state}: _props) => {
      }} >Yes</Button>
         <Button onClick={() => showModal(false)} css={{marginLeft:'0.3rem'}}>No</Button>
      </CommonConfirm>}
-       {  isShowModal && <CommonModal setActive={setShowModal} active={isShowModal}>
+       <CommonModal setActive={setShowModal} active={isShowModal}>
             <CommonImage
               css={{ borderRadius: '15px', boxShadow: '0px 0px 5px white' }}
               options={{ src: reply.image?.url, alt: 'fullSize-picture' }}
             ></CommonImage>
-          </CommonModal>}
-        
+          </CommonModal>
+    
 
-       {isShowVideoPlayer && <CommonModal setActive={setShowVideoPlayer} active={isShowVideoPlayer}>
+        <CommonModal setActive={setShowVideoPlayer} active={isShowVideoPlayer}>
           <VideoPlayer src={reply.video?.url}></VideoPlayer>
-        </CommonModal>}
+        </CommonModal>
       {reply?.children &&
         reply?.children.map((_reply, i) => {
           const reply = _reply as ReplyChildrenFragment & {

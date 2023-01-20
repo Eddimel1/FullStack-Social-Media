@@ -17,6 +17,8 @@ import { CommonTextContainer } from '../../../UI-Dumb/Text/TextField/Common/text
 import { AudioComponent } from '../../Audio/AudioComponent/AudioComponent'
 import { ReplyForm } from '../../Reply/ReplyForm/ReplyForm'
 import { ReplySection } from '../../Reply/ReplySection/ReplySection'
+import { useToastAssets } from '../../Toasts/CommonToast/Hooks/useToastAssets'
+import { ToastPortal } from '../../Toasts/CommonToast/ToastPortal/ToastPortal'
 import { VideoPlayer } from '../../Video/VideoPlayer/VideoPlayer'
 import { useRemoveCommentForPost_U_Mutation } from '../CommentForm/__generated__/DeleteComment.mutation'
 import { commentT_U } from '../CommentSection/CommentSection'
@@ -31,20 +33,26 @@ export const CommonComment = React.memo(
     const [confirmModal, showModal] = useState(false)
     const [isShowModal, setShowModal] = useState(false)
     const [isShowVideoPlayer, setShowVideoPlayer] = useState(false)
+    const {addToast,toastRef,deleteAddToasts} = useToastAssets('Comment')
     const [removeComment, removed_comment] = useRemoveCommentForPost_U_Mutation(
-      {
-        update: (cache, data) => {
+      {update: (cache, data) => {
           const removed_post = data.data.removeCommentForPost_U
           const identity = cache.identify(removed_post)
-
+            
           cache.evict({ id: identity })
+          deleteAddToasts.SuccessfulDeleteOperation()
         },
       }
     )
+   
     const anyEntity = comment.audio || comment.video || comment.image
-    console.log('IS SHOW REPLIES : ', showReplies)
     return (
       <>
+       <ToastPortal
+        autoCloseTime={5000}
+        ref={toastRef}
+        autoClose={true}
+      ></ToastPortal>
         <hr
           style={{
             width: '80%',
@@ -72,15 +80,10 @@ export const CommonComment = React.memo(
                   <div className={classes.asset}>
                     <div
                       className={classes.imgAndVideoContainer}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '1rem',
-                      }}
+                     
                     >
                       {comment.image?.url && (
-                        <div style={{ height: '200px' }}>
+                       
                           <CommonImage
                             onClick={() => setShowModal(true)}
                             css={{ borderRadius: '15px', cursor: 'pointer' }}
@@ -89,13 +92,13 @@ export const CommonComment = React.memo(
                               src: comment.image?.url,
                             }}
                           ></CommonImage>
-                        </div>
+                       
                       )}
 
                       {comment.video?.url && (
                         <CommonVideo
                           onClick={() => setShowVideoPlayer(true)}
-                          css={{ height: '300px', cursor: 'pointer' }}
+                         
                           options={{
                             src: comment.video?.url,
                           }}
@@ -193,24 +196,24 @@ export const CommonComment = React.memo(
               </CommonConfirm>
             </>
           )}
-          {isShowModal && (
+        
             <CommonModal setActive={setShowModal} active={isShowModal}>
               <CommonImage
                 autoScale={false}
-                css={{ borderRadius: '15px', boxShadow: '0px 0px 5px white' }}
+                css={{ borderRadius: '15px', boxShadow: '0px 0px 5px white' ,maxHeight:'800px'}}
                 options={{ src: comment.image?.url, alt: 'fullSize-picture' }}
               ></CommonImage>
             </CommonModal>
-          )}
+          
 
-          {isShowVideoPlayer && (
+          
             <CommonModal
               setActive={setShowVideoPlayer}
               active={isShowVideoPlayer}
             >
               <VideoPlayer src={comment.video?.url}></VideoPlayer>
             </CommonModal>
-          )}
+         
           {showReplyForm && (
             <div style={{ margin: '2rem' }}>
               <ReplyForm

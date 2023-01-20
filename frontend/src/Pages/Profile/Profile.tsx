@@ -16,7 +16,7 @@ import { usegetUserProfileQuery } from "./__generated__/Profile.query"
 export const Profile = () => {
     const id = authState().user.id
   const data = usegetUserProfileQuery({variables:{id:authState().user.id}})
-  const user = data?.data?.getOneUser
+  const user = data?.data?.getOneUser.user
   console.log('USER_DATA : ' ,data?.data?.getOneUser)
   return (
     <>

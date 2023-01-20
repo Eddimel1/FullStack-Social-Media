@@ -13,7 +13,7 @@ import { PostTop } from '../PostTop/PostTop'
 import classes from './Post.module.scss'
 import { PostBottom } from './PostBottom/PostBottom'
 
-export const Post = ({
+export const Post = memo(({
   publishedPosts,
   avatar_url,
 }: {
@@ -27,11 +27,16 @@ export const Post = ({
   console.log('POST RERENDEER')
   return (
     <>
+    
       {publishedPosts?.posts &&
         publishedPosts?.posts?.map((post, i) => {
+             const anyEntity = post.audio || post.video || post.image
           return (
+            
             <div className={classes.wrapper} key={i + Date.now()}>
+                 
               <div className={classes.container}>
+            
                 <PostTop
                   date={covertToPostData(post.createdAt)}
                   username={post.owner.username}
@@ -42,7 +47,27 @@ export const Post = ({
                   <CommonTextContainer css={{ margin: '2rem 0 2rem 2.8rem' }}>
                     {post.text}
                   </CommonTextContainer>
-                  <div className={classes.asset}>
+                 { anyEntity && <div className={classes.asset}>
+                      <CommonModal setActive={setShowModal} active={isShowModal}>
+                    <CommonImage
+                      css={{
+                        borderRadius: '15px',
+                        maxHeight:'800px',
+                        boxShadow: '0px 0px 5px white',
+                      }}
+                      options={{
+                        src: post.image?.url,
+                        alt: 'fullSize-picture',
+                      }}
+                    ></CommonImage>
+                  </CommonModal>
+               
+                  <CommonModal
+                    setActive={setShowVideoPlayer}
+                    active={isShowVideoPlayer}
+                  >
+                    <VideoPlayer src={post.video?.url}></VideoPlayer>
+                  </CommonModal>
                     <div
                       className={classes.imgAndVideoContainer}
                      
@@ -50,13 +75,12 @@ export const Post = ({
                       {post.image?.url && (
                       
                               <CommonImage
-                          onClick={() => setShowModal(true)}
-                          scale={0.5}
-                          css={{ borderRadius: '15px', cursor: 'pointer' }}
-                          options={{
-                            alt: 'post-image',
-                            src: post.image?.url,
-                          }}
+                             onClick={() => setShowModal(true)}
+                            css={{ borderRadius: '15px', cursor: 'pointer',width:'250px' }}
+                            options={{
+                              alt: 'post-image',
+                              src: post.image?.url,
+                            }}
                         ></CommonImage>
                        
                       
@@ -65,7 +89,7 @@ export const Post = ({
                       {post.video?.url && (
                         <CommonVideo
                           onClick={() => setShowVideoPlayer(true)}
-                          css={{ height: '300px', cursor: 'pointer' }}
+                          css={{ cursor: 'pointer' }}
                           options={{
                             src: post.video?.url,
                           }}
@@ -83,38 +107,20 @@ export const Post = ({
                           src={post.audio?.url}
                         ></AudioComponent>
                     )}
-                  </div>
+                  </div>}
                 </div>
-                {isShowModal && (
-                  <CommonModal setActive={setShowModal} active={isShowModal}>
-                    <CommonImage
-                      css={{
-                        borderRadius: '15px',
-                        boxShadow: '0px 0px 5px white',
-                      }}
-                      options={{
-                        src: post.image?.url,
-                        alt: 'fullSize-picture',
-                      }}
-                    ></CommonImage>
-                  </CommonModal>
-                )}
-
-                {isShowVideoPlayer && (
-                  <CommonModal
-                    setActive={setShowVideoPlayer}
-                    active={isShowVideoPlayer}
-                  >
-                    <VideoPlayer src={post.video?.url}></VideoPlayer>
-                  </CommonModal>
-                )}
+              
+                
+                
                 <div className={classes.bottom}>
                   <PostBottom postId={Number(post.id)}></PostBottom>
                 </div>
               </div>
             </div>
+            
           )
         })}
+        
     </>
   )
-}
+})

@@ -37,6 +37,22 @@ export const client = new ApolloClient({
           },
         },
       },
+      
+      findAllCommentsForPost_U:{
+        fields:{
+            items:{
+                merge(existing=[], incoming) {
+                    console.log('EXISTING : ' ,existing , 'INCOMING : ' , incoming)
+                   return [...existing,...incoming]
+                  },
+                 read(existing,{canRead}){
+                    return existing
+                    ? existing.filter(canRead)
+                    : [];
+                 }
+            }
+        }
+      }
     },
   }),
 })

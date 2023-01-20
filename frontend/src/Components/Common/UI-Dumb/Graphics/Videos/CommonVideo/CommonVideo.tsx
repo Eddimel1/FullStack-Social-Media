@@ -24,6 +24,6 @@ export const CommonVideo = ({scale=1,css,options ,autoScale=true,...atr}:_props)
     
   
   return (
-    <video   {...atr} style={{width:`100%`,height:`100%`,...css}} src={options.src} ref={video} onLoad={()=>setLoaded(true)}></video>
+    <video   {...atr} style={{width:`100%`,height:`100%`,borderRadius:'15px',cursor:'pointer',...css}} src={options.src} ref={video} onLoad={()=>setLoaded(true)}></video>
   )
 }

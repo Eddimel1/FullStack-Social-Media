@@ -16,7 +16,7 @@ type _props = {
 export type commentT_U = Pick<GetComments_F_Post_U_Query,'findAllCommentsForPost_U'>['findAllCommentsForPost_U']['items'][0]
 
 export const CommentSection = React.memo(({ postId,state,isShow}: _props) => {
-
+    console.log('COMMENTSECTION_ISHOW : ' ,isShow)
   const { data, loading, error } = useGetComments_F_Post_U_Query({
     variables: { id: postId },
   })

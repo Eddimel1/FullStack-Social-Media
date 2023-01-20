@@ -863,7 +863,7 @@ type Query {
   findOneRequestToUser(findGroupToUserRequest: FindRequest_G!): GroupUserRequest!
   findOneUserInfo(id: Float): UserInfoEntity!
   getAllUsers: getAllUser_O!
-  getOneUser(id: Float): UserEntity!
+  getOneUser(id: Float): getOneUser_O!
   readMyFriendsSide(readMyFriendsSide: ReadSide_I!): UserSide!
   readMyPrivateSide(readMyPrivateSide: ReadSide_I!): UserPrivateSide!
   readMySide(readMySide: ReadSide_I!): UserSide!
@@ -1423,6 +1423,11 @@ type find_all_F_Video_U {
 type getAllUser_O {
   totalCount: Int!
   users: [UserEntity!]!
+}
+
+type getOneUser_O {
+  is_my_user: Boolean!
+  user: UserEntity!
 }
 
 type isSuccess_G {

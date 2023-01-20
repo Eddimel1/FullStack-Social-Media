@@ -85,8 +85,7 @@ export const ProfileHeader = ({ user }: _props) => {
   }, [selected, setSelected])
   return (
     <div className={classes.wrapper}>
-      <CommonModal active={showAvatar} setActive={setShowAvatar}>
-      
+     <CommonModal active={showAvatar} setActive={setShowAvatar}>
         <Avatar
          onMouseLeave={() => showCoverOptions(false)}
           src={_avatar.current && _avatar.current.url}
@@ -108,7 +107,7 @@ export const ProfileHeader = ({ user }: _props) => {
               className={classes.coverOptions}
               onMouseEnter={() => showCoverOptions(true)}
             >
-              <div style={{alignSelf:'center',}}><Button color='light_blue'>Update Avatar</Button></div>
+              <div style={{alignSelf:'center',}}><Button color='light_blue'>Update Cover</Button></div>
               {coverOptions && (
                 <SimpleDropDown
                   showOnClick={false}

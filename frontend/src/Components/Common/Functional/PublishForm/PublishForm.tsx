@@ -32,7 +32,6 @@ export const PublishForm: React.FC<PropsWithChildren<_props>> = memo(({
   const _type = getFoldersFromType({ type: mappingType })
   const [_,force] = useState(false)
   const forceUpdate = useCallback(()=>{force((prev)=>!prev)},[])
-  console.log('PUBLISH_FORM_STATE : ' ,state)
     return (
     <div className={classes.wrapper}>
       <div className={classes.main_container}>

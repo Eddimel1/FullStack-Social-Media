@@ -7,7 +7,7 @@ import { Roles } from '../../auth/decorators/roles-decorator'
 import { RolesDec } from '../../auth/decorators/roles-decorator'
 import { Public } from 'src/modules/auth/decorators/public-decorator'
 import { CreateUserInput } from '../dto/input.dto'
-import { getAllUser_O } from '../dto/output.dto'
+import { getAllUser_O, getOneUser_O } from '../dto/output.dto'
 
 @Resolver('User')
 export class UserResolver {
@@ -31,15 +31,15 @@ export class UserResolver {
   }
   @RolesDec(Roles.User)
   @UseGuards(RolesGuard)
-  @Query(() => UserEntity)
+  @Query(() => getOneUser_O)
   async getOneUser(
     @Context() context,
     @Args('id', { nullable: true }) id?: number,
-  ): Promise<UserEntity> {
+  ): Promise<{ user: UserEntity } & { is_my_user: boolean }> {
     const my_id = context.req.user.id
-    return id
-      ? await this.userService.getOneUser(id)
-      : await this.userService.getOneUser(my_id)
+    const user = await this.userService.getOneUser(id)
+    const response = { user, is_my_user: my_id === id ? true : false }
+    return response
   }
   @RolesDec(Roles.User)
   @UseGuards(RolesGuard)

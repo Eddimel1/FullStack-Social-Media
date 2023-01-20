@@ -9,3 +9,12 @@ export class getAllUser_O {
   @Field(() => Int)
   totalCount: number
 }
+
+@ObjectType()
+export class getOneUser_O {
+  @Field(() => UserEntity)
+  user: UserEntity
+
+  @Field(() => Boolean)
+  is_my_user: boolean
+}

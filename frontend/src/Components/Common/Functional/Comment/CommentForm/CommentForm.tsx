@@ -10,6 +10,13 @@ import {
 } from '../../../../../__generated__/types'
 import { PublishForm } from '../../PublishForm/PublishForm'
 import { getAssetsInitialState } from '../../PublishForm/Utility/factories'
+import { getOperationMetaData } from '../../PublishForm/Utility/helpers'
+import { useToastAssets } from '../../Toasts/CommonToast/Hooks/useToastAssets'
+import {
+  ToastPortal,
+  toast_mode,
+  _addMessageArgs,
+} from '../../Toasts/CommonToast/ToastPortal/ToastPortal'
 import {
   GetComments_F_Post_U_Query,
   GetComments_F_Post_U_Document,
@@ -22,6 +29,7 @@ type _props = {
   postId: number
   _state: any
 }
+
 const stateCopy = getAssetsInitialState<
   Audio_F_Comment_F_Post_U,
   Video_F_Comment_F_Post_U,
@@ -29,9 +37,17 @@ const stateCopy = getAssetsInitialState<
 >('comment')
 export const CommentForm = React.memo(({ postId, _state }: _props) => {
   const [_, force] = useState(false)
-  const [createComment, created_comment] = useCreateCommentForPost_U_Mutation()
-  const [updateComment, updated_comment] = useUpdateCommentForPost_U_Mutation()
-  const [removeComment, removed_comment] = useRemoveCommentForPost_U_Mutation()
+  const { addToast, toastRef, deleteAddToasts } = useToastAssets('Comment')
+  const [createComment, created_comment] = useCreateCommentForPost_U_Mutation({
+    onError: deleteAddToasts.notSuccessfulAddOperation,
+  })
+  const [updateComment, updated_comment] = useUpdateCommentForPost_U_Mutation({
+    onError: deleteAddToasts.notSuccessfulAddOperation,
+  })
+  const [removeComment, removed_comment] = useRemoveCommentForPost_U_Mutation({
+    onError: deleteAddToasts.notSuccessfulDeleteOperation,
+  })
+
   const reset = useRef(false)
   const user_id = authState().user.id
   const commentId = useRef<string>(null)
@@ -43,9 +59,9 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
   let state = useRef(commentFormInitialState)
   const avatar_url = authState().user.avatar?.url
   const anyEntity =
-      state.current.audio.entity ||
-      state.current.video.entity ||
-      state.current.image.entity
+    state.current.audio.entity ||
+    state.current.video.entity ||
+    state.current.image.entity
   //this is needed when comment is in a database but still is unpublished , send beacon and remove it in a database
   const handleBeforeUnload = () => {
     if (anyEntity && commentId.current) {
@@ -113,7 +129,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
               })
               state.current = stateCopy
               reset.current = true
-              _state._showSection()
+              deleteAddToasts.SuccessfulAddOperation()
             } else if (!entity) {
               createComment({
                 variables: {
@@ -140,7 +156,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
                   })
                   state.current = stateCopy
                   reset.current = true
-                  _state._showSection()
+                  deleteAddToasts.SuccessfulAddOperation()
                 },
               })
             }
@@ -148,15 +164,13 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
         }
 
         if (prop === 'operation_type') {
-          const operation_type = new_val.split('/')[0]
-          const type = new_val.split('/')[1].split('_')[0]
+          const { entityType, operationType } = getOperationMetaData(new_val)
           const entity =
             state.current.audio.entity ||
             state.current.video.entity ||
             state.current.image.entity
-          console.log(new_val, !state.current[type]['entity'])
-          if (!state.current[type]['entity']) {
-            if (operation_type === 'upload') {
+          if (!state.current[entityType]['entity']) {
+            if (operationType === 'upload') {
               const formdata = new FormData()
               formdata.append('file', obj.file)
               if (entity) {
@@ -170,7 +184,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
                 { headers: { 'Content-Type': 'multipart/form-data' } }
               )
                 .then((res) => {
-                  state.current[type]['entity'] = res.data
+                  state.current[entityType]['entity'] = res.data
                   commentId.current = res.data.ownerId
                   obj[prop] = new_val
                   state.current.number_of_files += 1
@@ -180,8 +194,8 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
             } else {
               obj[prop] = new_val
             }
-          } else if (state.current[type]['entity']) {
-            if (operation_type === 'delete') {
+          } else if (state.current[entityType]['entity']) {
+            if (operationType === 'delete') {
               if (state.current.number_of_files === 1) {
                 removeComment({
                   variables: {
@@ -192,7 +206,7 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
                   },
                   update: (cache, { data }) => {
                     const identity = cache.identify(data.removeCommentForPost_U)
-                    state.current[type]['entity'] = null
+                    state.current[entityType]['entity'] = null
                     commentId.current = null
                     cache.evict({ id: identity })
                   },
@@ -201,13 +215,14 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
                 Protected_Instance.delete(
                   `${
                     process.env.NEST_SERVER_URL
-                  }user/${`${new_val}/${state.current[type]['entity']['file_name']}`}`,
+                  }user/${`${new_val}/${state.current[entityType]['entity']['file_name']}`}`,
                   { data: { ownerId: commentId.current } }
                 )
 
                   .then((res) => {
-                    if (operation_type === 'delete')
-                      state.current[type]['entity'] = null
+                    if (operationType === 'delete')
+                      state.current[entityType]['entity'] = null
+                    state.current[entityType]['local_url'] = null
                     obj[prop] = new_val
                     state.current.number_of_files -= 1
                     force((prev) => !prev)
@@ -234,14 +249,21 @@ export const CommentForm = React.memo(({ postId, _state }: _props) => {
   )
 
   return (
-    <PublishForm
-      placeholder="Add your comment..."
-      key={postId}
-      mappingType="comment_f_post_u"
-      avatar_url={avatar_url}
-      reset={reset.current}
-      state={state.current}
-      containerCss={{ width: '80%' }}
-    ></PublishForm>
+    <>
+      <ToastPortal
+        autoCloseTime={5000}
+        ref={toastRef}
+        autoClose={true}
+      ></ToastPortal>
+      <PublishForm
+        placeholder="Add your comment..."
+        key={postId}
+        mappingType="comment_f_post_u"
+        avatar_url={avatar_url}
+        reset={reset.current}
+        state={state.current}
+        containerCss={{ width: '80%' }}
+      ></PublishForm>
+    </>
   )
 })
